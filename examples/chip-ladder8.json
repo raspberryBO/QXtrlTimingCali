@@ -1,0 +1,490 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "chip-ladder8",
+    "name": "程序生成演示芯片",
+    "description": "ladder 构型 · 8 比特 / 10 耦合器 · 2 条读取线（每腔 1 比特）· 全部可调",
+    "topology": "ladder",
+    "tunable": true,
+    "revision": "rev-A",
+    "date": "2026-09-20",
+    "maintainer": "QXtrlTimingCali"
+  },
+  "units": {
+    "freq": "GHz",
+    "rate": "MHz",
+    "time": "ns",
+    "flux": "Phi0",
+    "length": "mm"
+  },
+  "readout_lines": [
+    {
+      "id": "RL0",
+      "cavities": [
+        "C0",
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "RL1",
+      "cavities": [
+        "C4",
+        "C5",
+        "C6",
+        "C7"
+      ]
+    }
+  ],
+  "cavities": [
+    {
+      "id": "C0",
+      "qubit": "Q0",
+      "line": "RL0",
+      "design": {
+        "f_r": 7.04,
+        "kappa": 2.3
+      }
+    },
+    {
+      "id": "C1",
+      "qubit": "Q1",
+      "line": "RL0",
+      "design": {
+        "f_r": 6.83,
+        "kappa": 2.3
+      }
+    },
+    {
+      "id": "C2",
+      "qubit": "Q2",
+      "line": "RL0",
+      "design": {
+        "f_r": 6.81,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C3",
+      "qubit": "Q3",
+      "line": "RL0",
+      "design": {
+        "f_r": 6.97,
+        "kappa": 2.7
+      }
+    },
+    {
+      "id": "C4",
+      "qubit": "Q4",
+      "line": "RL1",
+      "design": {
+        "f_r": 6.9,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C5",
+      "qubit": "Q5",
+      "line": "RL1",
+      "design": {
+        "f_r": 6.89,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C6",
+      "qubit": "Q6",
+      "line": "RL1",
+      "design": {
+        "f_r": 7.03,
+        "kappa": 2.5
+      }
+    },
+    {
+      "id": "C7",
+      "qubit": "Q7",
+      "line": "RL1",
+      "design": {
+        "f_r": 6.88,
+        "kappa": 2.3
+      }
+    }
+  ],
+  "qubits": [
+    {
+      "id": "Q0",
+      "cavity": "C0",
+      "pos": [
+        0.0,
+        0.0
+      ],
+      "design": {
+        "f01": 5.077,
+        "anharmonicity": -201.5,
+        "g_cavity": 88.4,
+        "chi": -2.9,
+        "sweet_spot": 0.004
+      }
+    },
+    {
+      "id": "Q1",
+      "cavity": "C1",
+      "pos": [
+        1.6,
+        0.0
+      ],
+      "design": {
+        "f01": 4.927,
+        "anharmonicity": -214.1,
+        "g_cavity": 77.0,
+        "chi": -2.8,
+        "sweet_spot": -0.002
+      }
+    },
+    {
+      "id": "Q2",
+      "cavity": "C2",
+      "pos": [
+        3.2,
+        0.0
+      ],
+      "design": {
+        "f01": 4.866,
+        "anharmonicity": -216.3,
+        "g_cavity": 75.4,
+        "chi": -2.9,
+        "sweet_spot": 0.008
+      }
+    },
+    {
+      "id": "Q3",
+      "cavity": "C3",
+      "pos": [
+        4.8,
+        0.0
+      ],
+      "design": {
+        "f01": 4.926,
+        "anharmonicity": -214.6,
+        "g_cavity": 86.0,
+        "chi": -2.6,
+        "sweet_spot": -0.018
+      }
+    },
+    {
+      "id": "Q4",
+      "cavity": "C4",
+      "pos": [
+        0.0,
+        1.6
+      ],
+      "design": {
+        "f01": 5.035,
+        "anharmonicity": -212.3,
+        "g_cavity": 84.9,
+        "chi": -2.4,
+        "sweet_spot": 0.019
+      }
+    },
+    {
+      "id": "Q5",
+      "cavity": "C5",
+      "pos": [
+        1.6,
+        1.6
+      ],
+      "design": {
+        "f01": 4.909,
+        "anharmonicity": -207.2,
+        "g_cavity": 80.5,
+        "chi": -2.4,
+        "sweet_spot": 0.006
+      }
+    },
+    {
+      "id": "Q6",
+      "cavity": "C6",
+      "pos": [
+        3.2,
+        1.6
+      ],
+      "design": {
+        "f01": 4.894,
+        "anharmonicity": -227.4,
+        "g_cavity": 82.1,
+        "chi": -2.3,
+        "sweet_spot": 0.004
+      }
+    },
+    {
+      "id": "Q7",
+      "cavity": "C7",
+      "pos": [
+        4.8,
+        1.6
+      ],
+      "design": {
+        "f01": 4.934,
+        "anharmonicity": -210.7,
+        "g_cavity": 77.7,
+        "chi": -2.8,
+        "sweet_spot": -0.007
+      }
+    }
+  ],
+  "couplers": [
+    {
+      "id": "CP0001",
+      "qubits": [
+        "Q0",
+        "Q1"
+      ],
+      "design": {
+        "g_max": 51.8,
+        "g_off": 0.51
+      }
+    },
+    {
+      "id": "CP0102",
+      "qubits": [
+        "Q1",
+        "Q2"
+      ],
+      "design": {
+        "g_max": 52.4,
+        "g_off": 0.37
+      }
+    },
+    {
+      "id": "CP0203",
+      "qubits": [
+        "Q2",
+        "Q3"
+      ],
+      "design": {
+        "g_max": 48.2,
+        "g_off": 0.58
+      }
+    },
+    {
+      "id": "CP0405",
+      "qubits": [
+        "Q4",
+        "Q5"
+      ],
+      "design": {
+        "g_max": 48.9,
+        "g_off": 0.58
+      }
+    },
+    {
+      "id": "CP0506",
+      "qubits": [
+        "Q5",
+        "Q6"
+      ],
+      "design": {
+        "g_max": 42.5,
+        "g_off": 0.59
+      }
+    },
+    {
+      "id": "CP0607",
+      "qubits": [
+        "Q6",
+        "Q7"
+      ],
+      "design": {
+        "g_max": 40.8,
+        "g_off": 0.42
+      }
+    },
+    {
+      "id": "CP0004",
+      "qubits": [
+        "Q0",
+        "Q4"
+      ],
+      "design": {
+        "g_max": 40.4,
+        "g_off": 0.54
+      }
+    },
+    {
+      "id": "CP0105",
+      "qubits": [
+        "Q1",
+        "Q5"
+      ],
+      "design": {
+        "g_max": 50.3,
+        "g_off": 0.59
+      }
+    },
+    {
+      "id": "CP0206",
+      "qubits": [
+        "Q2",
+        "Q6"
+      ],
+      "design": {
+        "g_max": 52.1,
+        "g_off": 0.58
+      }
+    },
+    {
+      "id": "CP0307",
+      "qubits": [
+        "Q3",
+        "Q7"
+      ],
+      "design": {
+        "g_max": 48.1,
+        "g_off": 0.6
+      }
+    }
+  ],
+  "connections": [
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q0",
+      "cavity": "C0"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q1",
+      "cavity": "C1"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q2",
+      "cavity": "C2"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q3",
+      "cavity": "C3"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q4",
+      "cavity": "C4"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q5",
+      "cavity": "C5"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q6",
+      "cavity": "C6"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q7",
+      "cavity": "C7"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C0",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C1",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C2",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C3",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C4",
+      "line": "RL1"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C5",
+      "line": "RL1"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C6",
+      "line": "RL1"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C7",
+      "line": "RL1"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q0",
+      "v": "Q1",
+      "via": "CP0001"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q1",
+      "v": "Q2",
+      "via": "CP0102"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q2",
+      "v": "Q3",
+      "via": "CP0203"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q4",
+      "v": "Q5",
+      "via": "CP0405"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q5",
+      "v": "Q6",
+      "via": "CP0506"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q6",
+      "v": "Q7",
+      "via": "CP0607"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q0",
+      "v": "Q4",
+      "via": "CP0004"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q1",
+      "v": "Q5",
+      "via": "CP0105"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q2",
+      "v": "Q6",
+      "via": "CP0206"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q3",
+      "v": "Q7",
+      "via": "CP0307"
+    }
+  ]
+}

@@ -1,0 +1,3248 @@
+{
+  "meta": {
+    "version": "0.4.1",
+    "chip": {
+      "id": "chip-gen",
+      "name": "程序生成演示芯片",
+      "description": "grid 构型 · 4 比特 / 4 耦合器 · 2 条读取线（每腔 1 比特）· 全部可调",
+      "topology": "grid",
+      "tunable": true,
+      "revision": "rev-A",
+      "date": "2026-09-23",
+      "maintainer": "QXtrlTimingCali"
+    },
+    "lines": 16,
+    "noise_ns": 2.0,
+    "n_shots": 200,
+    "repeats": 3,
+    "tol_ns": 0.5,
+    "d_max_ns": 5000.0,
+    "seed": 8,
+    "headroom_ns": 0.0,
+    "stage_names": [
+      "readout",
+      "qubit",
+      "coupler",
+      "readout_final"
+    ]
+  },
+  "chip": {
+    "qubits": [
+      {
+        "id": "Q0",
+        "pos": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Q1",
+        "pos": [
+          1.6,
+          0.0
+        ]
+      },
+      {
+        "id": "Q2",
+        "pos": [
+          0.0,
+          1.6
+        ]
+      },
+      {
+        "id": "Q3",
+        "pos": [
+          1.6,
+          1.6
+        ]
+      }
+    ],
+    "couplers": [
+      {
+        "id": "CP0001",
+        "qubits": [
+          "Q0",
+          "Q1"
+        ]
+      },
+      {
+        "id": "CP0203",
+        "qubits": [
+          "Q2",
+          "Q3"
+        ]
+      },
+      {
+        "id": "CP0002",
+        "qubits": [
+          "Q0",
+          "Q2"
+        ]
+      },
+      {
+        "id": "CP0103",
+        "qubits": [
+          "Q1",
+          "Q3"
+        ]
+      }
+    ],
+    "cavities": [
+      {
+        "id": "C0",
+        "qubit": "Q0",
+        "line": "RL0"
+      },
+      {
+        "id": "C1",
+        "qubit": "Q1",
+        "line": "RL0"
+      },
+      {
+        "id": "C2",
+        "qubit": "Q2",
+        "line": "RL1"
+      },
+      {
+        "id": "C3",
+        "qubit": "Q3",
+        "line": "RL1"
+      }
+    ],
+    "readout_lines": [
+      {
+        "id": "RL0",
+        "cavities": [
+          "C0",
+          "C1"
+        ]
+      },
+      {
+        "id": "RL1",
+        "cavities": [
+          "C2",
+          "C3"
+        ]
+      }
+    ]
+  },
+  "lines": [
+    {
+      "name": "Q0.xy",
+      "group": "qubit",
+      "L": 114.1,
+      "d1": 0.0,
+      "d2": 69.669,
+      "d3": 0.0,
+      "d": 69.669,
+      "q0": 114.1,
+      "q1": 183.769
+    },
+    {
+      "name": "Q0.z",
+      "group": "qubit",
+      "L": 99.7,
+      "d1": 0.0,
+      "d2": 83.975,
+      "d3": 0.0,
+      "d": 83.975,
+      "q0": 99.7,
+      "q1": 183.675
+    },
+    {
+      "name": "Q1.xy",
+      "group": "qubit",
+      "L": 62.2,
+      "d1": 0.0,
+      "d2": 121.51,
+      "d3": 0.0,
+      "d": 121.51,
+      "q0": 62.2,
+      "q1": 183.71
+    },
+    {
+      "name": "Q1.z",
+      "group": "qubit",
+      "L": 178.6,
+      "d1": 0.0,
+      "d2": 5.072,
+      "d3": 0.0,
+      "d": 5.072,
+      "q0": 178.6,
+      "q1": 183.672
+    },
+    {
+      "name": "Q2.xy",
+      "group": "qubit",
+      "L": 41.0,
+      "d1": 0.0,
+      "d2": 142.757,
+      "d3": 0.0,
+      "d": 142.757,
+      "q0": 41.0,
+      "q1": 183.757
+    },
+    {
+      "name": "Q2.z",
+      "group": "qubit",
+      "L": 120.4,
+      "d1": 0.0,
+      "d2": 63.321,
+      "d3": 0.0,
+      "d": 63.321,
+      "q0": 120.4,
+      "q1": 183.721
+    },
+    {
+      "name": "Q3.xy",
+      "group": "qubit",
+      "L": 183.7,
+      "d1": 0.0,
+      "d2": 0.0,
+      "d3": 0.0,
+      "d": 0.0,
+      "q0": 183.7,
+      "q1": 183.7
+    },
+    {
+      "name": "Q3.z",
+      "group": "qubit",
+      "L": 52.9,
+      "d1": 0.0,
+      "d2": 130.887,
+      "d3": 0.0,
+      "d": 130.887,
+      "q0": 52.9,
+      "q1": 183.787
+    },
+    {
+      "name": "CP0001.z",
+      "group": "coupler",
+      "L": 128.7,
+      "d1": 0.0,
+      "d2": 55.003,
+      "d3": 0.0,
+      "d": 55.003,
+      "q0": 128.7,
+      "q1": 183.703
+    },
+    {
+      "name": "CP0203.z",
+      "group": "coupler",
+      "L": 138.7,
+      "d1": 0.0,
+      "d2": 45.073,
+      "d3": 0.0,
+      "d": 45.073,
+      "q0": 138.7,
+      "q1": 183.773
+    },
+    {
+      "name": "CP0002.z",
+      "group": "coupler",
+      "L": 46.5,
+      "d1": 0.0,
+      "d2": 137.157,
+      "d3": 0.0,
+      "d": 137.157,
+      "q0": 46.5,
+      "q1": 183.657
+    },
+    {
+      "name": "CP0103.z",
+      "group": "coupler",
+      "L": 100.6,
+      "d1": 0.0,
+      "d2": 83.144,
+      "d3": 0.0,
+      "d": 83.144,
+      "q0": 100.6,
+      "q1": 183.744
+    },
+    {
+      "name": "RL0.ro",
+      "group": "readout",
+      "L": 152.6,
+      "d1": 0.0,
+      "d2": 0.0,
+      "d3": 31.197,
+      "d": 31.197,
+      "q0": 152.6,
+      "q1": 183.797
+    },
+    {
+      "name": "RL0.ri",
+      "group": "readout",
+      "L": 112.3,
+      "d1": 40.373,
+      "d2": 0.0,
+      "d3": 31.197,
+      "d": 71.57,
+      "q0": 112.3,
+      "q1": 183.87
+    },
+    {
+      "name": "RL1.ro",
+      "group": "readout",
+      "L": 156.0,
+      "d1": 0.0,
+      "d2": 0.0,
+      "d3": 27.743,
+      "d": 27.743,
+      "q0": 156.0,
+      "q1": 183.743
+    },
+    {
+      "name": "RL1.ri",
+      "group": "readout",
+      "L": 65.1,
+      "d1": 90.91,
+      "d2": 0.0,
+      "d3": 27.743,
+      "d": 118.653,
+      "q0": 65.1,
+      "q1": 183.753
+    }
+  ],
+  "stages": [
+    {
+      "name": "readout",
+      "title": "读取线校准（ro ↔ ri 对齐）",
+      "writeback": "immediate",
+      "depends_on": [],
+      "why": "后续一切实验的读出前提：测完立刻写回，后面的实验才读得出信号",
+      "nodes": [
+        "RL0.ri",
+        "RL0.ro",
+        "RL1.ri",
+        "RL1.ro"
+      ],
+      "pairs": [
+        {
+          "a": "RL0.ri",
+          "b": "RL0.ro",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "RL0 读取对 ri-ro",
+          "group": "readout"
+        },
+        {
+          "a": "RL1.ri",
+          "b": "RL1.ro",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "RL1 读取对 ri-ro",
+          "group": "readout"
+        }
+      ],
+      "measurements": [
+        {
+          "a": "RL0.ri",
+          "b": "RL0.ro",
+          "ok": true,
+          "note": "RL0 读取对 ri-ro",
+          "skew_ns": -40.373116,
+          "sigma_ns": 0.1661,
+          "quality": 0.972788,
+          "attempts": 1,
+          "request_id": "req-001-align",
+          "config_hash": "7d9657e107245fa9",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "RL1.ri",
+          "b": "RL1.ro",
+          "ok": true,
+          "note": "RL1 读取对 ri-ro",
+          "skew_ns": -90.910124,
+          "sigma_ns": 0.085808,
+          "quality": 0.992664,
+          "attempts": 1,
+          "request_id": "req-002-align",
+          "config_hash": "7d9657e107245fa9",
+          "reason": "合格",
+          "wave": 0
+        }
+      ],
+      "solve": {
+        "target_ns": 45.455062,
+        "anchor": "RL0.ro",
+        "offsets": {
+          "RL0.ri": -20.186558,
+          "RL0.ro": 20.186558,
+          "RL1.ri": -45.455062,
+          "RL1.ro": 45.455062
+        },
+        "shifts": {
+          "RL0.ri": 40.373116,
+          "RL0.ro": 0.0,
+          "RL1.ri": 90.910124,
+          "RL1.ro": 0.0
+        },
+        "residuals": [
+          {
+            "a": "RL0.ri",
+            "b": "RL0.ro",
+            "skew_ns": -40.373116,
+            "resid_ns": 0.0,
+            "request_id": "req-001-align"
+          },
+          {
+            "a": "RL1.ri",
+            "b": "RL1.ro",
+            "skew_ns": -90.910124,
+            "resid_ns": -0.0,
+            "request_id": "req-002-align"
+          }
+        ],
+        "headroom_return": {},
+        "max_resid_ns": 0.0,
+        "rms_resid_ns": 0.0,
+        "iterations": 1,
+        "solver_converged": true,
+        "request_id": "stage-readout-solve",
+        "reason": "4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns"
+      },
+      "written": true,
+      "shifts": {
+        "RL0.ri": 40.373,
+        "RL0.ro": 0.0,
+        "RL1.ri": 90.91,
+        "RL1.ro": 0.0
+      },
+      "headroom_return": {},
+      "ledger": {
+        "records": 2,
+        "accepted": 2,
+        "failed": 0,
+        "requests": 2,
+        "aborted": null
+      },
+      "headroom_ns": 0.0
+    },
+    {
+      "name": "qubit",
+      "title": "单比特 XY-Z 校准（xy ↔ z）",
+      "writeback": "deferred",
+      "depends_on": [
+        "readout"
+      ],
+      "why": "依赖已对齐的读取线：先记录，末尾与耦合器组一起解",
+      "nodes": [
+        "Q0.xy",
+        "Q0.z",
+        "Q1.xy",
+        "Q1.z",
+        "Q2.xy",
+        "Q2.z",
+        "Q3.xy",
+        "Q3.z"
+      ],
+      "pairs": [
+        {
+          "a": "Q0.z",
+          "b": "Q0.xy",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "Q0 xy-z 对齐",
+          "group": "qubit"
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q1.xy",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "Q1 xy-z 对齐",
+          "group": "qubit"
+        },
+        {
+          "a": "Q2.z",
+          "b": "Q2.xy",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "Q2 xy-z 对齐",
+          "group": "qubit"
+        },
+        {
+          "a": "Q3.z",
+          "b": "Q3.xy",
+          "kind": "timing.align",
+          "cost": 1.0,
+          "note": "Q3 xy-z 对齐",
+          "group": "qubit"
+        }
+      ],
+      "measurements": [
+        {
+          "a": "Q0.z",
+          "b": "Q0.xy",
+          "ok": true,
+          "note": "Q0 xy-z 对齐",
+          "skew_ns": -14.306017,
+          "sigma_ns": 0.105601,
+          "quality": 0.98891,
+          "attempts": 1,
+          "request_id": "req-003-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q1.xy",
+          "ok": true,
+          "note": "Q1 xy-z 对齐",
+          "skew_ns": 116.437697,
+          "sigma_ns": 0.096851,
+          "quality": 0.990664,
+          "attempts": 1,
+          "request_id": "req-004-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "Q2.z",
+          "b": "Q2.xy",
+          "ok": true,
+          "note": "Q2 xy-z 对齐",
+          "skew_ns": 79.435111,
+          "sigma_ns": 0.044281,
+          "quality": 0.998041,
+          "attempts": 1,
+          "request_id": "req-005-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "Q3.z",
+          "b": "Q3.xy",
+          "ok": true,
+          "note": "Q3 xy-z 对齐",
+          "skew_ns": -130.887169,
+          "sigma_ns": 0.141101,
+          "quality": 0.980287,
+          "attempts": 1,
+          "request_id": "req-006-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        }
+      ],
+      "solve": null,
+      "written": false,
+      "shifts": {},
+      "headroom_return": {},
+      "ledger": {
+        "records": 4,
+        "accepted": 4,
+        "failed": 0,
+        "requests": 4,
+        "aborted": null
+      }
+    },
+    {
+      "name": "coupler",
+      "title": "比特间 Z-Z / 耦合器 Z 校准",
+      "writeback": "deferred",
+      "depends_on": [
+        "qubit"
+      ],
+      "why": "依赖可用的单比特门：先记录，末尾一起解",
+      "nodes": [
+        "CP0001.z",
+        "CP0002.z",
+        "CP0103.z",
+        "CP0203.z",
+        "Q0.z",
+        "Q1.z",
+        "Q2.z",
+        "Q3.z"
+      ],
+      "pairs": [
+        {
+          "a": "Q0.z",
+          "b": "Q1.z",
+          "kind": "timing.align",
+          "cost": 2.0,
+          "note": "Q0↔Q1 z-z",
+          "group": "coupler"
+        },
+        {
+          "a": "Q0.z",
+          "b": "Q2.z",
+          "kind": "timing.align",
+          "cost": 2.0,
+          "note": "Q0↔Q2 z-z",
+          "group": "coupler"
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q3.z",
+          "kind": "timing.align",
+          "cost": 2.0,
+          "note": "Q1↔Q3 z-z",
+          "group": "coupler"
+        },
+        {
+          "a": "CP0001.z",
+          "b": "Q0.z",
+          "kind": "timing.align",
+          "cost": 3.0,
+          "note": "CP0001 z 挂 Q0.z",
+          "group": "coupler"
+        },
+        {
+          "a": "CP0002.z",
+          "b": "Q0.z",
+          "kind": "timing.align",
+          "cost": 3.0,
+          "note": "CP0002 z 挂 Q0.z",
+          "group": "coupler"
+        },
+        {
+          "a": "CP0103.z",
+          "b": "Q1.z",
+          "kind": "timing.align",
+          "cost": 3.0,
+          "note": "CP0103 z 挂 Q1.z",
+          "group": "coupler"
+        },
+        {
+          "a": "CP0203.z",
+          "b": "Q2.z",
+          "kind": "timing.align",
+          "cost": 3.0,
+          "note": "CP0203 z 挂 Q2.z",
+          "group": "coupler"
+        }
+      ],
+      "measurements": [
+        {
+          "a": "Q0.z",
+          "b": "Q1.z",
+          "ok": true,
+          "note": "Q0↔Q1 z-z",
+          "skew_ns": -78.903103,
+          "sigma_ns": 0.148302,
+          "quality": 0.978247,
+          "attempts": 1,
+          "request_id": "req-007-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "Q0.z",
+          "b": "Q2.z",
+          "ok": true,
+          "note": "Q0↔Q2 z-z",
+          "skew_ns": -20.653675,
+          "sigma_ns": 0.020893,
+          "quality": 0.999564,
+          "attempts": 1,
+          "request_id": "req-008-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q3.z",
+          "ok": true,
+          "note": "Q1↔Q3 z-z",
+          "skew_ns": 125.815179,
+          "sigma_ns": 0.114605,
+          "quality": 0.986952,
+          "attempts": 1,
+          "request_id": "req-009-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "CP0001.z",
+          "b": "Q0.z",
+          "ok": true,
+          "note": "CP0001 z 挂 Q0.z",
+          "skew_ns": 28.971767,
+          "sigma_ns": 0.066188,
+          "quality": 0.995629,
+          "attempts": 1,
+          "request_id": "req-010-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "CP0002.z",
+          "b": "Q0.z",
+          "ok": true,
+          "note": "CP0002 z 挂 Q0.z",
+          "skew_ns": -53.181793,
+          "sigma_ns": 0.117703,
+          "quality": 0.986241,
+          "attempts": 1,
+          "request_id": "req-011-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "CP0103.z",
+          "b": "Q1.z",
+          "ok": true,
+          "note": "CP0103 z 挂 Q1.z",
+          "skew_ns": -78.071865,
+          "sigma_ns": 0.015932,
+          "quality": 0.999746,
+          "attempts": 1,
+          "request_id": "req-012-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "CP0203.z",
+          "b": "Q2.z",
+          "ok": true,
+          "note": "CP0203 z 挂 Q2.z",
+          "skew_ns": 18.248116,
+          "sigma_ns": 0.071548,
+          "quality": 0.994894,
+          "attempts": 1,
+          "request_id": "req-013-align",
+          "config_hash": "5247c0724c9974be",
+          "reason": "合格",
+          "wave": 0
+        }
+      ],
+      "solve": null,
+      "written": false,
+      "shifts": {},
+      "headroom_return": {},
+      "ledger": {
+        "records": 7,
+        "accepted": 7,
+        "failed": 0,
+        "requests": 7,
+        "aborted": null
+      }
+    },
+    {
+      "name": "readout_final",
+      "title": "读取线最终对齐（收回 headroom）",
+      "writeback": "immediate",
+      "depends_on": [
+        "coupler"
+      ],
+      "why": "依赖 qubit/coupler 已全局对齐：以 readout↔首腔 qubit.xy 的实测 skew 收尾，读取线把 headroom 收回、往左拉回对齐",
+      "nodes": [
+        "Q0.xy",
+        "Q2.xy",
+        "RL0.ro",
+        "RL1.ro"
+      ],
+      "pairs": [
+        {
+          "a": "RL0.ro",
+          "b": "Q0.xy",
+          "kind": "timing.align",
+          "cost": 2.0,
+          "note": "RL0 ro 挂 Q0",
+          "group": "readout_final"
+        },
+        {
+          "a": "RL1.ro",
+          "b": "Q2.xy",
+          "kind": "timing.align",
+          "cost": 2.0,
+          "note": "RL1 ro 挂 Q2",
+          "group": "readout_final"
+        }
+      ],
+      "measurements": [
+        {
+          "a": "RL0.ro",
+          "b": "Q0.xy",
+          "ok": true,
+          "note": "RL0 ro 挂 Q0",
+          "skew_ns": -31.196875,
+          "sigma_ns": 0.111616,
+          "quality": 0.987619,
+          "attempts": 1,
+          "request_id": "req-014-align",
+          "config_hash": "c7acc0f4c40722d6",
+          "reason": "合格",
+          "wave": 0
+        },
+        {
+          "a": "RL1.ro",
+          "b": "Q2.xy",
+          "ok": true,
+          "note": "RL1 ro 挂 Q2",
+          "skew_ns": -27.742846,
+          "sigma_ns": 0.057785,
+          "quality": 0.996666,
+          "attempts": 1,
+          "request_id": "req-015-align",
+          "config_hash": "c7acc0f4c40722d6",
+          "reason": "合格",
+          "wave": 0
+        }
+      ],
+      "solve": {
+        "target_ns": 4.20998,
+        "anchor": "CP0001.z",
+        "offsets": {
+          "Q0.xy": 4.20998,
+          "Q2.xy": 4.20998,
+          "RL0.ro": -26.986895,
+          "RL1.ro": -23.532866,
+          "Q0.z": 4.20998,
+          "Q1.xy": 4.20998,
+          "Q1.z": 4.20998,
+          "Q2.z": 4.20998,
+          "Q3.xy": 4.20998,
+          "Q3.z": 4.20998,
+          "CP0001.z": 4.20998,
+          "CP0002.z": 4.20998,
+          "CP0103.z": 4.20998,
+          "CP0203.z": 4.20998,
+          "RL0.ri": -26.986895,
+          "RL1.ri": -23.532866
+        },
+        "shifts": {
+          "Q0.xy": 0.0,
+          "Q2.xy": 0.0,
+          "RL0.ro": 31.196875,
+          "RL1.ro": 27.742846,
+          "Q0.z": 0.0,
+          "Q1.xy": 0.0,
+          "Q1.z": 0.0,
+          "Q2.z": 0.0,
+          "Q3.xy": 0.0,
+          "Q3.z": 0.0,
+          "CP0001.z": 0.0,
+          "CP0002.z": 0.0,
+          "CP0103.z": 0.0,
+          "CP0203.z": 0.0,
+          "RL0.ri": 31.196875,
+          "RL1.ri": 27.742846
+        },
+        "residuals": [
+          {
+            "a": "RL0.ro",
+            "b": "Q0.xy",
+            "skew_ns": -31.196875,
+            "resid_ns": 0.0,
+            "request_id": "req-014-align"
+          },
+          {
+            "a": "RL1.ro",
+            "b": "Q2.xy",
+            "skew_ns": -27.742846,
+            "resid_ns": 0.0,
+            "request_id": "req-015-align"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q0.xy",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q0.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q1.xy",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q1.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q2.xy",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q2.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "Q3.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "CP0001.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "CP0002.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "CP0103.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          },
+          {
+            "a": "Q3.xy",
+            "b": "CP0203.z",
+            "skew_ns": 0.0,
+            "resid_ns": 0.0,
+            "request_id": "stage-final-soft"
+          }
+        ],
+        "headroom_return": {},
+        "max_resid_ns": 0.0,
+        "rms_resid_ns": 0.0,
+        "iterations": 6,
+        "solver_converged": true,
+        "request_id": "stage-readout_final-solve",
+        "reason": "14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"
+      },
+      "written": true,
+      "shifts": {
+        "Q0.xy": 0.0,
+        "Q2.xy": 0.0,
+        "RL0.ro": 31.197,
+        "RL1.ro": 27.743,
+        "Q0.z": 0.0,
+        "Q1.xy": 0.0,
+        "Q1.z": 0.0,
+        "Q2.z": 0.0,
+        "Q3.xy": 0.0,
+        "Q3.z": 0.0,
+        "CP0001.z": 0.0,
+        "CP0002.z": 0.0,
+        "CP0103.z": 0.0,
+        "CP0203.z": 0.0,
+        "RL0.ri": 31.197,
+        "RL1.ri": 27.743
+      },
+      "headroom_return": {},
+      "ledger": {
+        "records": 2,
+        "accepted": 2,
+        "failed": 0,
+        "requests": 2,
+        "aborted": null
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "a": "Q0.z",
+      "b": "Q0.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q0 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q1.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q1 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q2.z",
+      "b": "Q2.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q2 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q3.z",
+      "b": "Q3.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q3 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "RL0.ri",
+      "b": "RL0.ro",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "RL0 读取对 ri-ro",
+      "group": "readout"
+    },
+    {
+      "a": "RL1.ri",
+      "b": "RL1.ro",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "RL1 读取对 ri-ro",
+      "group": "readout"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q1.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q0↔Q1 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q2.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q0↔Q2 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q3.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q1↔Q3 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "Q2.z",
+      "b": "Q3.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q2↔Q3 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "RL0.ro",
+      "b": "Q0.xy",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "RL0 ro 挂 Q0",
+      "group": "readout_final"
+    },
+    {
+      "a": "RL1.ro",
+      "b": "Q2.xy",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "RL1 ro 挂 Q2",
+      "group": "readout_final"
+    },
+    {
+      "a": "CP0001.z",
+      "b": "Q0.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0001 z 挂 Q0.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0001.z",
+      "b": "Q1.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0001 z 挂 Q1.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0002.z",
+      "b": "Q0.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0002 z 挂 Q0.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0002.z",
+      "b": "Q2.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0002 z 挂 Q2.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0103.z",
+      "b": "Q1.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0103 z 挂 Q1.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0103.z",
+      "b": "Q3.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0103 z 挂 Q3.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0203.z",
+      "b": "Q2.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0203 z 挂 Q2.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0203.z",
+      "b": "Q3.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0203 z 挂 Q3.z",
+      "group": "coupler"
+    }
+  ],
+  "tree": [
+    {
+      "a": "RL0.ri",
+      "b": "RL0.ro",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "RL0 读取对 ri-ro",
+      "group": "readout"
+    },
+    {
+      "a": "RL1.ri",
+      "b": "RL1.ro",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "RL1 读取对 ri-ro",
+      "group": "readout"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q0.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q0 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q1.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q1 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q2.z",
+      "b": "Q2.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q2 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q3.z",
+      "b": "Q3.xy",
+      "kind": "timing.align",
+      "cost": 1.0,
+      "note": "Q3 xy-z 对齐",
+      "group": "qubit"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q1.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q0↔Q1 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q2.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q0↔Q2 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q3.z",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "Q1↔Q3 z-z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0001.z",
+      "b": "Q0.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0001 z 挂 Q0.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0002.z",
+      "b": "Q0.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0002 z 挂 Q0.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0103.z",
+      "b": "Q1.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0103 z 挂 Q1.z",
+      "group": "coupler"
+    },
+    {
+      "a": "CP0203.z",
+      "b": "Q2.z",
+      "kind": "timing.align",
+      "cost": 3.0,
+      "note": "CP0203 z 挂 Q2.z",
+      "group": "coupler"
+    },
+    {
+      "a": "RL0.ro",
+      "b": "Q0.xy",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "RL0 ro 挂 Q0",
+      "group": "readout_final"
+    },
+    {
+      "a": "RL1.ro",
+      "b": "Q2.xy",
+      "kind": "timing.align",
+      "cost": 2.0,
+      "note": "RL1 ro 挂 Q2",
+      "group": "readout_final"
+    }
+  ],
+  "measurements": [
+    {
+      "a": "RL0.ri",
+      "b": "RL0.ro",
+      "ok": true,
+      "note": "RL0 读取对 ri-ro",
+      "skew_ns": -40.373116,
+      "sigma_ns": 0.1661,
+      "quality": 0.972788,
+      "attempts": 1,
+      "request_id": "req-001-align",
+      "config_hash": "7d9657e107245fa9",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "readout"
+    },
+    {
+      "a": "RL1.ri",
+      "b": "RL1.ro",
+      "ok": true,
+      "note": "RL1 读取对 ri-ro",
+      "skew_ns": -90.910124,
+      "sigma_ns": 0.085808,
+      "quality": 0.992664,
+      "attempts": 1,
+      "request_id": "req-002-align",
+      "config_hash": "7d9657e107245fa9",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "readout"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q0.xy",
+      "ok": true,
+      "note": "Q0 xy-z 对齐",
+      "skew_ns": -14.306017,
+      "sigma_ns": 0.105601,
+      "quality": 0.98891,
+      "attempts": 1,
+      "request_id": "req-003-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "qubit"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q1.xy",
+      "ok": true,
+      "note": "Q1 xy-z 对齐",
+      "skew_ns": 116.437697,
+      "sigma_ns": 0.096851,
+      "quality": 0.990664,
+      "attempts": 1,
+      "request_id": "req-004-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "qubit"
+    },
+    {
+      "a": "Q2.z",
+      "b": "Q2.xy",
+      "ok": true,
+      "note": "Q2 xy-z 对齐",
+      "skew_ns": 79.435111,
+      "sigma_ns": 0.044281,
+      "quality": 0.998041,
+      "attempts": 1,
+      "request_id": "req-005-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "qubit"
+    },
+    {
+      "a": "Q3.z",
+      "b": "Q3.xy",
+      "ok": true,
+      "note": "Q3 xy-z 对齐",
+      "skew_ns": -130.887169,
+      "sigma_ns": 0.141101,
+      "quality": 0.980287,
+      "attempts": 1,
+      "request_id": "req-006-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "qubit"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q1.z",
+      "ok": true,
+      "note": "Q0↔Q1 z-z",
+      "skew_ns": -78.903103,
+      "sigma_ns": 0.148302,
+      "quality": 0.978247,
+      "attempts": 1,
+      "request_id": "req-007-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "Q0.z",
+      "b": "Q2.z",
+      "ok": true,
+      "note": "Q0↔Q2 z-z",
+      "skew_ns": -20.653675,
+      "sigma_ns": 0.020893,
+      "quality": 0.999564,
+      "attempts": 1,
+      "request_id": "req-008-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "Q1.z",
+      "b": "Q3.z",
+      "ok": true,
+      "note": "Q1↔Q3 z-z",
+      "skew_ns": 125.815179,
+      "sigma_ns": 0.114605,
+      "quality": 0.986952,
+      "attempts": 1,
+      "request_id": "req-009-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "CP0001.z",
+      "b": "Q0.z",
+      "ok": true,
+      "note": "CP0001 z 挂 Q0.z",
+      "skew_ns": 28.971767,
+      "sigma_ns": 0.066188,
+      "quality": 0.995629,
+      "attempts": 1,
+      "request_id": "req-010-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "CP0002.z",
+      "b": "Q0.z",
+      "ok": true,
+      "note": "CP0002 z 挂 Q0.z",
+      "skew_ns": -53.181793,
+      "sigma_ns": 0.117703,
+      "quality": 0.986241,
+      "attempts": 1,
+      "request_id": "req-011-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "CP0103.z",
+      "b": "Q1.z",
+      "ok": true,
+      "note": "CP0103 z 挂 Q1.z",
+      "skew_ns": -78.071865,
+      "sigma_ns": 0.015932,
+      "quality": 0.999746,
+      "attempts": 1,
+      "request_id": "req-012-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "CP0203.z",
+      "b": "Q2.z",
+      "ok": true,
+      "note": "CP0203 z 挂 Q2.z",
+      "skew_ns": 18.248116,
+      "sigma_ns": 0.071548,
+      "quality": 0.994894,
+      "attempts": 1,
+      "request_id": "req-013-align",
+      "config_hash": "5247c0724c9974be",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "coupler"
+    },
+    {
+      "a": "RL0.ro",
+      "b": "Q0.xy",
+      "ok": true,
+      "note": "RL0 ro 挂 Q0",
+      "skew_ns": -31.196875,
+      "sigma_ns": 0.111616,
+      "quality": 0.987619,
+      "attempts": 1,
+      "request_id": "req-014-align",
+      "config_hash": "c7acc0f4c40722d6",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "readout_final"
+    },
+    {
+      "a": "RL1.ro",
+      "b": "Q2.xy",
+      "ok": true,
+      "note": "RL1 ro 挂 Q2",
+      "skew_ns": -27.742846,
+      "sigma_ns": 0.057785,
+      "quality": 0.996666,
+      "attempts": 1,
+      "request_id": "req-015-align",
+      "config_hash": "c7acc0f4c40722d6",
+      "reason": "合格",
+      "wave": 0,
+      "stage": "readout_final"
+    }
+  ],
+  "solve": {
+    "target_ns": 78.130694,
+    "anchor": "Q3.xy",
+    "offsets": {
+      "Q0.xy": 8.461618,
+      "Q0.z": -5.844399,
+      "Q1.xy": -43.378993,
+      "Q1.z": 73.058704,
+      "Q2.xy": -64.625835,
+      "Q2.z": 14.809276,
+      "Q3.xy": 78.130694,
+      "Q3.z": -52.756475,
+      "CP0001.z": 23.127368,
+      "CP0002.z": -59.026192,
+      "CP0103.z": -5.013161,
+      "CP0203.z": 33.057392
+    },
+    "shifts": {
+      "Q0.xy": 69.669076,
+      "Q0.z": 83.975093,
+      "Q1.xy": 121.509687,
+      "Q1.z": 5.07199,
+      "Q2.xy": 142.756529,
+      "Q2.z": 63.321418,
+      "Q3.xy": 0.0,
+      "Q3.z": 130.887169,
+      "CP0001.z": 55.003326,
+      "CP0002.z": 137.156886,
+      "CP0103.z": 83.143855,
+      "CP0203.z": 45.073302
+    },
+    "residuals": [
+      {
+        "a": "Q0.z",
+        "b": "Q0.xy",
+        "skew_ns": -14.306017,
+        "resid_ns": 0.0,
+        "request_id": "req-003-align"
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q1.xy",
+        "skew_ns": 116.437697,
+        "resid_ns": 0.0,
+        "request_id": "req-004-align"
+      },
+      {
+        "a": "Q2.z",
+        "b": "Q2.xy",
+        "skew_ns": 79.435111,
+        "resid_ns": -0.0,
+        "request_id": "req-005-align"
+      },
+      {
+        "a": "Q3.z",
+        "b": "Q3.xy",
+        "skew_ns": -130.887169,
+        "resid_ns": 0.0,
+        "request_id": "req-006-align"
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q1.z",
+        "skew_ns": -78.903103,
+        "resid_ns": 0.0,
+        "request_id": "req-007-align"
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q2.z",
+        "skew_ns": -20.653675,
+        "resid_ns": -0.0,
+        "request_id": "req-008-align"
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q3.z",
+        "skew_ns": 125.815179,
+        "resid_ns": 0.0,
+        "request_id": "req-009-align"
+      },
+      {
+        "a": "CP0001.z",
+        "b": "Q0.z",
+        "skew_ns": 28.971767,
+        "resid_ns": -0.0,
+        "request_id": "req-010-align"
+      },
+      {
+        "a": "CP0002.z",
+        "b": "Q0.z",
+        "skew_ns": -53.181793,
+        "resid_ns": -0.0,
+        "request_id": "req-011-align"
+      },
+      {
+        "a": "CP0103.z",
+        "b": "Q1.z",
+        "skew_ns": -78.071865,
+        "resid_ns": -0.0,
+        "request_id": "req-012-align"
+      },
+      {
+        "a": "CP0203.z",
+        "b": "Q2.z",
+        "skew_ns": 18.248116,
+        "resid_ns": -0.0,
+        "request_id": "req-013-align"
+      }
+    ],
+    "headroom_return": {},
+    "max_resid_ns": 0.0,
+    "rms_resid_ns": 0.0,
+    "iterations": 14,
+    "solver_converged": true,
+    "request_id": "stage-final",
+    "reason": "12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns"
+  },
+  "report": {
+    "chip": "chip-gen",
+    "lines": 16,
+    "stages": [
+      {
+        "name": "readout",
+        "title": "读取线校准（ro ↔ ri 对齐）",
+        "writeback": "immediate",
+        "depends_on": [],
+        "why": "后续一切实验的读出前提：测完立刻写回，后面的实验才读得出信号",
+        "nodes": [
+          "RL0.ri",
+          "RL0.ro",
+          "RL1.ri",
+          "RL1.ro"
+        ],
+        "waves": {
+          "kind": "conflict_free_waves",
+          "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+          "bundle_size": 1,
+          "waves": [
+            {
+              "index": 1,
+              "size": 2,
+              "pairs": [
+                {
+                  "a": "RL0.ri",
+                  "b": "RL0.ro",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "RL0 读取对 ri-ro"
+                },
+                {
+                  "a": "RL1.ri",
+                  "b": "RL1.ro",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "RL1 读取对 ri-ro"
+                }
+              ],
+              "why": "首波：按代价从低到高占位"
+            }
+          ],
+          "wave_count": 1,
+          "edge_count": 2
+        },
+        "pairs": [
+          {
+            "a": "RL0.ri",
+            "b": "RL0.ro",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "RL0 读取对 ri-ro",
+            "group": "readout"
+          },
+          {
+            "a": "RL1.ri",
+            "b": "RL1.ro",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "RL1 读取对 ri-ro",
+            "group": "readout"
+          }
+        ],
+        "measurements": [
+          {
+            "a": "RL0.ri",
+            "b": "RL0.ro",
+            "ok": true,
+            "note": "RL0 读取对 ri-ro",
+            "skew_ns": -40.373116,
+            "sigma_ns": 0.1661,
+            "quality": 0.972788,
+            "attempts": 1,
+            "request_id": "req-001-align",
+            "config_hash": "7d9657e107245fa9",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "RL1.ri",
+            "b": "RL1.ro",
+            "ok": true,
+            "note": "RL1 读取对 ri-ro",
+            "skew_ns": -90.910124,
+            "sigma_ns": 0.085808,
+            "quality": 0.992664,
+            "attempts": 1,
+            "request_id": "req-002-align",
+            "config_hash": "7d9657e107245fa9",
+            "reason": "合格",
+            "wave": 0
+          }
+        ],
+        "failed": [],
+        "solve": {
+          "target_ns": 45.455062,
+          "anchor": "RL0.ro",
+          "offsets": {
+            "RL0.ri": -20.186558,
+            "RL0.ro": 20.186558,
+            "RL1.ri": -45.455062,
+            "RL1.ro": 45.455062
+          },
+          "shifts": {
+            "RL0.ri": 40.373116,
+            "RL0.ro": 0.0,
+            "RL1.ri": 90.910124,
+            "RL1.ro": 0.0
+          },
+          "residuals": [
+            {
+              "a": "RL0.ri",
+              "b": "RL0.ro",
+              "skew_ns": -40.373116,
+              "resid_ns": 0.0,
+              "request_id": "req-001-align"
+            },
+            {
+              "a": "RL1.ri",
+              "b": "RL1.ro",
+              "skew_ns": -90.910124,
+              "resid_ns": -0.0,
+              "request_id": "req-002-align"
+            }
+          ],
+          "headroom_return": {},
+          "max_resid_ns": 0.0,
+          "rms_resid_ns": 0.0,
+          "iterations": 1,
+          "solver_converged": true,
+          "request_id": "stage-readout-solve",
+          "reason": "4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns"
+        },
+        "receipt": {
+          "pending": "C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json",
+          "request_id": "stage-readout-solve",
+          "reason": "4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns",
+          "ts": "2026-10-01T15:22:30",
+          "ok": true,
+          "old_hash": "7d9657e107245fa9",
+          "applied": [
+            {
+              "line": "RL0.ri",
+              "before": 0.0,
+              "delta": 40.373116,
+              "shift": 40.373116,
+              "headroom_return": 0.0,
+              "after": 40.373116
+            },
+            {
+              "line": "RL1.ri",
+              "before": 0.0,
+              "delta": 90.910124,
+              "shift": 90.910124,
+              "headroom_return": 0.0,
+              "after": 90.910124
+            }
+          ],
+          "written": true,
+          "new_hash": "5247c0724c9974be",
+          "written_bytes": 1262
+        },
+        "written": true,
+        "aborted": null,
+        "resumed": "",
+        "ledger": {
+          "records": 2,
+          "accepted": 2,
+          "failed": 0,
+          "requests": 2,
+          "aborted": null
+        }
+      },
+      {
+        "name": "qubit",
+        "title": "单比特 XY-Z 校准（xy ↔ z）",
+        "writeback": "deferred",
+        "depends_on": [
+          "readout"
+        ],
+        "why": "依赖已对齐的读取线：先记录，末尾与耦合器组一起解",
+        "nodes": [
+          "Q0.xy",
+          "Q0.z",
+          "Q1.xy",
+          "Q1.z",
+          "Q2.xy",
+          "Q2.z",
+          "Q3.xy",
+          "Q3.z"
+        ],
+        "waves": {
+          "kind": "conflict_free_waves",
+          "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+          "bundle_size": 1,
+          "waves": [
+            {
+              "index": 1,
+              "size": 4,
+              "pairs": [
+                {
+                  "a": "Q0.z",
+                  "b": "Q0.xy",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "Q0 xy-z 对齐"
+                },
+                {
+                  "a": "Q1.z",
+                  "b": "Q1.xy",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "Q1 xy-z 对齐"
+                },
+                {
+                  "a": "Q2.z",
+                  "b": "Q2.xy",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "Q2 xy-z 对齐"
+                },
+                {
+                  "a": "Q3.z",
+                  "b": "Q3.xy",
+                  "kind": "timing.align",
+                  "cost": 1.0,
+                  "note": "Q3 xy-z 对齐"
+                }
+              ],
+              "why": "首波：按代价从低到高占位"
+            }
+          ],
+          "wave_count": 1,
+          "edge_count": 4
+        },
+        "pairs": [
+          {
+            "a": "Q0.z",
+            "b": "Q0.xy",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "Q0 xy-z 对齐",
+            "group": "qubit"
+          },
+          {
+            "a": "Q1.z",
+            "b": "Q1.xy",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "Q1 xy-z 对齐",
+            "group": "qubit"
+          },
+          {
+            "a": "Q2.z",
+            "b": "Q2.xy",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "Q2 xy-z 对齐",
+            "group": "qubit"
+          },
+          {
+            "a": "Q3.z",
+            "b": "Q3.xy",
+            "kind": "timing.align",
+            "cost": 1.0,
+            "note": "Q3 xy-z 对齐",
+            "group": "qubit"
+          }
+        ],
+        "measurements": [
+          {
+            "a": "Q0.z",
+            "b": "Q0.xy",
+            "ok": true,
+            "note": "Q0 xy-z 对齐",
+            "skew_ns": -14.306017,
+            "sigma_ns": 0.105601,
+            "quality": 0.98891,
+            "attempts": 1,
+            "request_id": "req-003-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "Q1.z",
+            "b": "Q1.xy",
+            "ok": true,
+            "note": "Q1 xy-z 对齐",
+            "skew_ns": 116.437697,
+            "sigma_ns": 0.096851,
+            "quality": 0.990664,
+            "attempts": 1,
+            "request_id": "req-004-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "Q2.z",
+            "b": "Q2.xy",
+            "ok": true,
+            "note": "Q2 xy-z 对齐",
+            "skew_ns": 79.435111,
+            "sigma_ns": 0.044281,
+            "quality": 0.998041,
+            "attempts": 1,
+            "request_id": "req-005-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "Q3.z",
+            "b": "Q3.xy",
+            "ok": true,
+            "note": "Q3 xy-z 对齐",
+            "skew_ns": -130.887169,
+            "sigma_ns": 0.141101,
+            "quality": 0.980287,
+            "attempts": 1,
+            "request_id": "req-006-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          }
+        ],
+        "failed": [],
+        "solve": null,
+        "receipt": null,
+        "written": false,
+        "aborted": null,
+        "resumed": "",
+        "ledger": {
+          "records": 4,
+          "accepted": 4,
+          "failed": 0,
+          "requests": 4,
+          "aborted": null
+        }
+      },
+      {
+        "name": "coupler",
+        "title": "比特间 Z-Z / 耦合器 Z 校准",
+        "writeback": "deferred",
+        "depends_on": [
+          "qubit"
+        ],
+        "why": "依赖可用的单比特门：先记录，末尾一起解",
+        "nodes": [
+          "CP0001.z",
+          "CP0002.z",
+          "CP0103.z",
+          "CP0203.z",
+          "Q0.z",
+          "Q1.z",
+          "Q2.z",
+          "Q3.z"
+        ],
+        "waves": {
+          "kind": "conflict_free_waves",
+          "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+          "bundle_size": 1,
+          "waves": [
+            {
+              "index": 1,
+              "size": 2,
+              "pairs": [
+                {
+                  "a": "Q0.z",
+                  "b": "Q1.z",
+                  "kind": "timing.align",
+                  "cost": 2.0,
+                  "note": "Q0↔Q1 z-z"
+                },
+                {
+                  "a": "CP0203.z",
+                  "b": "Q2.z",
+                  "kind": "timing.align",
+                  "cost": 3.0,
+                  "note": "CP0203 z 挂 Q2.z"
+                }
+              ],
+              "why": "首波：按代价从低到高占位"
+            },
+            {
+              "index": 2,
+              "size": 2,
+              "pairs": [
+                {
+                  "a": "Q0.z",
+                  "b": "Q2.z",
+                  "kind": "timing.align",
+                  "cost": 2.0,
+                  "note": "Q0↔Q2 z-z"
+                },
+                {
+                  "a": "Q1.z",
+                  "b": "Q3.z",
+                  "kind": "timing.align",
+                  "cost": 2.0,
+                  "note": "Q1↔Q3 z-z"
+                }
+              ],
+              "why": "与既有 1 波都冲突（共享线名），另开新波"
+            },
+            {
+              "index": 3,
+              "size": 2,
+              "pairs": [
+                {
+                  "a": "CP0001.z",
+                  "b": "Q0.z",
+                  "kind": "timing.align",
+                  "cost": 3.0,
+                  "note": "CP0001 z 挂 Q0.z"
+                },
+                {
+                  "a": "CP0103.z",
+                  "b": "Q1.z",
+                  "kind": "timing.align",
+                  "cost": 3.0,
+                  "note": "CP0103 z 挂 Q1.z"
+                }
+              ],
+              "why": "与既有 2 波都冲突（共享线名），另开新波"
+            },
+            {
+              "index": 4,
+              "size": 1,
+              "pairs": [
+                {
+                  "a": "CP0002.z",
+                  "b": "Q0.z",
+                  "kind": "timing.align",
+                  "cost": 3.0,
+                  "note": "CP0002 z 挂 Q0.z"
+                }
+              ],
+              "why": "与既有 3 波都冲突（共享线名），另开新波"
+            }
+          ],
+          "wave_count": 4,
+          "edge_count": 7
+        },
+        "pairs": [
+          {
+            "a": "Q0.z",
+            "b": "Q1.z",
+            "kind": "timing.align",
+            "cost": 2.0,
+            "note": "Q0↔Q1 z-z",
+            "group": "coupler"
+          },
+          {
+            "a": "Q0.z",
+            "b": "Q2.z",
+            "kind": "timing.align",
+            "cost": 2.0,
+            "note": "Q0↔Q2 z-z",
+            "group": "coupler"
+          },
+          {
+            "a": "Q1.z",
+            "b": "Q3.z",
+            "kind": "timing.align",
+            "cost": 2.0,
+            "note": "Q1↔Q3 z-z",
+            "group": "coupler"
+          },
+          {
+            "a": "CP0001.z",
+            "b": "Q0.z",
+            "kind": "timing.align",
+            "cost": 3.0,
+            "note": "CP0001 z 挂 Q0.z",
+            "group": "coupler"
+          },
+          {
+            "a": "CP0002.z",
+            "b": "Q0.z",
+            "kind": "timing.align",
+            "cost": 3.0,
+            "note": "CP0002 z 挂 Q0.z",
+            "group": "coupler"
+          },
+          {
+            "a": "CP0103.z",
+            "b": "Q1.z",
+            "kind": "timing.align",
+            "cost": 3.0,
+            "note": "CP0103 z 挂 Q1.z",
+            "group": "coupler"
+          },
+          {
+            "a": "CP0203.z",
+            "b": "Q2.z",
+            "kind": "timing.align",
+            "cost": 3.0,
+            "note": "CP0203 z 挂 Q2.z",
+            "group": "coupler"
+          }
+        ],
+        "measurements": [
+          {
+            "a": "Q0.z",
+            "b": "Q1.z",
+            "ok": true,
+            "note": "Q0↔Q1 z-z",
+            "skew_ns": -78.903103,
+            "sigma_ns": 0.148302,
+            "quality": 0.978247,
+            "attempts": 1,
+            "request_id": "req-007-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "Q0.z",
+            "b": "Q2.z",
+            "ok": true,
+            "note": "Q0↔Q2 z-z",
+            "skew_ns": -20.653675,
+            "sigma_ns": 0.020893,
+            "quality": 0.999564,
+            "attempts": 1,
+            "request_id": "req-008-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "Q1.z",
+            "b": "Q3.z",
+            "ok": true,
+            "note": "Q1↔Q3 z-z",
+            "skew_ns": 125.815179,
+            "sigma_ns": 0.114605,
+            "quality": 0.986952,
+            "attempts": 1,
+            "request_id": "req-009-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "CP0001.z",
+            "b": "Q0.z",
+            "ok": true,
+            "note": "CP0001 z 挂 Q0.z",
+            "skew_ns": 28.971767,
+            "sigma_ns": 0.066188,
+            "quality": 0.995629,
+            "attempts": 1,
+            "request_id": "req-010-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "CP0002.z",
+            "b": "Q0.z",
+            "ok": true,
+            "note": "CP0002 z 挂 Q0.z",
+            "skew_ns": -53.181793,
+            "sigma_ns": 0.117703,
+            "quality": 0.986241,
+            "attempts": 1,
+            "request_id": "req-011-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "CP0103.z",
+            "b": "Q1.z",
+            "ok": true,
+            "note": "CP0103 z 挂 Q1.z",
+            "skew_ns": -78.071865,
+            "sigma_ns": 0.015932,
+            "quality": 0.999746,
+            "attempts": 1,
+            "request_id": "req-012-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "CP0203.z",
+            "b": "Q2.z",
+            "ok": true,
+            "note": "CP0203 z 挂 Q2.z",
+            "skew_ns": 18.248116,
+            "sigma_ns": 0.071548,
+            "quality": 0.994894,
+            "attempts": 1,
+            "request_id": "req-013-align",
+            "config_hash": "5247c0724c9974be",
+            "reason": "合格",
+            "wave": 0
+          }
+        ],
+        "failed": [],
+        "solve": null,
+        "receipt": null,
+        "written": false,
+        "aborted": null,
+        "resumed": "",
+        "ledger": {
+          "records": 7,
+          "accepted": 7,
+          "failed": 0,
+          "requests": 7,
+          "aborted": null
+        }
+      },
+      {
+        "name": "readout_final",
+        "title": "读取线最终对齐（收回 headroom）",
+        "writeback": "immediate",
+        "depends_on": [
+          "coupler"
+        ],
+        "why": "依赖 qubit/coupler 已全局对齐：以 readout↔首腔 qubit.xy 的实测 skew 收尾，读取线把 headroom 收回、往左拉回对齐",
+        "nodes": [
+          "Q0.xy",
+          "Q2.xy",
+          "RL0.ro",
+          "RL1.ro"
+        ],
+        "waves": {
+          "kind": "conflict_free_waves",
+          "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+          "bundle_size": 1,
+          "waves": [
+            {
+              "index": 1,
+              "size": 2,
+              "pairs": [
+                {
+                  "a": "RL0.ro",
+                  "b": "Q0.xy",
+                  "kind": "timing.align",
+                  "cost": 2.0,
+                  "note": "RL0 ro 挂 Q0"
+                },
+                {
+                  "a": "RL1.ro",
+                  "b": "Q2.xy",
+                  "kind": "timing.align",
+                  "cost": 2.0,
+                  "note": "RL1 ro 挂 Q2"
+                }
+              ],
+              "why": "首波：按代价从低到高占位"
+            }
+          ],
+          "wave_count": 1,
+          "edge_count": 2
+        },
+        "pairs": [
+          {
+            "a": "RL0.ro",
+            "b": "Q0.xy",
+            "kind": "timing.align",
+            "cost": 2.0,
+            "note": "RL0 ro 挂 Q0",
+            "group": "readout_final"
+          },
+          {
+            "a": "RL1.ro",
+            "b": "Q2.xy",
+            "kind": "timing.align",
+            "cost": 2.0,
+            "note": "RL1 ro 挂 Q2",
+            "group": "readout_final"
+          }
+        ],
+        "measurements": [
+          {
+            "a": "RL0.ro",
+            "b": "Q0.xy",
+            "ok": true,
+            "note": "RL0 ro 挂 Q0",
+            "skew_ns": -31.196875,
+            "sigma_ns": 0.111616,
+            "quality": 0.987619,
+            "attempts": 1,
+            "request_id": "req-014-align",
+            "config_hash": "c7acc0f4c40722d6",
+            "reason": "合格",
+            "wave": 0
+          },
+          {
+            "a": "RL1.ro",
+            "b": "Q2.xy",
+            "ok": true,
+            "note": "RL1 ro 挂 Q2",
+            "skew_ns": -27.742846,
+            "sigma_ns": 0.057785,
+            "quality": 0.996666,
+            "attempts": 1,
+            "request_id": "req-015-align",
+            "config_hash": "c7acc0f4c40722d6",
+            "reason": "合格",
+            "wave": 0
+          }
+        ],
+        "failed": [],
+        "solve": {
+          "target_ns": 4.20998,
+          "anchor": "CP0001.z",
+          "offsets": {
+            "Q0.xy": 4.20998,
+            "Q2.xy": 4.20998,
+            "RL0.ro": -26.986895,
+            "RL1.ro": -23.532866,
+            "Q0.z": 4.20998,
+            "Q1.xy": 4.20998,
+            "Q1.z": 4.20998,
+            "Q2.z": 4.20998,
+            "Q3.xy": 4.20998,
+            "Q3.z": 4.20998,
+            "CP0001.z": 4.20998,
+            "CP0002.z": 4.20998,
+            "CP0103.z": 4.20998,
+            "CP0203.z": 4.20998,
+            "RL0.ri": -26.986895,
+            "RL1.ri": -23.532866
+          },
+          "shifts": {
+            "Q0.xy": 0.0,
+            "Q2.xy": 0.0,
+            "RL0.ro": 31.196875,
+            "RL1.ro": 27.742846,
+            "Q0.z": 0.0,
+            "Q1.xy": 0.0,
+            "Q1.z": 0.0,
+            "Q2.z": 0.0,
+            "Q3.xy": 0.0,
+            "Q3.z": 0.0,
+            "CP0001.z": 0.0,
+            "CP0002.z": 0.0,
+            "CP0103.z": 0.0,
+            "CP0203.z": 0.0,
+            "RL0.ri": 31.196875,
+            "RL1.ri": 27.742846
+          },
+          "residuals": [
+            {
+              "a": "RL0.ro",
+              "b": "Q0.xy",
+              "skew_ns": -31.196875,
+              "resid_ns": 0.0,
+              "request_id": "req-014-align"
+            },
+            {
+              "a": "RL1.ro",
+              "b": "Q2.xy",
+              "skew_ns": -27.742846,
+              "resid_ns": 0.0,
+              "request_id": "req-015-align"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q0.xy",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q0.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q1.xy",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q1.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q2.xy",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q2.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "Q3.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "CP0001.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "CP0002.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "CP0103.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            },
+            {
+              "a": "Q3.xy",
+              "b": "CP0203.z",
+              "skew_ns": 0.0,
+              "resid_ns": 0.0,
+              "request_id": "stage-final-soft"
+            }
+          ],
+          "headroom_return": {},
+          "max_resid_ns": 0.0,
+          "rms_resid_ns": 0.0,
+          "iterations": 6,
+          "solver_converged": true,
+          "request_id": "stage-readout_final-solve",
+          "reason": "14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"
+        },
+        "receipt": {
+          "pending": "C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json",
+          "request_id": "stage-readout_final-solve",
+          "reason": "14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）",
+          "ts": "2026-10-01T15:22:30",
+          "ok": true,
+          "old_hash": "c7acc0f4c40722d6",
+          "applied": [
+            {
+              "line": "RL0.ri",
+              "before": 40.373116,
+              "delta": 31.196875,
+              "shift": 31.196875,
+              "headroom_return": 0.0,
+              "after": 71.569991
+            },
+            {
+              "line": "RL0.ro",
+              "before": 0.0,
+              "delta": 31.196875,
+              "shift": 31.196875,
+              "headroom_return": 0.0,
+              "after": 31.196875
+            },
+            {
+              "line": "RL1.ri",
+              "before": 90.910124,
+              "delta": 27.742846,
+              "shift": 27.742846,
+              "headroom_return": 0.0,
+              "after": 118.65297
+            },
+            {
+              "line": "RL1.ro",
+              "before": 0.0,
+              "delta": 27.742846,
+              "shift": 27.742846,
+              "headroom_return": 0.0,
+              "after": 27.742846
+            }
+          ],
+          "written": true,
+          "new_hash": "5cbcea91698a1796",
+          "written_bytes": 1342
+        },
+        "written": true,
+        "aborted": null,
+        "resumed": "",
+        "ledger": {
+          "records": 2,
+          "accepted": 2,
+          "failed": 0,
+          "requests": 2,
+          "aborted": null
+        }
+      }
+    ],
+    "tree": [
+      {
+        "a": "RL0.ri",
+        "b": "RL0.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL0 读取对 ri-ro",
+        "group": "readout"
+      },
+      {
+        "a": "RL1.ri",
+        "b": "RL1.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL1 读取对 ri-ro",
+        "group": "readout"
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q0.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q0 xy-z 对齐",
+        "group": "qubit"
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q1.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q1 xy-z 对齐",
+        "group": "qubit"
+      },
+      {
+        "a": "Q2.z",
+        "b": "Q2.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q2 xy-z 对齐",
+        "group": "qubit"
+      },
+      {
+        "a": "Q3.z",
+        "b": "Q3.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q3 xy-z 对齐",
+        "group": "qubit"
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q1.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q0↔Q1 z-z",
+        "group": "coupler"
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q2.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q0↔Q2 z-z",
+        "group": "coupler"
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q3.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q1↔Q3 z-z",
+        "group": "coupler"
+      },
+      {
+        "a": "CP0001.z",
+        "b": "Q0.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0001 z 挂 Q0.z",
+        "group": "coupler"
+      },
+      {
+        "a": "CP0002.z",
+        "b": "Q0.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0002 z 挂 Q0.z",
+        "group": "coupler"
+      },
+      {
+        "a": "CP0103.z",
+        "b": "Q1.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0103 z 挂 Q1.z",
+        "group": "coupler"
+      },
+      {
+        "a": "CP0203.z",
+        "b": "Q2.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0203 z 挂 Q2.z",
+        "group": "coupler"
+      },
+      {
+        "a": "RL0.ro",
+        "b": "Q0.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL0 ro 挂 Q0",
+        "group": "readout_final"
+      },
+      {
+        "a": "RL1.ro",
+        "b": "Q2.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL1 ro 挂 Q2",
+        "group": "readout_final"
+      }
+    ],
+    "measurements": [
+      {
+        "a": "RL0.ri",
+        "b": "RL0.ro",
+        "ok": true,
+        "note": "RL0 读取对 ri-ro",
+        "skew_ns": -40.373116,
+        "sigma_ns": 0.1661,
+        "quality": 0.972788,
+        "attempts": 1,
+        "request_id": "req-001-align",
+        "config_hash": "7d9657e107245fa9",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "RL1.ri",
+        "b": "RL1.ro",
+        "ok": true,
+        "note": "RL1 读取对 ri-ro",
+        "skew_ns": -90.910124,
+        "sigma_ns": 0.085808,
+        "quality": 0.992664,
+        "attempts": 1,
+        "request_id": "req-002-align",
+        "config_hash": "7d9657e107245fa9",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q0.xy",
+        "ok": true,
+        "note": "Q0 xy-z 对齐",
+        "skew_ns": -14.306017,
+        "sigma_ns": 0.105601,
+        "quality": 0.98891,
+        "attempts": 1,
+        "request_id": "req-003-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q1.xy",
+        "ok": true,
+        "note": "Q1 xy-z 对齐",
+        "skew_ns": 116.437697,
+        "sigma_ns": 0.096851,
+        "quality": 0.990664,
+        "attempts": 1,
+        "request_id": "req-004-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q2.z",
+        "b": "Q2.xy",
+        "ok": true,
+        "note": "Q2 xy-z 对齐",
+        "skew_ns": 79.435111,
+        "sigma_ns": 0.044281,
+        "quality": 0.998041,
+        "attempts": 1,
+        "request_id": "req-005-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q3.z",
+        "b": "Q3.xy",
+        "ok": true,
+        "note": "Q3 xy-z 对齐",
+        "skew_ns": -130.887169,
+        "sigma_ns": 0.141101,
+        "quality": 0.980287,
+        "attempts": 1,
+        "request_id": "req-006-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q1.z",
+        "ok": true,
+        "note": "Q0↔Q1 z-z",
+        "skew_ns": -78.903103,
+        "sigma_ns": 0.148302,
+        "quality": 0.978247,
+        "attempts": 1,
+        "request_id": "req-007-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q0.z",
+        "b": "Q2.z",
+        "ok": true,
+        "note": "Q0↔Q2 z-z",
+        "skew_ns": -20.653675,
+        "sigma_ns": 0.020893,
+        "quality": 0.999564,
+        "attempts": 1,
+        "request_id": "req-008-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "Q1.z",
+        "b": "Q3.z",
+        "ok": true,
+        "note": "Q1↔Q3 z-z",
+        "skew_ns": 125.815179,
+        "sigma_ns": 0.114605,
+        "quality": 0.986952,
+        "attempts": 1,
+        "request_id": "req-009-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "CP0001.z",
+        "b": "Q0.z",
+        "ok": true,
+        "note": "CP0001 z 挂 Q0.z",
+        "skew_ns": 28.971767,
+        "sigma_ns": 0.066188,
+        "quality": 0.995629,
+        "attempts": 1,
+        "request_id": "req-010-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "CP0002.z",
+        "b": "Q0.z",
+        "ok": true,
+        "note": "CP0002 z 挂 Q0.z",
+        "skew_ns": -53.181793,
+        "sigma_ns": 0.117703,
+        "quality": 0.986241,
+        "attempts": 1,
+        "request_id": "req-011-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "CP0103.z",
+        "b": "Q1.z",
+        "ok": true,
+        "note": "CP0103 z 挂 Q1.z",
+        "skew_ns": -78.071865,
+        "sigma_ns": 0.015932,
+        "quality": 0.999746,
+        "attempts": 1,
+        "request_id": "req-012-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "CP0203.z",
+        "b": "Q2.z",
+        "ok": true,
+        "note": "CP0203 z 挂 Q2.z",
+        "skew_ns": 18.248116,
+        "sigma_ns": 0.071548,
+        "quality": 0.994894,
+        "attempts": 1,
+        "request_id": "req-013-align",
+        "config_hash": "5247c0724c9974be",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "RL0.ro",
+        "b": "Q0.xy",
+        "ok": true,
+        "note": "RL0 ro 挂 Q0",
+        "skew_ns": -31.196875,
+        "sigma_ns": 0.111616,
+        "quality": 0.987619,
+        "attempts": 1,
+        "request_id": "req-014-align",
+        "config_hash": "c7acc0f4c40722d6",
+        "reason": "合格",
+        "wave": 0
+      },
+      {
+        "a": "RL1.ro",
+        "b": "Q2.xy",
+        "ok": true,
+        "note": "RL1 ro 挂 Q2",
+        "skew_ns": -27.742846,
+        "sigma_ns": 0.057785,
+        "quality": 0.996666,
+        "attempts": 1,
+        "request_id": "req-015-align",
+        "config_hash": "c7acc0f4c40722d6",
+        "reason": "合格",
+        "wave": 0
+      }
+    ],
+    "failed": [],
+    "bridge_failures": [],
+    "isolated": [],
+    "solve": {
+      "target_ns": 78.130694,
+      "anchor": "Q3.xy",
+      "offsets": {
+        "Q0.xy": 8.461618,
+        "Q0.z": -5.844399,
+        "Q1.xy": -43.378993,
+        "Q1.z": 73.058704,
+        "Q2.xy": -64.625835,
+        "Q2.z": 14.809276,
+        "Q3.xy": 78.130694,
+        "Q3.z": -52.756475,
+        "CP0001.z": 23.127368,
+        "CP0002.z": -59.026192,
+        "CP0103.z": -5.013161,
+        "CP0203.z": 33.057392
+      },
+      "shifts": {
+        "Q0.xy": 69.669076,
+        "Q0.z": 83.975093,
+        "Q1.xy": 121.509687,
+        "Q1.z": 5.07199,
+        "Q2.xy": 142.756529,
+        "Q2.z": 63.321418,
+        "Q3.xy": 0.0,
+        "Q3.z": 130.887169,
+        "CP0001.z": 55.003326,
+        "CP0002.z": 137.156886,
+        "CP0103.z": 83.143855,
+        "CP0203.z": 45.073302
+      },
+      "residuals": [
+        {
+          "a": "Q0.z",
+          "b": "Q0.xy",
+          "skew_ns": -14.306017,
+          "resid_ns": 0.0,
+          "request_id": "req-003-align"
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q1.xy",
+          "skew_ns": 116.437697,
+          "resid_ns": 0.0,
+          "request_id": "req-004-align"
+        },
+        {
+          "a": "Q2.z",
+          "b": "Q2.xy",
+          "skew_ns": 79.435111,
+          "resid_ns": -0.0,
+          "request_id": "req-005-align"
+        },
+        {
+          "a": "Q3.z",
+          "b": "Q3.xy",
+          "skew_ns": -130.887169,
+          "resid_ns": 0.0,
+          "request_id": "req-006-align"
+        },
+        {
+          "a": "Q0.z",
+          "b": "Q1.z",
+          "skew_ns": -78.903103,
+          "resid_ns": 0.0,
+          "request_id": "req-007-align"
+        },
+        {
+          "a": "Q0.z",
+          "b": "Q2.z",
+          "skew_ns": -20.653675,
+          "resid_ns": -0.0,
+          "request_id": "req-008-align"
+        },
+        {
+          "a": "Q1.z",
+          "b": "Q3.z",
+          "skew_ns": 125.815179,
+          "resid_ns": 0.0,
+          "request_id": "req-009-align"
+        },
+        {
+          "a": "CP0001.z",
+          "b": "Q0.z",
+          "skew_ns": 28.971767,
+          "resid_ns": -0.0,
+          "request_id": "req-010-align"
+        },
+        {
+          "a": "CP0002.z",
+          "b": "Q0.z",
+          "skew_ns": -53.181793,
+          "resid_ns": -0.0,
+          "request_id": "req-011-align"
+        },
+        {
+          "a": "CP0103.z",
+          "b": "Q1.z",
+          "skew_ns": -78.071865,
+          "resid_ns": -0.0,
+          "request_id": "req-012-align"
+        },
+        {
+          "a": "CP0203.z",
+          "b": "Q2.z",
+          "skew_ns": 18.248116,
+          "resid_ns": -0.0,
+          "request_id": "req-013-align"
+        }
+      ],
+      "headroom_return": {},
+      "max_resid_ns": 0.0,
+      "rms_resid_ns": 0.0,
+      "iterations": 14,
+      "solver_converged": true,
+      "request_id": "stage-final",
+      "reason": "12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns"
+    },
+    "target_ns": 78.130694,
+    "anchor": "Q3.xy",
+    "plan_ns": 937.568331,
+    "budget_ns": 1068.851571,
+    "residual": {
+      "count": 16,
+      "residual_ns": 0.213105,
+      "max_ns": 183.869991,
+      "min_ns": 183.656886,
+      "q": {
+        "Q0.xy": 183.769076,
+        "Q0.z": 183.675093,
+        "Q1.xy": 183.709687,
+        "Q1.z": 183.67199,
+        "Q2.xy": 183.756529,
+        "Q2.z": 183.721418,
+        "Q3.xy": 183.7,
+        "Q3.z": 183.787169,
+        "CP0001.z": 183.703326,
+        "CP0203.z": 183.773302,
+        "CP0002.z": 183.656886,
+        "CP0103.z": 183.743855,
+        "RL0.ro": 183.796875,
+        "RL0.ri": 183.869991,
+        "RL1.ro": 183.742846,
+        "RL1.ri": 183.75297
+      }
+    },
+    "converged": true,
+    "aligned": true,
+    "aborted": null,
+    "written": true,
+    "receipt": {
+      "pending": "C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json",
+      "request_id": "stage-final",
+      "reason": "12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns",
+      "ts": "2026-10-01T15:22:30",
+      "ok": true,
+      "old_hash": "5247c0724c9974be",
+      "applied": [
+        {
+          "line": "CP0001.z",
+          "before": 0.0,
+          "delta": 55.003326,
+          "shift": 55.003326,
+          "headroom_return": 0.0,
+          "after": 55.003326
+        },
+        {
+          "line": "CP0002.z",
+          "before": 0.0,
+          "delta": 137.156886,
+          "shift": 137.156886,
+          "headroom_return": 0.0,
+          "after": 137.156886
+        },
+        {
+          "line": "CP0103.z",
+          "before": 0.0,
+          "delta": 83.143855,
+          "shift": 83.143855,
+          "headroom_return": 0.0,
+          "after": 83.143855
+        },
+        {
+          "line": "CP0203.z",
+          "before": 0.0,
+          "delta": 45.073302,
+          "shift": 45.073302,
+          "headroom_return": 0.0,
+          "after": 45.073302
+        },
+        {
+          "line": "Q0.xy",
+          "before": 0.0,
+          "delta": 69.669076,
+          "shift": 69.669076,
+          "headroom_return": 0.0,
+          "after": 69.669076
+        },
+        {
+          "line": "Q0.z",
+          "before": 0.0,
+          "delta": 83.975093,
+          "shift": 83.975093,
+          "headroom_return": 0.0,
+          "after": 83.975093
+        },
+        {
+          "line": "Q1.xy",
+          "before": 0.0,
+          "delta": 121.509687,
+          "shift": 121.509687,
+          "headroom_return": 0.0,
+          "after": 121.509687
+        },
+        {
+          "line": "Q1.z",
+          "before": 0.0,
+          "delta": 5.07199,
+          "shift": 5.07199,
+          "headroom_return": 0.0,
+          "after": 5.07199
+        },
+        {
+          "line": "Q2.xy",
+          "before": 0.0,
+          "delta": 142.756529,
+          "shift": 142.756529,
+          "headroom_return": 0.0,
+          "after": 142.756529
+        },
+        {
+          "line": "Q2.z",
+          "before": 0.0,
+          "delta": 63.321418,
+          "shift": 63.321418,
+          "headroom_return": 0.0,
+          "after": 63.321418
+        },
+        {
+          "line": "Q3.z",
+          "before": 0.0,
+          "delta": 130.887169,
+          "shift": 130.887169,
+          "headroom_return": 0.0,
+          "after": 130.887169
+        }
+      ],
+      "written": true,
+      "new_hash": "c7acc0f4c40722d6",
+      "written_bytes": 1330
+    },
+    "ledger": {
+      "records": 15,
+      "accepted": 15,
+      "failed": 0,
+      "requests": 15,
+      "aborted": null
+    },
+    "review": {
+      "records": 0,
+      "commit": 0,
+      "noop": 0,
+      "retry": 0,
+      "recheck": 0,
+      "replan": 0,
+      "escalate": 0,
+      "total_written_ns": 0
+    },
+    "final_solve": {
+      "target_ns": 4.20998,
+      "anchor": "CP0001.z",
+      "offsets": {
+        "Q0.xy": 4.20998,
+        "Q2.xy": 4.20998,
+        "RL0.ro": -26.986895,
+        "RL1.ro": -23.532866,
+        "Q0.z": 4.20998,
+        "Q1.xy": 4.20998,
+        "Q1.z": 4.20998,
+        "Q2.z": 4.20998,
+        "Q3.xy": 4.20998,
+        "Q3.z": 4.20998,
+        "CP0001.z": 4.20998,
+        "CP0002.z": 4.20998,
+        "CP0103.z": 4.20998,
+        "CP0203.z": 4.20998,
+        "RL0.ri": -26.986895,
+        "RL1.ri": -23.532866
+      },
+      "shifts": {
+        "Q0.xy": 0.0,
+        "Q2.xy": 0.0,
+        "RL0.ro": 31.196875,
+        "RL1.ro": 27.742846,
+        "Q0.z": 0.0,
+        "Q1.xy": 0.0,
+        "Q1.z": 0.0,
+        "Q2.z": 0.0,
+        "Q3.xy": 0.0,
+        "Q3.z": 0.0,
+        "CP0001.z": 0.0,
+        "CP0002.z": 0.0,
+        "CP0103.z": 0.0,
+        "CP0203.z": 0.0,
+        "RL0.ri": 31.196875,
+        "RL1.ri": 27.742846
+      },
+      "residuals": [
+        {
+          "a": "RL0.ro",
+          "b": "Q0.xy",
+          "skew_ns": -31.196875,
+          "resid_ns": 0.0,
+          "request_id": "req-014-align"
+        },
+        {
+          "a": "RL1.ro",
+          "b": "Q2.xy",
+          "skew_ns": -27.742846,
+          "resid_ns": 0.0,
+          "request_id": "req-015-align"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q0.xy",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q0.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q1.xy",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q1.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q2.xy",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q2.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "Q3.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "CP0001.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "CP0002.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "CP0103.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        },
+        {
+          "a": "Q3.xy",
+          "b": "CP0203.z",
+          "skew_ns": 0.0,
+          "resid_ns": 0.0,
+          "request_id": "stage-final-soft"
+        }
+      ],
+      "headroom_return": {},
+      "max_resid_ns": 0.0,
+      "rms_resid_ns": 0.0,
+      "iterations": 6,
+      "solver_converged": true,
+      "request_id": "stage-readout_final-solve",
+      "reason": "14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"
+    }
+  }
+}

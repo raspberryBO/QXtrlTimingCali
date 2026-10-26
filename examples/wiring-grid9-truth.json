@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "wiring-chip-grid9-truth",
+    "chip": "chip-grid9",
+    "kind": "truth",
+    "description": "真实值保留文件：delay = 各线初始时刻位置 L（模拟隐藏真值，校准流程不读不改）",
+    "date": "2026-09-20",
+    "maintainer": "QXtrlTimingCali"
+  },
+  "units": {
+    "time": "ns"
+  },
+  "lines": [
+    {
+      "line": "Q0.xy",
+      "delay": 91.8
+    },
+    {
+      "line": "Q0.z",
+      "delay": 64.1
+    },
+    {
+      "line": "Q1.xy",
+      "delay": 144.1
+    },
+    {
+      "line": "Q1.z",
+      "delay": 51.6
+    },
+    {
+      "line": "Q2.xy",
+      "delay": 125.7
+    },
+    {
+      "line": "Q2.z",
+      "delay": 98.5
+    },
+    {
+      "line": "Q3.xy",
+      "delay": 49.3
+    },
+    {
+      "line": "Q3.z",
+      "delay": 121.2
+    },
+    {
+      "line": "Q4.xy",
+      "delay": 46.0
+    },
+    {
+      "line": "Q4.z",
+      "delay": 109.4
+    },
+    {
+      "line": "Q5.xy",
+      "delay": 51.2
+    },
+    {
+      "line": "Q5.z",
+      "delay": 54.5
+    },
+    {
+      "line": "Q6.xy",
+      "delay": 107.9
+    },
+    {
+      "line": "Q6.z",
+      "delay": 172.3
+    },
+    {
+      "line": "Q7.xy",
+      "delay": 59.8
+    },
+    {
+      "line": "Q7.z",
+      "delay": 75.7
+    },
+    {
+      "line": "Q8.xy",
+      "delay": 140.4
+    },
+    {
+      "line": "Q8.z",
+      "delay": 191.6
+    },
+    {
+      "line": "CP0001.z",
+      "delay": 132.3
+    },
+    {
+      "line": "CP0102.z",
+      "delay": 103.5
+    },
+    {
+      "line": "CP0304.z",
+      "delay": 196.2
+    },
+    {
+      "line": "CP0405.z",
+      "delay": 47.5
+    },
+    {
+      "line": "CP0607.z",
+      "delay": 177.4
+    },
+    {
+      "line": "CP0708.z",
+      "delay": 86.3
+    },
+    {
+      "line": "CP0003.z",
+      "delay": 63.1
+    },
+    {
+      "line": "CP0104.z",
+      "delay": 58.8
+    },
+    {
+      "line": "CP0205.z",
+      "delay": 89.4
+    },
+    {
+      "line": "CP0306.z",
+      "delay": 170.6
+    },
+    {
+      "line": "CP0407.z",
+      "delay": 68.9
+    },
+    {
+      "line": "CP0508.z",
+      "delay": 133.1
+    },
+    {
+      "line": "RL0.ro",
+      "delay": 142.2
+    },
+    {
+      "line": "RL0.ri",
+      "delay": 99.6
+    },
+    {
+      "line": "RL1.ro",
+      "delay": 127.6
+    },
+    {
+      "line": "RL1.ri",
+      "delay": 50.0
+    },
+    {
+      "line": "RL2.ro",
+      "delay": 49.5
+    },
+    {
+      "line": "RL2.ri",
+      "delay": 73.0
+    }
+  ]
+}

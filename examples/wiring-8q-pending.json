@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "wiring-chip-8q-pending",
+    "chip": "chip-8q",
+    "kind": "pending",
+    "description": "待测文件：delay 初值 0.0，由校准流水线填入累计右移 d（只增不减）",
+    "date": "2026-09-20",
+    "maintainer": "QXtrlTimingCali"
+  },
+  "units": {
+    "time": "ns"
+  },
+  "lines": [
+    {
+      "line": "Q0.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q0.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q1.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q1.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q2.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q2.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q3.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q3.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q4.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q4.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q5.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q5.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q6.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q6.z",
+      "delay": 0.0
+    },
+    {
+      "line": "Q7.xy",
+      "delay": 0.0
+    },
+    {
+      "line": "Q7.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0001.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0102.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0203.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0304.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0405.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0506.z",
+      "delay": 0.0
+    },
+    {
+      "line": "CP0607.z",
+      "delay": 0.0
+    },
+    {
+      "line": "RL0.ro",
+      "delay": 0.0
+    },
+    {
+      "line": "RL0.ri",
+      "delay": 0.0
+    },
+    {
+      "line": "RL1.ro",
+      "delay": 0.0
+    },
+    {
+      "line": "RL1.ri",
+      "delay": 0.0
+    },
+    {
+      "line": "RL2.ro",
+      "delay": 0.0
+    },
+    {
+      "line": "RL2.ri",
+      "delay": 0.0
+    },
+    {
+      "line": "RL3.ro",
+      "delay": 0.0
+    },
+    {
+      "line": "RL3.ri",
+      "delay": 0.0
+    }
+  ]
+}

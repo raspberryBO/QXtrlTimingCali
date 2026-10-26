@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>QXtrlTimingCali · 分组校准 Demo 动画</title>
+<style>
+ body{margin:0;padding:22px 26px 26px;background:#fbfcfd;color:#1f2933;
+      font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;font-size:13px}
+ h1{font-size:19px;margin:0 0 3px}
+ .sub{font-size:12.5px;color:#5c6b7a;margin:0 0 14px;line-height:1.6}
+ code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:12px}
+ .nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+ .pill{border:1px solid #dde3ea;background:#fff;color:#5c6b7a;border-radius:14px;
+       padding:5px 12px;font-size:12px;cursor:pointer;transition:.15s}
+ .pill:hover{border-color:#9fb3c8;color:#1f2933}
+ .pill.on{background:#1d7a3c;border-color:#1d7a3c;color:#fff;font-weight:600}
+ .pill.done{background:#e9f6ec;border-color:#a8d5ba;color:#1d7a3c}
+ .grid{display:grid;grid-template-columns:548px 1fr;gap:14px;align-items:start}
+ .card{background:#fff;border:1px solid #e3e8ee;border-radius:12px;padding:12px 14px 10px}
+ .card h2{font-size:13px;margin:0 0 6px;color:#1d4e75;font-weight:700}
+ .card .hint{font-size:11.5px;color:#7a8590;margin:0 0 6px}
+ svg{display:block;width:100%;height:auto}
+ .t{font-size:12px;font-weight:600} .s{font-size:10.5px;fill:#4a5560}
+ .tick{font-size:9.5px;fill:#8a95a0} .name{font-size:10.5px;fill:#3d4b57}
+ .below{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+ table{border-collapse:collapse;font-size:11.5px;width:100%}
+ th,td{border-bottom:1px solid #eef2f6;padding:3px 6px;text-align:left;white-space:nowrap}
+ th{color:#7a8590;font-weight:600}
+ .scroll{max-height:176px;overflow:auto}
+ tr.new{background:#fff6e6}
+ .badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+ .badge{border:1px solid #dde3ea;border-radius:8px;padding:4px 9px;font-size:11.5px;
+        background:#f6f7f9;color:#5c6b7a}
+ .badge b{color:#1f2933}
+ .badge.no{border-color:#f0c9c4;background:#fdecea;color:#b3261e}
+ .badge.yes{border-color:#a8d5ba;background:#e9f6ec;color:#1d7a3c}
+ .guards{display:flex;gap:6px;margin:8px 0 4px}
+ .guard{flex:1;border:1px solid #dde3ea;border-radius:8px;padding:5px 4px;text-align:center;
+        font-size:11px;color:#8a95a0;background:#f6f7f9}
+ .guard.on{border-color:#a8d5ba;background:#e9f6ec;color:#1d7a3c;font-weight:600}
+ .say{font-size:12.5px;color:#1f2933;line-height:1.7;background:#f6f9fc;border-left:3px solid #2c6cb0;
+      padding:7px 10px;border-radius:0 8px 8px 0;min-height:40px}
+ .ctrl{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 14px;
+       background:#fff;border:1px solid #e3e8ee;border-radius:12px}
+ button{font:inherit;font-size:12.5px;padding:5px 12px;border:1px solid #dde3ea;border-radius:8px;
+        background:#fff;color:#1f2933;cursor:pointer}
+ button:hover{border-color:#9fb3c8}
+ button.pri{background:#1d7a3c;border-color:#1d7a3c;color:#fff}
+ input[type=range]{flex:1;accent-color:#1d7a3c}
+ .clock{font-variant-numeric:tabular-nums;font-size:12px;color:#5c6b7a;min-width:88px;text-align:right}
+ .footer{margin-top:14px;font-size:12px;color:#5c6b7a;line-height:1.8}
+ .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#5c6b7a;margin:4px 0 2px}
+ .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;
+           vertical-align:-1px}
+ @keyframes pulse{0%{opacity:.35}50%{opacity:1}100%{opacity:.35}}
+ .hot{animation:pulse .9s ease-in-out infinite}
+</style></head><body>
+<h1>分组校准 Demo · 六步流程动画回放</h1>
+<p class="sub">数据由 <code>docs/gen_animation_data.py</code> 真实跑**四组流水线**导出（<code>grid 构型 · 4 比特 / 4 耦合器 · 2 条读取线（每腔 1 比特）· 全部可调</code>）——
+动画只做重放，不编数字。流程：<b>① 读取线 ro/ri 对齐</b> → <b>② 整体右移 headroom</b>（给后续留空间）→
+<b>③ 单比特 XY-Z</b> → <b>④ 比特间/耦合器 Z-Z</b>（③④ 不写回，skew 同基线）→
+<b>⑤ 末尾统一求解 qubit/coupler 并整批写回</b> →
+<b>⑥ 读取线收回 headroom、往左拉回对齐</b>。
+按 <code>空格</code> 播放/暂停，<code>←</code> <code>→</code> 切幕。</p>
+
+<div class="nav" id="nav"></div>
+
+<div class="grid">
+  <div class="card">
+    <h2>芯片图 · 四组测量边（读取线 → 单比特 → 耦合器 → 收尾拉回对齐）</h2>
+    <p class="hint" id="chipHint"></p>
+    <svg id="chip" viewBox="0 0 520 394.0"></svg>
+    <div class="legend">
+      <span><i style="background:#1d7a3c"></i>组 1 读取线 ro / ri</span>
+      <span><i style="background:#2c6cb0"></i>组 2 比特 xy / z</span>
+      <span><i style="background:#6b3fa0"></i>组 3 耦合器 z / 跨比特</span>
+      <span><i style="background:#c2410c"></i>组 4 收回 headroom · 拉回对齐</span>
+      <span><i style="background:#d97706"></i>正在测量的边</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>时间轴 · 每条线的时序位置 q = L + d₁ + d₂ + d₃</h2>
+    <p class="hint">灰条 = 初始真值 L（不动）· 彩条 = 位移：<b>d₁</b> readout（含 headroom），
+    <b>d₂</b> qubit/coupler 末尾落盘，<b>d₃</b> readout_final 收尾——
+    <b>d₃ 可为负</b>（收回 headroom = 往左拉回）· 虚线描边 = 计划未落盘 · 竖线 = 目标锚线</p>
+    <svg id="time" viewBox="0 0 780 476.0"></svg>
+  </div>
+</div>
+
+<div class="below">
+  <div class="card">
+    <h2>测量台账（组 1 即时写回 · 组 2/3 只记录）</h2>
+    <div class="scroll"><table id="ledger"></table></div>
+  </div>
+  <div class="card">
+    <h2>状态与守卫</h2>
+    <div class="badges" id="badges"></div>
+    <div class="guards" id="guards"></div>
+    <div class="say" id="say"></div>
+  </div>
+</div>
+
+<div class="ctrl">
+  <button id="play" class="pri">⏸ 暂停</button>
+  <button id="prev">⏮ 上一幕</button>
+  <button id="next">下一幕 ⏭</button>
+  <input type="range" id="bar" min="0" max="1000" value="0">
+  <span class="clock" id="clock"></span>
+  <button id="speed">1×</button>
+  <button id="restart">↺ 重播</button>
+</div>
+
+<p class="footer">
+<b>六步流程要点：</b>读取脉冲与采样窗口没对齐，X_π 做出来也读不出信号，所以<b>组 1 不能等</b>——
+测完立刻求解、立刻落盘，随后给读取线整体加 <i>headroom</i>（本例 <code>0</code> ns）右移写回，
+主动让出空间。组 2（单比特 XY-Z）与组 3（比特间 Z-Z / 耦合器 Z）之间<b>一个字节都不写</b>，
+两组 skew 同基线，因此末尾能合成<b>一次</b>加权最小二乘，把所有 xy/z 对齐（<i>d₂</i> 后走）。
+最后组 4 用 readout↔首腔 qubit.xy 的实测 skew 收尾（<i>d₃</i> 最后走）：锚取 qubit/coupler 最右的线，
+读取线把步 2 主动右移的 headroom <b>按需收回（d₃ 为负、往左拉回，不超过步 2 授予的额度）</b>，对齐到 qubit.xy。
+单调守卫 δ≥0 管的是<b>校准位移</b>；headroom 是流水线自己授予的临时余量，单独记账——
+收回量受授予台账约束，d 永远不会低于加 headroom 之前的校准基线。没加 headroom 时
+读取线本来就在锚线左边，照旧只向右拉。
+锚点取 qubit/coupler 中当前最靠右的线（本例 <code>Q3.xy</code>）：只能右移，它既可达、又让总位移最小。
+</p>
+
+<script>
+const DATA = {"meta":{"version":"0.4.1","chip":{"id":"chip-gen","name":"程序生成演示芯片","description":"grid 构型 · 4 比特 / 4 耦合器 · 2 条读取线（每腔 1 比特）· 全部可调","topology":"grid","tunable":true,"revision":"rev-A","date":"2026-09-23","maintainer":"QXtrlTimingCali"},"lines":16,"noise_ns":2.0,"n_shots":200,"repeats":3,"tol_ns":0.5,"d_max_ns":5000.0,"seed":8,"headroom_ns":0.0,"stage_names":["readout","qubit","coupler","readout_final"]},"chip":{"qubits":[{"id":"Q0","pos":[0.0,0.0]},{"id":"Q1","pos":[1.6,0.0]},{"id":"Q2","pos":[0.0,1.6]},{"id":"Q3","pos":[1.6,1.6]}],"couplers":[{"id":"CP0001","qubits":["Q0","Q1"]},{"id":"CP0203","qubits":["Q2","Q3"]},{"id":"CP0002","qubits":["Q0","Q2"]},{"id":"CP0103","qubits":["Q1","Q3"]}],"cavities":[{"id":"C0","qubit":"Q0","line":"RL0"},{"id":"C1","qubit":"Q1","line":"RL0"},{"id":"C2","qubit":"Q2","line":"RL1"},{"id":"C3","qubit":"Q3","line":"RL1"}],"readout_lines":[{"id":"RL0","cavities":["C0","C1"]},{"id":"RL1","cavities":["C2","C3"]}]},"lines":[{"name":"Q0.xy","group":"qubit","L":114.1,"d1":0.0,"d2":69.669,"d3":0.0,"d":69.669,"q0":114.1,"q1":183.769},{"name":"Q0.z","group":"qubit","L":99.7,"d1":0.0,"d2":83.975,"d3":0.0,"d":83.975,"q0":99.7,"q1":183.675},{"name":"Q1.xy","group":"qubit","L":62.2,"d1":0.0,"d2":121.51,"d3":0.0,"d":121.51,"q0":62.2,"q1":183.71},{"name":"Q1.z","group":"qubit","L":178.6,"d1":0.0,"d2":5.072,"d3":0.0,"d":5.072,"q0":178.6,"q1":183.672},{"name":"Q2.xy","group":"qubit","L":41.0,"d1":0.0,"d2":142.757,"d3":0.0,"d":142.757,"q0":41.0,"q1":183.757},{"name":"Q2.z","group":"qubit","L":120.4,"d1":0.0,"d2":63.321,"d3":0.0,"d":63.321,"q0":120.4,"q1":183.721},{"name":"Q3.xy","group":"qubit","L":183.7,"d1":0.0,"d2":0.0,"d3":0.0,"d":0.0,"q0":183.7,"q1":183.7},{"name":"Q3.z","group":"qubit","L":52.9,"d1":0.0,"d2":130.887,"d3":0.0,"d":130.887,"q0":52.9,"q1":183.787},{"name":"CP0001.z","group":"coupler","L":128.7,"d1":0.0,"d2":55.003,"d3":0.0,"d":55.003,"q0":128.7,"q1":183.703},{"name":"CP0203.z","group":"coupler","L":138.7,"d1":0.0,"d2":45.073,"d3":0.0,"d":45.073,"q0":138.7,"q1":183.773},{"name":"CP0002.z","group":"coupler","L":46.5,"d1":0.0,"d2":137.157,"d3":0.0,"d":137.157,"q0":46.5,"q1":183.657},{"name":"CP0103.z","group":"coupler","L":100.6,"d1":0.0,"d2":83.144,"d3":0.0,"d":83.144,"q0":100.6,"q1":183.744},{"name":"RL0.ro","group":"readout","L":152.6,"d1":0.0,"d2":0.0,"d3":31.197,"d":31.197,"q0":152.6,"q1":183.797},{"name":"RL0.ri","group":"readout","L":112.3,"d1":40.373,"d2":0.0,"d3":31.197,"d":71.57,"q0":112.3,"q1":183.87},{"name":"RL1.ro","group":"readout","L":156.0,"d1":0.0,"d2":0.0,"d3":27.743,"d":27.743,"q0":156.0,"q1":183.743},{"name":"RL1.ri","group":"readout","L":65.1,"d1":90.91,"d2":0.0,"d3":27.743,"d":118.653,"q0":65.1,"q1":183.753}],"stages":[{"name":"readout","title":"读取线校准（ro ↔ ri 对齐）","writeback":"immediate","depends_on":[],"why":"后续一切实验的读出前提：测完立刻写回，后面的实验才读得出信号","nodes":["RL0.ri","RL0.ro","RL1.ri","RL1.ro"],"pairs":[{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro","group":"readout"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro","group":"readout"}],"measurements":[{"a":"RL0.ri","b":"RL0.ro","ok":true,"note":"RL0 读取对 ri-ro","skew_ns":-40.373116,"sigma_ns":0.1661,"quality":0.972788,"attempts":1,"request_id":"req-001-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0},{"a":"RL1.ri","b":"RL1.ro","ok":true,"note":"RL1 读取对 ri-ro","skew_ns":-90.910124,"sigma_ns":0.085808,"quality":0.992664,"attempts":1,"request_id":"req-002-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0}],"solve":{"target_ns":45.455062,"anchor":"RL0.ro","offsets":{"RL0.ri":-20.186558,"RL0.ro":20.186558,"RL1.ri":-45.455062,"RL1.ro":45.455062},"shifts":{"RL0.ri":40.373116,"RL0.ro":0.0,"RL1.ri":90.910124,"RL1.ro":0.0},"residuals":[{"a":"RL0.ri","b":"RL0.ro","skew_ns":-40.373116,"resid_ns":0.0,"request_id":"req-001-align"},{"a":"RL1.ri","b":"RL1.ro","skew_ns":-90.910124,"resid_ns":-0.0,"request_id":"req-002-align"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":1,"solver_converged":true,"request_id":"stage-readout-solve","reason":"4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns"},"written":true,"shifts":{"RL0.ri":40.373,"RL0.ro":0.0,"RL1.ri":90.91,"RL1.ro":0.0},"headroom_return":{},"ledger":{"records":2,"accepted":2,"failed":0,"requests":2,"aborted":null},"headroom_ns":0.0},{"name":"qubit","title":"单比特 XY-Z 校准（xy ↔ z）","writeback":"deferred","depends_on":["readout"],"why":"依赖已对齐的读取线：先记录，末尾与耦合器组一起解","nodes":["Q0.xy","Q0.z","Q1.xy","Q1.z","Q2.xy","Q2.z","Q3.xy","Q3.z"],"pairs":[{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐","group":"qubit"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐","group":"qubit"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐","group":"qubit"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐","group":"qubit"}],"measurements":[{"a":"Q0.z","b":"Q0.xy","ok":true,"note":"Q0 xy-z 对齐","skew_ns":-14.306017,"sigma_ns":0.105601,"quality":0.98891,"attempts":1,"request_id":"req-003-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q1.xy","ok":true,"note":"Q1 xy-z 对齐","skew_ns":116.437697,"sigma_ns":0.096851,"quality":0.990664,"attempts":1,"request_id":"req-004-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q2.z","b":"Q2.xy","ok":true,"note":"Q2 xy-z 对齐","skew_ns":79.435111,"sigma_ns":0.044281,"quality":0.998041,"attempts":1,"request_id":"req-005-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q3.z","b":"Q3.xy","ok":true,"note":"Q3 xy-z 对齐","skew_ns":-130.887169,"sigma_ns":0.141101,"quality":0.980287,"attempts":1,"request_id":"req-006-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0}],"solve":null,"written":false,"shifts":{},"headroom_return":{},"ledger":{"records":4,"accepted":4,"failed":0,"requests":4,"aborted":null}},{"name":"coupler","title":"比特间 Z-Z / 耦合器 Z 校准","writeback":"deferred","depends_on":["qubit"],"why":"依赖可用的单比特门：先记录，末尾一起解","nodes":["CP0001.z","CP0002.z","CP0103.z","CP0203.z","Q0.z","Q1.z","Q2.z","Q3.z"],"pairs":[{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z","group":"coupler"},{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z","group":"coupler"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z","group":"coupler"},{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z","group":"coupler"},{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z","group":"coupler"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z","group":"coupler"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z","group":"coupler"}],"measurements":[{"a":"Q0.z","b":"Q1.z","ok":true,"note":"Q0↔Q1 z-z","skew_ns":-78.903103,"sigma_ns":0.148302,"quality":0.978247,"attempts":1,"request_id":"req-007-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q0.z","b":"Q2.z","ok":true,"note":"Q0↔Q2 z-z","skew_ns":-20.653675,"sigma_ns":0.020893,"quality":0.999564,"attempts":1,"request_id":"req-008-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q3.z","ok":true,"note":"Q1↔Q3 z-z","skew_ns":125.815179,"sigma_ns":0.114605,"quality":0.986952,"attempts":1,"request_id":"req-009-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0001.z","b":"Q0.z","ok":true,"note":"CP0001 z 挂 Q0.z","skew_ns":28.971767,"sigma_ns":0.066188,"quality":0.995629,"attempts":1,"request_id":"req-010-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0002.z","b":"Q0.z","ok":true,"note":"CP0002 z 挂 Q0.z","skew_ns":-53.181793,"sigma_ns":0.117703,"quality":0.986241,"attempts":1,"request_id":"req-011-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0103.z","b":"Q1.z","ok":true,"note":"CP0103 z 挂 Q1.z","skew_ns":-78.071865,"sigma_ns":0.015932,"quality":0.999746,"attempts":1,"request_id":"req-012-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0203.z","b":"Q2.z","ok":true,"note":"CP0203 z 挂 Q2.z","skew_ns":18.248116,"sigma_ns":0.071548,"quality":0.994894,"attempts":1,"request_id":"req-013-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0}],"solve":null,"written":false,"shifts":{},"headroom_return":{},"ledger":{"records":7,"accepted":7,"failed":0,"requests":7,"aborted":null}},{"name":"readout_final","title":"读取线最终对齐（收回 headroom）","writeback":"immediate","depends_on":["coupler"],"why":"依赖 qubit/coupler 已全局对齐：以 readout↔首腔 qubit.xy 的实测 skew 收尾，读取线把 headroom 收回、往左拉回对齐","nodes":["Q0.xy","Q2.xy","RL0.ro","RL1.ro"],"pairs":[{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0","group":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2","group":"readout_final"}],"measurements":[{"a":"RL0.ro","b":"Q0.xy","ok":true,"note":"RL0 ro 挂 Q0","skew_ns":-31.196875,"sigma_ns":0.111616,"quality":0.987619,"attempts":1,"request_id":"req-014-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0},{"a":"RL1.ro","b":"Q2.xy","ok":true,"note":"RL1 ro 挂 Q2","skew_ns":-27.742846,"sigma_ns":0.057785,"quality":0.996666,"attempts":1,"request_id":"req-015-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0}],"solve":{"target_ns":4.20998,"anchor":"CP0001.z","offsets":{"Q0.xy":4.20998,"Q2.xy":4.20998,"RL0.ro":-26.986895,"RL1.ro":-23.532866,"Q0.z":4.20998,"Q1.xy":4.20998,"Q1.z":4.20998,"Q2.z":4.20998,"Q3.xy":4.20998,"Q3.z":4.20998,"CP0001.z":4.20998,"CP0002.z":4.20998,"CP0103.z":4.20998,"CP0203.z":4.20998,"RL0.ri":-26.986895,"RL1.ri":-23.532866},"shifts":{"Q0.xy":0.0,"Q2.xy":0.0,"RL0.ro":31.196875,"RL1.ro":27.742846,"Q0.z":0.0,"Q1.xy":0.0,"Q1.z":0.0,"Q2.z":0.0,"Q3.xy":0.0,"Q3.z":0.0,"CP0001.z":0.0,"CP0002.z":0.0,"CP0103.z":0.0,"CP0203.z":0.0,"RL0.ri":31.196875,"RL1.ri":27.742846},"residuals":[{"a":"RL0.ro","b":"Q0.xy","skew_ns":-31.196875,"resid_ns":0.0,"request_id":"req-014-align"},{"a":"RL1.ro","b":"Q2.xy","skew_ns":-27.742846,"resid_ns":0.0,"request_id":"req-015-align"},{"a":"Q3.xy","b":"Q0.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q0.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q3.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0001.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0002.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0103.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0203.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":6,"solver_converged":true,"request_id":"stage-readout_final-solve","reason":"14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"},"written":true,"shifts":{"Q0.xy":0.0,"Q2.xy":0.0,"RL0.ro":31.197,"RL1.ro":27.743,"Q0.z":0.0,"Q1.xy":0.0,"Q1.z":0.0,"Q2.z":0.0,"Q3.xy":0.0,"Q3.z":0.0,"CP0001.z":0.0,"CP0002.z":0.0,"CP0103.z":0.0,"CP0203.z":0.0,"RL0.ri":31.197,"RL1.ri":27.743},"headroom_return":{},"ledger":{"records":2,"accepted":2,"failed":0,"requests":2,"aborted":null}}],"candidates":[{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐","group":"qubit"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐","group":"qubit"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐","group":"qubit"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐","group":"qubit"},{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro","group":"readout"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro","group":"readout"},{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z","group":"coupler"},{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z","group":"coupler"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z","group":"coupler"},{"a":"Q2.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q2↔Q3 z-z","group":"coupler"},{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0","group":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2","group":"readout_final"},{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z","group":"coupler"},{"a":"CP0001.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q1.z","group":"coupler"},{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z","group":"coupler"},{"a":"CP0002.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q2.z","group":"coupler"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z","group":"coupler"},{"a":"CP0103.z","b":"Q3.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q3.z","group":"coupler"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z","group":"coupler"},{"a":"CP0203.z","b":"Q3.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q3.z","group":"coupler"}],"tree":[{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro","group":"readout"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro","group":"readout"},{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐","group":"qubit"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐","group":"qubit"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐","group":"qubit"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐","group":"qubit"},{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z","group":"coupler"},{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z","group":"coupler"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z","group":"coupler"},{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z","group":"coupler"},{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z","group":"coupler"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z","group":"coupler"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z","group":"coupler"},{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0","group":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2","group":"readout_final"}],"measurements":[{"a":"RL0.ri","b":"RL0.ro","ok":true,"note":"RL0 读取对 ri-ro","skew_ns":-40.373116,"sigma_ns":0.1661,"quality":0.972788,"attempts":1,"request_id":"req-001-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0,"stage":"readout"},{"a":"RL1.ri","b":"RL1.ro","ok":true,"note":"RL1 读取对 ri-ro","skew_ns":-90.910124,"sigma_ns":0.085808,"quality":0.992664,"attempts":1,"request_id":"req-002-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0,"stage":"readout"},{"a":"Q0.z","b":"Q0.xy","ok":true,"note":"Q0 xy-z 对齐","skew_ns":-14.306017,"sigma_ns":0.105601,"quality":0.98891,"attempts":1,"request_id":"req-003-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"qubit"},{"a":"Q1.z","b":"Q1.xy","ok":true,"note":"Q1 xy-z 对齐","skew_ns":116.437697,"sigma_ns":0.096851,"quality":0.990664,"attempts":1,"request_id":"req-004-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"qubit"},{"a":"Q2.z","b":"Q2.xy","ok":true,"note":"Q2 xy-z 对齐","skew_ns":79.435111,"sigma_ns":0.044281,"quality":0.998041,"attempts":1,"request_id":"req-005-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"qubit"},{"a":"Q3.z","b":"Q3.xy","ok":true,"note":"Q3 xy-z 对齐","skew_ns":-130.887169,"sigma_ns":0.141101,"quality":0.980287,"attempts":1,"request_id":"req-006-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"qubit"},{"a":"Q0.z","b":"Q1.z","ok":true,"note":"Q0↔Q1 z-z","skew_ns":-78.903103,"sigma_ns":0.148302,"quality":0.978247,"attempts":1,"request_id":"req-007-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"Q0.z","b":"Q2.z","ok":true,"note":"Q0↔Q2 z-z","skew_ns":-20.653675,"sigma_ns":0.020893,"quality":0.999564,"attempts":1,"request_id":"req-008-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"Q1.z","b":"Q3.z","ok":true,"note":"Q1↔Q3 z-z","skew_ns":125.815179,"sigma_ns":0.114605,"quality":0.986952,"attempts":1,"request_id":"req-009-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"CP0001.z","b":"Q0.z","ok":true,"note":"CP0001 z 挂 Q0.z","skew_ns":28.971767,"sigma_ns":0.066188,"quality":0.995629,"attempts":1,"request_id":"req-010-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"CP0002.z","b":"Q0.z","ok":true,"note":"CP0002 z 挂 Q0.z","skew_ns":-53.181793,"sigma_ns":0.117703,"quality":0.986241,"attempts":1,"request_id":"req-011-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"CP0103.z","b":"Q1.z","ok":true,"note":"CP0103 z 挂 Q1.z","skew_ns":-78.071865,"sigma_ns":0.015932,"quality":0.999746,"attempts":1,"request_id":"req-012-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"CP0203.z","b":"Q2.z","ok":true,"note":"CP0203 z 挂 Q2.z","skew_ns":18.248116,"sigma_ns":0.071548,"quality":0.994894,"attempts":1,"request_id":"req-013-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0,"stage":"coupler"},{"a":"RL0.ro","b":"Q0.xy","ok":true,"note":"RL0 ro 挂 Q0","skew_ns":-31.196875,"sigma_ns":0.111616,"quality":0.987619,"attempts":1,"request_id":"req-014-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0,"stage":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","ok":true,"note":"RL1 ro 挂 Q2","skew_ns":-27.742846,"sigma_ns":0.057785,"quality":0.996666,"attempts":1,"request_id":"req-015-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0,"stage":"readout_final"}],"solve":{"target_ns":78.130694,"anchor":"Q3.xy","offsets":{"Q0.xy":8.461618,"Q0.z":-5.844399,"Q1.xy":-43.378993,"Q1.z":73.058704,"Q2.xy":-64.625835,"Q2.z":14.809276,"Q3.xy":78.130694,"Q3.z":-52.756475,"CP0001.z":23.127368,"CP0002.z":-59.026192,"CP0103.z":-5.013161,"CP0203.z":33.057392},"shifts":{"Q0.xy":69.669076,"Q0.z":83.975093,"Q1.xy":121.509687,"Q1.z":5.07199,"Q2.xy":142.756529,"Q2.z":63.321418,"Q3.xy":0.0,"Q3.z":130.887169,"CP0001.z":55.003326,"CP0002.z":137.156886,"CP0103.z":83.143855,"CP0203.z":45.073302},"residuals":[{"a":"Q0.z","b":"Q0.xy","skew_ns":-14.306017,"resid_ns":0.0,"request_id":"req-003-align"},{"a":"Q1.z","b":"Q1.xy","skew_ns":116.437697,"resid_ns":0.0,"request_id":"req-004-align"},{"a":"Q2.z","b":"Q2.xy","skew_ns":79.435111,"resid_ns":-0.0,"request_id":"req-005-align"},{"a":"Q3.z","b":"Q3.xy","skew_ns":-130.887169,"resid_ns":0.0,"request_id":"req-006-align"},{"a":"Q0.z","b":"Q1.z","skew_ns":-78.903103,"resid_ns":0.0,"request_id":"req-007-align"},{"a":"Q0.z","b":"Q2.z","skew_ns":-20.653675,"resid_ns":-0.0,"request_id":"req-008-align"},{"a":"Q1.z","b":"Q3.z","skew_ns":125.815179,"resid_ns":0.0,"request_id":"req-009-align"},{"a":"CP0001.z","b":"Q0.z","skew_ns":28.971767,"resid_ns":-0.0,"request_id":"req-010-align"},{"a":"CP0002.z","b":"Q0.z","skew_ns":-53.181793,"resid_ns":-0.0,"request_id":"req-011-align"},{"a":"CP0103.z","b":"Q1.z","skew_ns":-78.071865,"resid_ns":-0.0,"request_id":"req-012-align"},{"a":"CP0203.z","b":"Q2.z","skew_ns":18.248116,"resid_ns":-0.0,"request_id":"req-013-align"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":14,"solver_converged":true,"request_id":"stage-final","reason":"12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns"},"report":{"chip":"chip-gen","lines":16,"stages":[{"name":"readout","title":"读取线校准（ro ↔ ri 对齐）","writeback":"immediate","depends_on":[],"why":"后续一切实验的读出前提：测完立刻写回，后面的实验才读得出信号","nodes":["RL0.ri","RL0.ro","RL1.ri","RL1.ro"],"waves":{"kind":"conflict_free_waves","rule":"同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）","bundle_size":1,"waves":[{"index":1,"size":2,"pairs":[{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro"}],"why":"首波：按代价从低到高占位"}],"wave_count":1,"edge_count":2},"pairs":[{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro","group":"readout"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro","group":"readout"}],"measurements":[{"a":"RL0.ri","b":"RL0.ro","ok":true,"note":"RL0 读取对 ri-ro","skew_ns":-40.373116,"sigma_ns":0.1661,"quality":0.972788,"attempts":1,"request_id":"req-001-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0},{"a":"RL1.ri","b":"RL1.ro","ok":true,"note":"RL1 读取对 ri-ro","skew_ns":-90.910124,"sigma_ns":0.085808,"quality":0.992664,"attempts":1,"request_id":"req-002-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0}],"failed":[],"solve":{"target_ns":45.455062,"anchor":"RL0.ro","offsets":{"RL0.ri":-20.186558,"RL0.ro":20.186558,"RL1.ri":-45.455062,"RL1.ro":45.455062},"shifts":{"RL0.ri":40.373116,"RL0.ro":0.0,"RL1.ri":90.910124,"RL1.ro":0.0},"residuals":[{"a":"RL0.ri","b":"RL0.ro","skew_ns":-40.373116,"resid_ns":0.0,"request_id":"req-001-align"},{"a":"RL1.ri","b":"RL1.ro","skew_ns":-90.910124,"resid_ns":-0.0,"request_id":"req-002-align"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":1,"solver_converged":true,"request_id":"stage-readout-solve","reason":"4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns"},"receipt":{"pending":"C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json","request_id":"stage-readout-solve","reason":"4 条线 / 2 条观测 · 2 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns","ts":"2026-10-01T15:22:30","ok":true,"old_hash":"7d9657e107245fa9","applied":[{"line":"RL0.ri","before":0.0,"delta":40.373116,"shift":40.373116,"headroom_return":0.0,"after":40.373116},{"line":"RL1.ri","before":0.0,"delta":90.910124,"shift":90.910124,"headroom_return":0.0,"after":90.910124}],"written":true,"new_hash":"5247c0724c9974be","written_bytes":1262},"written":true,"aborted":null,"resumed":"","ledger":{"records":2,"accepted":2,"failed":0,"requests":2,"aborted":null}},{"name":"qubit","title":"单比特 XY-Z 校准（xy ↔ z）","writeback":"deferred","depends_on":["readout"],"why":"依赖已对齐的读取线：先记录，末尾与耦合器组一起解","nodes":["Q0.xy","Q0.z","Q1.xy","Q1.z","Q2.xy","Q2.z","Q3.xy","Q3.z"],"waves":{"kind":"conflict_free_waves","rule":"同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）","bundle_size":1,"waves":[{"index":1,"size":4,"pairs":[{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐"}],"why":"首波：按代价从低到高占位"}],"wave_count":1,"edge_count":4},"pairs":[{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐","group":"qubit"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐","group":"qubit"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐","group":"qubit"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐","group":"qubit"}],"measurements":[{"a":"Q0.z","b":"Q0.xy","ok":true,"note":"Q0 xy-z 对齐","skew_ns":-14.306017,"sigma_ns":0.105601,"quality":0.98891,"attempts":1,"request_id":"req-003-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q1.xy","ok":true,"note":"Q1 xy-z 对齐","skew_ns":116.437697,"sigma_ns":0.096851,"quality":0.990664,"attempts":1,"request_id":"req-004-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q2.z","b":"Q2.xy","ok":true,"note":"Q2 xy-z 对齐","skew_ns":79.435111,"sigma_ns":0.044281,"quality":0.998041,"attempts":1,"request_id":"req-005-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q3.z","b":"Q3.xy","ok":true,"note":"Q3 xy-z 对齐","skew_ns":-130.887169,"sigma_ns":0.141101,"quality":0.980287,"attempts":1,"request_id":"req-006-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0}],"failed":[],"solve":null,"receipt":null,"written":false,"aborted":null,"resumed":"","ledger":{"records":4,"accepted":4,"failed":0,"requests":4,"aborted":null}},{"name":"coupler","title":"比特间 Z-Z / 耦合器 Z 校准","writeback":"deferred","depends_on":["qubit"],"why":"依赖可用的单比特门：先记录，末尾一起解","nodes":["CP0001.z","CP0002.z","CP0103.z","CP0203.z","Q0.z","Q1.z","Q2.z","Q3.z"],"waves":{"kind":"conflict_free_waves","rule":"同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）","bundle_size":1,"waves":[{"index":1,"size":2,"pairs":[{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z"}],"why":"首波：按代价从低到高占位"},{"index":2,"size":2,"pairs":[{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z"}],"why":"与既有 1 波都冲突（共享线名），另开新波"},{"index":3,"size":2,"pairs":[{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z"}],"why":"与既有 2 波都冲突（共享线名），另开新波"},{"index":4,"size":1,"pairs":[{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z"}],"why":"与既有 3 波都冲突（共享线名），另开新波"}],"wave_count":4,"edge_count":7},"pairs":[{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z","group":"coupler"},{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z","group":"coupler"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z","group":"coupler"},{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z","group":"coupler"},{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z","group":"coupler"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z","group":"coupler"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z","group":"coupler"}],"measurements":[{"a":"Q0.z","b":"Q1.z","ok":true,"note":"Q0↔Q1 z-z","skew_ns":-78.903103,"sigma_ns":0.148302,"quality":0.978247,"attempts":1,"request_id":"req-007-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q0.z","b":"Q2.z","ok":true,"note":"Q0↔Q2 z-z","skew_ns":-20.653675,"sigma_ns":0.020893,"quality":0.999564,"attempts":1,"request_id":"req-008-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q3.z","ok":true,"note":"Q1↔Q3 z-z","skew_ns":125.815179,"sigma_ns":0.114605,"quality":0.986952,"attempts":1,"request_id":"req-009-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0001.z","b":"Q0.z","ok":true,"note":"CP0001 z 挂 Q0.z","skew_ns":28.971767,"sigma_ns":0.066188,"quality":0.995629,"attempts":1,"request_id":"req-010-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0002.z","b":"Q0.z","ok":true,"note":"CP0002 z 挂 Q0.z","skew_ns":-53.181793,"sigma_ns":0.117703,"quality":0.986241,"attempts":1,"request_id":"req-011-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0103.z","b":"Q1.z","ok":true,"note":"CP0103 z 挂 Q1.z","skew_ns":-78.071865,"sigma_ns":0.015932,"quality":0.999746,"attempts":1,"request_id":"req-012-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0203.z","b":"Q2.z","ok":true,"note":"CP0203 z 挂 Q2.z","skew_ns":18.248116,"sigma_ns":0.071548,"quality":0.994894,"attempts":1,"request_id":"req-013-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0}],"failed":[],"solve":null,"receipt":null,"written":false,"aborted":null,"resumed":"","ledger":{"records":7,"accepted":7,"failed":0,"requests":7,"aborted":null}},{"name":"readout_final","title":"读取线最终对齐（收回 headroom）","writeback":"immediate","depends_on":["coupler"],"why":"依赖 qubit/coupler 已全局对齐：以 readout↔首腔 qubit.xy 的实测 skew 收尾，读取线把 headroom 收回、往左拉回对齐","nodes":["Q0.xy","Q2.xy","RL0.ro","RL1.ro"],"waves":{"kind":"conflict_free_waves","rule":"同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）","bundle_size":1,"waves":[{"index":1,"size":2,"pairs":[{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2"}],"why":"首波：按代价从低到高占位"}],"wave_count":1,"edge_count":2},"pairs":[{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0","group":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2","group":"readout_final"}],"measurements":[{"a":"RL0.ro","b":"Q0.xy","ok":true,"note":"RL0 ro 挂 Q0","skew_ns":-31.196875,"sigma_ns":0.111616,"quality":0.987619,"attempts":1,"request_id":"req-014-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0},{"a":"RL1.ro","b":"Q2.xy","ok":true,"note":"RL1 ro 挂 Q2","skew_ns":-27.742846,"sigma_ns":0.057785,"quality":0.996666,"attempts":1,"request_id":"req-015-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0}],"failed":[],"solve":{"target_ns":4.20998,"anchor":"CP0001.z","offsets":{"Q0.xy":4.20998,"Q2.xy":4.20998,"RL0.ro":-26.986895,"RL1.ro":-23.532866,"Q0.z":4.20998,"Q1.xy":4.20998,"Q1.z":4.20998,"Q2.z":4.20998,"Q3.xy":4.20998,"Q3.z":4.20998,"CP0001.z":4.20998,"CP0002.z":4.20998,"CP0103.z":4.20998,"CP0203.z":4.20998,"RL0.ri":-26.986895,"RL1.ri":-23.532866},"shifts":{"Q0.xy":0.0,"Q2.xy":0.0,"RL0.ro":31.196875,"RL1.ro":27.742846,"Q0.z":0.0,"Q1.xy":0.0,"Q1.z":0.0,"Q2.z":0.0,"Q3.xy":0.0,"Q3.z":0.0,"CP0001.z":0.0,"CP0002.z":0.0,"CP0103.z":0.0,"CP0203.z":0.0,"RL0.ri":31.196875,"RL1.ri":27.742846},"residuals":[{"a":"RL0.ro","b":"Q0.xy","skew_ns":-31.196875,"resid_ns":0.0,"request_id":"req-014-align"},{"a":"RL1.ro","b":"Q2.xy","skew_ns":-27.742846,"resid_ns":0.0,"request_id":"req-015-align"},{"a":"Q3.xy","b":"Q0.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q0.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q3.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0001.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0002.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0103.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0203.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":6,"solver_converged":true,"request_id":"stage-readout_final-solve","reason":"14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"},"receipt":{"pending":"C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json","request_id":"stage-readout_final-solve","reason":"14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）","ts":"2026-10-01T15:22:30","ok":true,"old_hash":"c7acc0f4c40722d6","applied":[{"line":"RL0.ri","before":40.373116,"delta":31.196875,"shift":31.196875,"headroom_return":0.0,"after":71.569991},{"line":"RL0.ro","before":0.0,"delta":31.196875,"shift":31.196875,"headroom_return":0.0,"after":31.196875},{"line":"RL1.ri","before":90.910124,"delta":27.742846,"shift":27.742846,"headroom_return":0.0,"after":118.65297},{"line":"RL1.ro","before":0.0,"delta":27.742846,"shift":27.742846,"headroom_return":0.0,"after":27.742846}],"written":true,"new_hash":"5cbcea91698a1796","written_bytes":1342},"written":true,"aborted":null,"resumed":"","ledger":{"records":2,"accepted":2,"failed":0,"requests":2,"aborted":null}}],"tree":[{"a":"RL0.ri","b":"RL0.ro","kind":"timing.align","cost":1.0,"note":"RL0 读取对 ri-ro","group":"readout"},{"a":"RL1.ri","b":"RL1.ro","kind":"timing.align","cost":1.0,"note":"RL1 读取对 ri-ro","group":"readout"},{"a":"Q0.z","b":"Q0.xy","kind":"timing.align","cost":1.0,"note":"Q0 xy-z 对齐","group":"qubit"},{"a":"Q1.z","b":"Q1.xy","kind":"timing.align","cost":1.0,"note":"Q1 xy-z 对齐","group":"qubit"},{"a":"Q2.z","b":"Q2.xy","kind":"timing.align","cost":1.0,"note":"Q2 xy-z 对齐","group":"qubit"},{"a":"Q3.z","b":"Q3.xy","kind":"timing.align","cost":1.0,"note":"Q3 xy-z 对齐","group":"qubit"},{"a":"Q0.z","b":"Q1.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q1 z-z","group":"coupler"},{"a":"Q0.z","b":"Q2.z","kind":"timing.align","cost":2.0,"note":"Q0↔Q2 z-z","group":"coupler"},{"a":"Q1.z","b":"Q3.z","kind":"timing.align","cost":2.0,"note":"Q1↔Q3 z-z","group":"coupler"},{"a":"CP0001.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0001 z 挂 Q0.z","group":"coupler"},{"a":"CP0002.z","b":"Q0.z","kind":"timing.align","cost":3.0,"note":"CP0002 z 挂 Q0.z","group":"coupler"},{"a":"CP0103.z","b":"Q1.z","kind":"timing.align","cost":3.0,"note":"CP0103 z 挂 Q1.z","group":"coupler"},{"a":"CP0203.z","b":"Q2.z","kind":"timing.align","cost":3.0,"note":"CP0203 z 挂 Q2.z","group":"coupler"},{"a":"RL0.ro","b":"Q0.xy","kind":"timing.align","cost":2.0,"note":"RL0 ro 挂 Q0","group":"readout_final"},{"a":"RL1.ro","b":"Q2.xy","kind":"timing.align","cost":2.0,"note":"RL1 ro 挂 Q2","group":"readout_final"}],"measurements":[{"a":"RL0.ri","b":"RL0.ro","ok":true,"note":"RL0 读取对 ri-ro","skew_ns":-40.373116,"sigma_ns":0.1661,"quality":0.972788,"attempts":1,"request_id":"req-001-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0},{"a":"RL1.ri","b":"RL1.ro","ok":true,"note":"RL1 读取对 ri-ro","skew_ns":-90.910124,"sigma_ns":0.085808,"quality":0.992664,"attempts":1,"request_id":"req-002-align","config_hash":"7d9657e107245fa9","reason":"合格","wave":0},{"a":"Q0.z","b":"Q0.xy","ok":true,"note":"Q0 xy-z 对齐","skew_ns":-14.306017,"sigma_ns":0.105601,"quality":0.98891,"attempts":1,"request_id":"req-003-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q1.xy","ok":true,"note":"Q1 xy-z 对齐","skew_ns":116.437697,"sigma_ns":0.096851,"quality":0.990664,"attempts":1,"request_id":"req-004-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q2.z","b":"Q2.xy","ok":true,"note":"Q2 xy-z 对齐","skew_ns":79.435111,"sigma_ns":0.044281,"quality":0.998041,"attempts":1,"request_id":"req-005-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q3.z","b":"Q3.xy","ok":true,"note":"Q3 xy-z 对齐","skew_ns":-130.887169,"sigma_ns":0.141101,"quality":0.980287,"attempts":1,"request_id":"req-006-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q0.z","b":"Q1.z","ok":true,"note":"Q0↔Q1 z-z","skew_ns":-78.903103,"sigma_ns":0.148302,"quality":0.978247,"attempts":1,"request_id":"req-007-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q0.z","b":"Q2.z","ok":true,"note":"Q0↔Q2 z-z","skew_ns":-20.653675,"sigma_ns":0.020893,"quality":0.999564,"attempts":1,"request_id":"req-008-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"Q1.z","b":"Q3.z","ok":true,"note":"Q1↔Q3 z-z","skew_ns":125.815179,"sigma_ns":0.114605,"quality":0.986952,"attempts":1,"request_id":"req-009-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0001.z","b":"Q0.z","ok":true,"note":"CP0001 z 挂 Q0.z","skew_ns":28.971767,"sigma_ns":0.066188,"quality":0.995629,"attempts":1,"request_id":"req-010-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0002.z","b":"Q0.z","ok":true,"note":"CP0002 z 挂 Q0.z","skew_ns":-53.181793,"sigma_ns":0.117703,"quality":0.986241,"attempts":1,"request_id":"req-011-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0103.z","b":"Q1.z","ok":true,"note":"CP0103 z 挂 Q1.z","skew_ns":-78.071865,"sigma_ns":0.015932,"quality":0.999746,"attempts":1,"request_id":"req-012-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"CP0203.z","b":"Q2.z","ok":true,"note":"CP0203 z 挂 Q2.z","skew_ns":18.248116,"sigma_ns":0.071548,"quality":0.994894,"attempts":1,"request_id":"req-013-align","config_hash":"5247c0724c9974be","reason":"合格","wave":0},{"a":"RL0.ro","b":"Q0.xy","ok":true,"note":"RL0 ro 挂 Q0","skew_ns":-31.196875,"sigma_ns":0.111616,"quality":0.987619,"attempts":1,"request_id":"req-014-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0},{"a":"RL1.ro","b":"Q2.xy","ok":true,"note":"RL1 ro 挂 Q2","skew_ns":-27.742846,"sigma_ns":0.057785,"quality":0.996666,"attempts":1,"request_id":"req-015-align","config_hash":"c7acc0f4c40722d6","reason":"合格","wave":0}],"failed":[],"bridge_failures":[],"isolated":[],"solve":{"target_ns":78.130694,"anchor":"Q3.xy","offsets":{"Q0.xy":8.461618,"Q0.z":-5.844399,"Q1.xy":-43.378993,"Q1.z":73.058704,"Q2.xy":-64.625835,"Q2.z":14.809276,"Q3.xy":78.130694,"Q3.z":-52.756475,"CP0001.z":23.127368,"CP0002.z":-59.026192,"CP0103.z":-5.013161,"CP0203.z":33.057392},"shifts":{"Q0.xy":69.669076,"Q0.z":83.975093,"Q1.xy":121.509687,"Q1.z":5.07199,"Q2.xy":142.756529,"Q2.z":63.321418,"Q3.xy":0.0,"Q3.z":130.887169,"CP0001.z":55.003326,"CP0002.z":137.156886,"CP0103.z":83.143855,"CP0203.z":45.073302},"residuals":[{"a":"Q0.z","b":"Q0.xy","skew_ns":-14.306017,"resid_ns":0.0,"request_id":"req-003-align"},{"a":"Q1.z","b":"Q1.xy","skew_ns":116.437697,"resid_ns":0.0,"request_id":"req-004-align"},{"a":"Q2.z","b":"Q2.xy","skew_ns":79.435111,"resid_ns":-0.0,"request_id":"req-005-align"},{"a":"Q3.z","b":"Q3.xy","skew_ns":-130.887169,"resid_ns":0.0,"request_id":"req-006-align"},{"a":"Q0.z","b":"Q1.z","skew_ns":-78.903103,"resid_ns":0.0,"request_id":"req-007-align"},{"a":"Q0.z","b":"Q2.z","skew_ns":-20.653675,"resid_ns":-0.0,"request_id":"req-008-align"},{"a":"Q1.z","b":"Q3.z","skew_ns":125.815179,"resid_ns":0.0,"request_id":"req-009-align"},{"a":"CP0001.z","b":"Q0.z","skew_ns":28.971767,"resid_ns":-0.0,"request_id":"req-010-align"},{"a":"CP0002.z","b":"Q0.z","skew_ns":-53.181793,"resid_ns":-0.0,"request_id":"req-011-align"},{"a":"CP0103.z","b":"Q1.z","skew_ns":-78.071865,"resid_ns":-0.0,"request_id":"req-012-align"},{"a":"CP0203.z","b":"Q2.z","skew_ns":18.248116,"resid_ns":-0.0,"request_id":"req-013-align"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":14,"solver_converged":true,"request_id":"stage-final","reason":"12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns"},"target_ns":78.130694,"anchor":"Q3.xy","plan_ns":937.568331,"budget_ns":1068.851571,"residual":{"count":16,"residual_ns":0.213105,"max_ns":183.869991,"min_ns":183.656886,"q":{"Q0.xy":183.769076,"Q0.z":183.675093,"Q1.xy":183.709687,"Q1.z":183.67199,"Q2.xy":183.756529,"Q2.z":183.721418,"Q3.xy":183.7,"Q3.z":183.787169,"CP0001.z":183.703326,"CP0203.z":183.773302,"CP0002.z":183.656886,"CP0103.z":183.743855,"RL0.ro":183.796875,"RL0.ri":183.869991,"RL1.ro":183.742846,"RL1.ri":183.75297}},"converged":true,"aligned":true,"aborted":null,"written":true,"receipt":{"pending":"C:\\Users\\xl\\AppData\\Local\\Temp\\qxtrl-anim-e1ix5vz7\\pending.json","request_id":"stage-final","reason":"12 条线 / 11 条观测 · 目标=最右线 Q3.xy · 最大残差 0.000 ns","ts":"2026-10-01T15:22:30","ok":true,"old_hash":"5247c0724c9974be","applied":[{"line":"CP0001.z","before":0.0,"delta":55.003326,"shift":55.003326,"headroom_return":0.0,"after":55.003326},{"line":"CP0002.z","before":0.0,"delta":137.156886,"shift":137.156886,"headroom_return":0.0,"after":137.156886},{"line":"CP0103.z","before":0.0,"delta":83.143855,"shift":83.143855,"headroom_return":0.0,"after":83.143855},{"line":"CP0203.z","before":0.0,"delta":45.073302,"shift":45.073302,"headroom_return":0.0,"after":45.073302},{"line":"Q0.xy","before":0.0,"delta":69.669076,"shift":69.669076,"headroom_return":0.0,"after":69.669076},{"line":"Q0.z","before":0.0,"delta":83.975093,"shift":83.975093,"headroom_return":0.0,"after":83.975093},{"line":"Q1.xy","before":0.0,"delta":121.509687,"shift":121.509687,"headroom_return":0.0,"after":121.509687},{"line":"Q1.z","before":0.0,"delta":5.07199,"shift":5.07199,"headroom_return":0.0,"after":5.07199},{"line":"Q2.xy","before":0.0,"delta":142.756529,"shift":142.756529,"headroom_return":0.0,"after":142.756529},{"line":"Q2.z","before":0.0,"delta":63.321418,"shift":63.321418,"headroom_return":0.0,"after":63.321418},{"line":"Q3.z","before":0.0,"delta":130.887169,"shift":130.887169,"headroom_return":0.0,"after":130.887169}],"written":true,"new_hash":"c7acc0f4c40722d6","written_bytes":1330},"ledger":{"records":15,"accepted":15,"failed":0,"requests":15,"aborted":null},"review":{"records":0,"commit":0,"noop":0,"retry":0,"recheck":0,"replan":0,"escalate":0,"total_written_ns":0},"final_solve":{"target_ns":4.20998,"anchor":"CP0001.z","offsets":{"Q0.xy":4.20998,"Q2.xy":4.20998,"RL0.ro":-26.986895,"RL1.ro":-23.532866,"Q0.z":4.20998,"Q1.xy":4.20998,"Q1.z":4.20998,"Q2.z":4.20998,"Q3.xy":4.20998,"Q3.z":4.20998,"CP0001.z":4.20998,"CP0002.z":4.20998,"CP0103.z":4.20998,"CP0203.z":4.20998,"RL0.ri":-26.986895,"RL1.ri":-23.532866},"shifts":{"Q0.xy":0.0,"Q2.xy":0.0,"RL0.ro":31.196875,"RL1.ro":27.742846,"Q0.z":0.0,"Q1.xy":0.0,"Q1.z":0.0,"Q2.z":0.0,"Q3.xy":0.0,"Q3.z":0.0,"CP0001.z":0.0,"CP0002.z":0.0,"CP0103.z":0.0,"CP0203.z":0.0,"RL0.ri":31.196875,"RL1.ri":27.742846},"residuals":[{"a":"RL0.ro","b":"Q0.xy","skew_ns":-31.196875,"resid_ns":0.0,"request_id":"req-014-align"},{"a":"RL1.ro","b":"Q2.xy","skew_ns":-27.742846,"resid_ns":0.0,"request_id":"req-015-align"},{"a":"Q3.xy","b":"Q0.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q0.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q1.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.xy","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q2.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"Q3.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0001.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0002.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0103.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"},{"a":"Q3.xy","b":"CP0203.z","skew_ns":0.0,"resid_ns":0.0,"request_id":"stage-final-soft"}],"headroom_return":{},"max_resid_ns":0.0,"rms_resid_ns":0.0,"iterations":6,"solver_converged":true,"request_id":"stage-readout_final-solve","reason":"14 条线 / 13 条观测 · 目标=最右线 CP0001.z · 最大残差 0.000 ns · 读取线 ro/ri 同步增减（2 条 ri 随动）"}},"layout":{"chip":{"w":520,"h":394.0,"vb":"0 0 520 394.0","r":27.0,"dot":{"dx":11.1,"dy":3.0,"rad":7.0},"qubits":[{"id":"Q0","cx":189.0,"cy":73.0},{"id":"Q1","cx":429.0,"cy":73.0},{"id":"Q2","cx":189.0,"cy":313.0},{"id":"Q3","cx":429.0,"cy":313.0}],"couplers":[{"id":"CP0001","cx":309.0,"cy":73.0,"half":8.1},{"id":"CP0203","cx":309.0,"cy":313.0,"half":8.1},{"id":"CP0002","cx":189.0,"cy":193.0,"half":8.1},{"id":"CP0103","cx":429.0,"cy":193.0,"half":8.1}],"readouts":[{"id":"RL0","cx":70.0,"cy":133.0,"w":88.0,"h":28.0,"tap":17.0},{"id":"RL1","cx":70.0,"cy":253.0,"w":88.0,"h":28.0,"tap":17.0}],"anchor":{"Q0.xy":[177.9,70.0],"Q0.z":[200.1,76.0],"Q1.xy":[417.9,70.0],"Q1.z":[440.1,76.0],"Q2.xy":[177.9,310.0],"Q2.z":[200.1,316.0],"Q3.xy":[417.9,310.0],"Q3.z":[440.1,316.0],"CP0001.z":[309.0,73.0],"CP0203.z":[309.0,313.0],"CP0002.z":[189.0,193.0],"CP0103.z":[429.0,193.0],"RL0.ro":[53.0,133.0],"RL0.ri":[87.0,133.0],"RL1.ro":[53.0,253.0],"RL1.ri":[87.0,253.0]},"missingCouplers":[]},"time":{"w":780,"h":476.0,"vb":"0 0 780 476.0","x0":96.0,"x1":742.0,"y0":46.0,"step":22.0,"dom":200.0,"ticks":[0.0,50.0,100.0,150.0,200.0],"axisY":392.0,"resY":442.0,"subY":460.0,"nameX":8.0,"targetX":689.4,"targetAnchor":"middle","labelMaxPx":518.5}}};
+const LINES = DATA.lines, TREE = DATA.tree, MEAS = DATA.measurements, CAND = DATA.candidates;
+const STAGES = DATA.stages || [];
+const SOLVE = DATA.solve || {}, REP = DATA.report || {};
+const META = DATA.meta || {}, CL = DATA.layout.chip, TL = DATA.layout.time;
+const N = LINES.length, ANCHOR = SOLVE.anchor || '—';
+const TARGET = Math.max(...LINES.map(l => l.L));
+
+/* 三段位移：d1 = 组 1（读取线）即时落盘的那段；d2 = 末尾整批落盘的那段；
+   d3 = readout_final 的**净**位移（shifts − headroom_return），收回 headroom 时为负 */
+const stByName = {};
+STAGES.forEach(s => { stByName[s.name] = s; });
+const S1 = (stByName.readout || {}).shifts || {};
+const S2 = SOLVE.shifts || {};
+const S3f = (stByName.readout_final || {}).shifts || {};
+const S3r = (stByName.readout_final || {}).headroom_return || {};
+const S3 = {};
+new Set([...Object.keys(S3f), ...Object.keys(S3r)]).forEach(ln => {
+  S3[ln] = (S3f[ln] || 0) - (S3r[ln] || 0);
+});
+const TOTD = Object.values(S2).reduce((a, b) => a + b, 0);
+const TOTD3 = Object.values(S3).reduce((a, b) => a + b, 0);
+const SUMD1 = Object.values(S1).reduce((a, b) => a + b, 0);
+const SUMD3 = Object.values(S3).reduce((a, b) => a + b, 0);
+const SUMRET = Object.values(S3r).reduce((a, b) => a + b, 0);
+const MAXD1 = Math.max(0, ...Object.values(S1));
+const MAXD = Math.max(0, ...LINES.map(l => (l.d1 || 0) + (l.d2 || 0) + (l.d3 || 0)));
+const RES0 = TARGET - Math.min(...LINES.map(l => l.L));
+const RES1 = REP.residual ? REP.residual.residual_ns : 0;
+
+/* 每组各自的测量列表（顺序与 MEAS 一致：readout → qubit → coupler → readout_final） */
+const SGTAG = {readout: '读', qubit: '单', coupler: '耦', readout_final: '终'};
+const MEAS1 = MEAS.filter(m => m.stage === 'readout');
+const MEAS2 = MEAS.filter(m => m.stage === 'qubit');
+const MEAS3 = MEAS.filter(m => m.stage === 'coupler');
+const MEAS4 = MEAS.filter(m => m.stage === 'readout_final');
+const EDGE1 = TREE.filter(t => t.group === 'readout');
+const EDGE2 = TREE.filter(t => t.group === 'qubit');
+const EDGE3 = TREE.filter(t => t.group === 'coupler');
+const EDGE4 = TREE.filter(t => t.group === 'readout_final');
+
+const ACTS = [
+  {id:'chip',    name:'① 生成芯片',                 dur:2600},
+  {id:'truth',   name:'② 真值 L',                   dur:2500},
+  {id:'pending', name:'③ 待测文件',                 dur:1900},
+  {id:'plan',    name:'④ 四组实验计划',             dur:5600},
+  {id:'meas1',   name:'⑤ 组 1 · 读取线测量',        dur:4200},
+  {id:'write1',  name:'⑥ 组 1 · 立刻写回（含 headroom）', dur:4600},
+  {id:'meas2',   name:'⑦ 组 2 · 单比特（只记录）',  dur:5200},
+  {id:'meas3',   name:'⑧ 组 3 · 耦合器（只记录）',  dur:4400},
+  {id:'solve',   name:'⑨ 末尾统一求解 qubit/coupler', dur:4200},
+  {id:'write',   name:'⑩ 整批一次写回',             dur:4000},
+  {id:'meas4',   name:'⑪ 组 4 · readout_final 测量', dur:4200},
+  {id:'write4',  name:'⑫ 组 4 · 收回 headroom 写回', dur:4000},
+  {id:'check',   name:'⑬ 与真值对账',               dur:3000}
+];
+const START = [];
+ACTS.reduce((acc, a) => { START.push(acc); return acc + a.dur; }, 0);
+const TOTAL = START[START.length - 1] + ACTS[ACTS.length - 1].dur;
+
+const SVGNS = 'http://www.w3.org/2000/svg';
+function mk(tag, attrs, parent) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const clamp01 = t => Math.max(0, Math.min(1, t));
+const fmt = (v, n) => Number(v).toFixed(n === undefined ? 1 : n);
+
+/* ---------------- 芯片图：坐标全部来自 DATA.layout ---------------- */
+const ANCH = CL.anchor;
+const keyOf = (a, b) => [a, b].sort().join('|');
+const anchor = line => ANCH[line] || null;
+const colorOf = g => g === 'coupler' ? '#6b3fa0' : (g === 'readout' ? '#1d7a3c' : (g === 'readout_final' ? '#c2410c' : '#2c6cb0'));
+
+const chipSvg = document.getElementById('chip');
+const gCand = mk('g', {}, chipSvg), gTree = mk('g', {}, chipSvg), gNode = mk('g', {}, chipSvg);
+const candEls = {}, treeEls = {};
+
+CAND.forEach(c => {
+  const p1 = anchor(c.a), p2 = anchor(c.b);
+  if (!p1 || !p2) return;
+  candEls[keyOf(c.a, c.b)] = mk('line', {x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1],
+                                         stroke: '#c7ced6', 'stroke-width': 1}, gCand);
+});
+TREE.forEach(t => {
+  const p1 = anchor(t.a), p2 = anchor(t.b);
+  if (!p1 || !p2) return;
+  const g = t.group || (t.cost <= 1 ? 'readout' : (t.cost <= 2 ? 'qubit' : 'coupler'));
+  const el = mk('line', {x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1],
+                         stroke: colorOf(g), 'stroke-width': 2.2,
+                         'stroke-linecap': 'round', opacity: 0}, gTree);
+  treeEls[keyOf(t.a, t.b)] = {el, group: g, edge: t};
+});
+
+const nodeEls = {};
+CL.couplers.forEach(c => {
+  const g = mk('g', {}, gNode), half = c.half;
+  mk('rect', {x: c.cx - half, y: c.cy - half, width: 2 * half, height: 2 * half, rx: 3,
+              fill: '#f2eafb', stroke: '#6b3fa0', 'stroke-width': 1.4}, g);
+  nodeEls[c.id + '.z'] = g;
+});
+CL.readouts.forEach(r => {
+  const g = mk('g', {}, gNode);
+  mk('rect', {x: r.cx - r.w / 2, y: r.cy - r.h / 2, width: r.w, height: r.h, rx: 8,
+              fill: '#e9f6ec', stroke: '#1d7a3c', 'stroke-width': 1.4}, g);
+  mk('text', {x: r.cx, y: r.cy - r.h / 2 - 6, 'text-anchor': 'middle',
+              style: 'font-size:10.5px;fill:#1d7a3c'}, g).textContent = r.id;
+  mk('circle', {cx: r.cx - r.tap, cy: r.cy, r: 5.5, fill: '#1d7a3c'}, g);
+  mk('circle', {cx: r.cx + r.tap, cy: r.cy, r: 5.5, fill: '#8fc7a4'}, g);
+  nodeEls[r.id + '.ro'] = g; nodeEls[r.id + '.ri'] = g;
+});
+CL.qubits.forEach(q => {
+  const g = mk('g', {}, gNode), D = CL.dot;
+  mk('circle', {cx: q.cx, cy: q.cy, r: CL.r, fill: '#eaf2fb', stroke: '#2c6cb0',
+                'stroke-width': 1.6}, g);
+  mk('text', {x: q.cx, y: q.cy + CL.r + 15, 'text-anchor': 'middle', class: 't',
+              fill: '#2c6cb0'}, g).textContent = q.id;
+  mk('circle', {cx: q.cx - D.dx, cy: q.cy - D.dy, r: D.rad, fill: '#2c6cb0'}, g);
+  mk('circle', {cx: q.cx + D.dx, cy: q.cy + D.dy, r: D.rad, fill: '#6b3fa0'}, g);
+  nodeEls[q.id + '.xy'] = g; nodeEls[q.id + '.z'] = g;
+});
+
+/* ---------------- 时间轴：量程 / 行高同样来自 DATA.layout ---------------- */
+const timeSvg = document.getElementById('time');
+const {x0: X0, x1: X1, y0: Y0, step: STEP, dom: DOM} = TL;
+const xs = v => X0 + (Math.max(0, Math.min(DOM, v)) / DOM) * (X1 - X0);
+const rowEls = [];
+LINES.forEach((ln, i) => {
+  const y = Y0 + i * STEP, g = mk('g', {}, timeSvg), col = colorOf(ln.group);
+  mk('text', {x: TL.nameX, y: y + 4, class: 'name'}, g).textContent = ln.name;
+  const base = mk('rect', {x: xs(0), y: y - 5, width: 0, height: 11, rx: 2,
+                           fill: '#c7ced6'}, g);
+  /* 三段位移条：d1（readout 含 headroom）、d2（qubit/coupler 末尾）、d3（readout_final） */
+  const mov1 = mk('rect', {x: xs(ln.L), y: y - 5, width: 0, height: 11, rx: 2,
+                           fill: col, stroke: col, 'stroke-width': 0}, g);
+  const mov2 = mk('rect', {x: xs(ln.L), y: y - 5, width: 0, height: 11, rx: 2,
+                           fill: col, stroke: col, 'stroke-width': 0}, g);
+  const mov3 = mk('rect', {x: xs(ln.L), y: y - 5, width: 0, height: 11, rx: 2,
+                           fill: col, stroke: col, 'stroke-width': 0}, g);
+  const tip = mk('rect', {x: xs(ln.L) - 2, y: y - 8, width: 4, height: 17, rx: 1.5,
+                          fill: '#1f2933'}, g);
+  rowEls.push({g, base, mov1, mov2, mov3, tip, ln});
+});
+const targetLine = mk('line', {x1: TL.targetX, y1: Y0 - 18, x2: TL.targetX, y2: TL.axisY,
+                               stroke: '#1d7a3c', 'stroke-width': 1.4, 'stroke-dasharray': '5 4',
+                               opacity: 0}, timeSvg);
+const targetTxt = mk('text', {x: TL.targetX, y: Y0 - 24, 'text-anchor': TL.targetAnchor,
+                              class: 's', fill: '#1d7a3c', opacity: 0}, timeSvg);
+targetTxt.textContent = '目标锚线 ' + ANCHOR;
+TL.ticks.forEach(v => {
+  mk('line', {x1: xs(v), y1: TL.axisY, x2: xs(v), y2: Y0 + N * STEP - 2,
+              stroke: '#c7ced6', 'stroke-width': 1}, timeSvg);
+  mk('text', {x: xs(v), y: Y0 + N * STEP + 15, 'text-anchor': 'middle', class: 'tick'}, timeSvg)
+    .textContent = (v % 1 ? v.toFixed(1) : v) + ' ns';
+});
+const resTxt = mk('text', {x: X0, y: TL.resY, class: 't', fill: '#1f2933'}, timeSvg);
+const resSub = mk('text', {x: X0, y: TL.subY, class: 's', fill: '#5c6b7a'}, timeSvg);
+
+/* ---------------- 台账 / 徽标 / 守卫 / 字幕 ---------------- */
+const ledTab = document.getElementById('ledger');
+const head = document.createElement('tr');
+['组', '边', 'skew ns', 'σ ns', 'quality', '尝试'].forEach(h => {
+  const th = document.createElement('th'); th.textContent = h; head.appendChild(th);
+});
+ledTab.appendChild(head);
+const ledRows = MEAS.map(m => {
+  const tr = document.createElement('tr');
+  [SGTAG[m.stage] || '—', m.a + ' ⇄ ' + m.b, fmt(m.skew_ns, 2), fmt(m.sigma_ns, 3),
+   fmt(m.quality, 3), m.attempts].forEach(v => {
+    const td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+  });
+  ledTab.appendChild(tr);
+  return tr;
+});
+const badges = document.getElementById('badges');
+const bd = {};
+[['file', '待测文件'], ['sess', '会话累计 d'], ['dev', '设备已下发']].forEach(it => {
+  const d = document.createElement('div'); d.className = 'badge';
+  const b = document.createElement('b'); b.textContent = it[1] + '：';
+  const s = document.createElement('span'); d.appendChild(b); d.appendChild(s);
+  badges.appendChild(d); bd[it[0]] = {box: d, val: s};
+});
+const guardBox = document.getElementById('guards');
+const gEls = ['CAS 指纹', '单调 δ≥0', '预算 d≤dmax', '原子写 + 审计'].map(t => {
+  const d = document.createElement('div'); d.className = 'guard'; d.textContent = t;
+  guardBox.appendChild(d); return d;
+});
+const say = document.getElementById('say');
+
+/* ---------------- 导航 ---------------- */
+const nav = document.getElementById('nav');
+const pills = ACTS.map((a, i) => {
+  const b = document.createElement('button'); b.className = 'pill'; b.textContent = a.name;
+  b.onclick = () => seek(START[i] + 1);
+  nav.appendChild(b); return b;
+});
+
+/* ---------------- 时钟 ---------------- */
+let T = 0, playing = true, rate = 1, last = 0;
+const bar = document.getElementById('bar'), clock = document.getElementById('clock');
+const playBtn = document.getElementById('play'), spdBtn = document.getElementById('speed');
+playBtn.onclick = () => {
+  if (!playing && T >= TOTAL - 1) T = 0;
+  playing = !playing; last = 0;
+  playBtn.textContent = playing ? '⏸ 暂停' : '▶ 播放';
+};
+spdBtn.onclick = () => {
+  rate = rate === 1 ? 2 : (rate === 2 ? 4 : (rate === 4 ? .5 : 1));
+  spdBtn.textContent = rate + '×';
+};
+document.getElementById('restart').onclick = () => {
+  T = 0; playing = true; playBtn.textContent = '⏸ 暂停';
+};
+function actIndex(t) {
+  let i = 0;
+  for (let k = 0; k < START.length; k++) if (t >= START[k]) i = k;
+  return i;
+}
+function step(dir) {
+  const cur = actIndex(T);
+  if (dir < 0) T = T - START[cur] > 350 ? START[cur] : START[Math.max(0, cur - 1)];
+  else T = cur + 1 < ACTS.length ? START[cur + 1] : TOTAL - 1;
+}
+function seek(t) { T = Math.max(0, Math.min(TOTAL - 1, t)); }
+document.getElementById('prev').onclick = () => step(-1);
+document.getElementById('next').onclick = () => step(1);
+bar.oninput = () => { T = (bar.value / 1000) * TOTAL; };
+document.onkeydown = e => {
+  if (e.code === 'Space') { e.preventDefault(); playBtn.onclick(); }
+  if (e.code === 'ArrowRight') step(1);
+  if (e.code === 'ArrowLeft') step(-1);
+  if (e.key === 'r' || e.key === 'R') document.getElementById('restart').onclick();
+};
+
+/* ---------------- 每帧渲染 ---------------- */
+function locate(t) {
+  const i = actIndex(t);
+  return {i, p: clamp01((t - START[i]) / ACTS[i].dur)};
+}
+
+function vm(t) {
+  const loc = locate(t), i = loc.i, p = loc.p, id = ACTS[i].id;
+  const v = {id, p, i, lit: {readout: 0, qubit: 0, coupler: 0, readout_final: 0}, candAlpha: 0,
+             measured: 0, hot: null, f1: 0, f2: 0, f3: 0, solid1: false, solid2: false, solid3: false,
+             guard: 0, written1: false, written2: false, written3: false, applied: false,
+             showTarget: 0, hint: '', sub: ''};
+  const at = (arr, n) => arr[Math.max(0, Math.min(n, arr.length - 1))] || null;
+
+  if (id === 'chip') {
+    v.sub = '由构型参数推出 pos / 耦合器 / connections —— ' + (META.chip || {}).description;
+  } else if (id === 'truth') {
+    v.sub = '每条线拿到一个隐藏真值 L（' + fmt(Math.min(...LINES.map(l => l.L))) + '–'
+          + fmt(TARGET) + ' ns）；初始失配 ' + fmt(RES0) + ' ns，这就是要校掉的东西。';
+  } else if (id === 'pending') {
+    v.sub = '待测文件全零：d = 0，q = L。truth 只用来装载设备、事后对账，流程全程不读它。';
+  } else if (id === 'plan') {
+    v.candAlpha = clamp01(p / .2);
+    const seg = clamp01((p - .2) / .75);
+    v.lit = {readout: Math.floor(clamp01(seg / .25) * EDGE1.length),
+             qubit: Math.floor(clamp01((seg - .25) / .25) * EDGE2.length),
+             coupler: Math.floor(clamp01((seg - .50) / .25) * EDGE3.length),
+             readout_final: Math.floor(clamp01((seg - .75) / .25) * EDGE4.length)};
+    const nsel = v.lit.readout + v.lit.qubit + v.lit.coupler + v.lit.readout_final;
+    v.hint = '候选边 ' + CAND.length + ' 条 · 已选 ' + nsel + ' / ' + TREE.length + ' 条：'
+           + '组 1 读取线 ' + v.lit.readout + ' · 组 2 单比特 ' + v.lit.qubit
+           + ' · 组 3 耦合器 ' + v.lit.coupler + ' · 组 4 最终对齐 ' + v.lit.readout_final;
+    v.sub = '按物理依赖分四组，各自挑代价最小的生成树：<b>组 1</b> "同线 ri↔ro" 对齐后'
+          + '整体右移 headroom（给后续留空间）；<b>组 2</b> 每比特 z↔xy；<b>组 3</b> 比特间 z-z、'
+          + '耦合器 CP.z 挂相邻比特（可调用 Q.z，不可调用 Q.xy）；<b>组 4</b> 用 readout↔'
+          + '首腔 qubit.xy 的实测 skew 收尾：收回 headroom，把读取线拉回对齐。'
+          + '前一组没就绪，后一组不会开始。';
+  } else if (id === 'meas1') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: 0, coupler: 0};
+    v.measured = Math.floor(p * MEAS1.length);
+    v.hot = at(MEAS1, v.measured);
+    v.hint = '组 1 测量 ' + v.measured + ' / ' + MEAS1.length + ' 条 · 当前：'
+           + (v.hot ? v.hot.a + ' ⇄ ' + v.hot.b : '—');
+    v.sub = '读取脉冲的发射(ro)与采样窗口(ri)没对准，后面<b>什么都读不出来</b>，X_π 更无从谈起'
+          + '——所以这组必须最先做，而且结果<b>不能攒到最后</b>。';
+  } else if (id === 'write1') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: 0, coupler: 0};
+    v.measured = MEAS1.length;
+    v.f1 = ease(clamp01(p / .8));
+    v.guard = Math.floor(clamp01(p / .55) * 4);
+    v.written1 = p >= .55; v.solid1 = true; v.applied = p >= .8;
+    v.hint = '组 1 求解 → 四道守卫 → 立刻落盘 · 右移 ' + fmt(SUMD1) + ' ns';
+    v.sub = v.written1
+      ? '每条读取线内部按分量定标后就地写回：<b>d₁ 这两段先走</b>。'
+        + '后面的单比特、耦合器实验都站在"读取已可用"的新基线上。'
+      : '组 1 的分量求解（各条读取线互无基准）→ 守卫依次检查：CAS 指纹 → 单调 δ≥0 → '
+        + '预算 d≤dmax → 原子写。';
+  } else if (id === 'meas2') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: 0, readout_final: 0};
+    v.measured = MEAS1.length + Math.floor(p * MEAS2.length);
+    v.hot = at(MEAS2, v.measured - MEAS1.length);
+    v.f1 = 1; v.solid1 = true; v.written1 = true; v.applied = true;
+    v.hint = '组 2 测量 ' + (v.measured - MEAS1.length) + ' / ' + MEAS2.length + ' 条 · 当前：'
+           + (v.hot ? v.hot.a + ' ⇄ ' + v.hot.b : '—');
+    v.sub = '有了读取基准，才能逐比特把 xy 与 z 对准。<b>这一组只记录不写回</b>——'
+          + '现在写回会让组 3 站在另一个基线上，两组 skew 就不再可比。';
+  } else if (id === 'meas3') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: 0};
+    v.measured = MEAS1.length + MEAS2.length + Math.floor(p * MEAS3.length);
+    v.hot = at(MEAS3, v.measured - MEAS1.length - MEAS2.length);
+    v.f1 = 1; v.solid1 = true; v.written1 = true; v.applied = true;
+    v.hint = '组 3 测量 ' + (v.measured - MEAS1.length - MEAS2.length) + ' / ' + MEAS3.length
+           + ' 条 · 当前：' + (v.hot ? v.hot.a + ' ⇄ ' + v.hot.b : '—');
+    v.sub = '单比特门能跑通之后，做相邻比特 z-z 与耦合器 CP.z 挂到相邻比特。组 2 与组 3 之间<b>没有任何写回</b>，'
+          + '所以这两组观测<b>同基线</b>——这正是末尾能把它们合并求解的前提。';
+  } else if (id === 'solve') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: 0};
+    v.measured = MEAS.length;
+    v.f1 = 1; v.solid1 = true; v.written1 = true; v.applied = true;
+    v.f2 = ease(clamp01(p / .8));
+    v.showTarget = clamp01((p - .1) / .3);
+    v.hint = '末尾统一求解：' + N + ' 条线 · ' + (MEAS2.length + MEAS3.length)
+           + ' 条观测 · 迭代 ' + (SOLVE.iterations || 0) + ' 次';
+    v.sub = '输入 = 组 2 + 组 3 的全部合格观测（同基线），做加权最小二乘（权重 1/σ²）把误差摊到整张图，'
+          + '锚点取当前最右的 <code>' + ANCHOR + '</code>。此刻<b>d₂ 还只是计划</b>（虚线），'
+          + 'readout 暂时不动。';
+  } else if (id === 'write') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: 0};
+    v.measured = MEAS.length;
+    v.f1 = 1; v.f2 = 1; v.solid1 = true; v.solid2 = true;
+    v.written1 = true; v.showTarget = 1;
+    v.guard = Math.floor(clamp01(p / .55) * 4);
+    v.written2 = p >= .55; v.applied = p >= .8;
+    v.hint = '四道守卫 → 整批一次落盘 · qubit/coupler 总位移 ' + fmt(TOTD) + ' ns';
+    v.sub = v.written2
+      ? '四道守卫全过：<b>一张</b> WritePlan 一次写完所有 xy/z（d₂ 这段后走），readout 暂时不动。'
+      : '守卫依次检查：CAS 指纹 → 单调 δ≥0 → 预算 d≤dmax → 原子写（os.replace + .bak + JSONL 审计）。';
+  } else if (id === 'meas4') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: EDGE4.length};
+    v.measured = MEAS1.length + MEAS2.length + MEAS3.length + Math.floor(p * MEAS4.length);
+    v.hot = at(MEAS4, v.measured - MEAS1.length - MEAS2.length - MEAS3.length);
+    v.f1 = 1; v.f2 = 1; v.solid1 = true; v.solid2 = true;
+    v.written1 = true; v.written2 = true; v.applied = true;
+    v.hint = '组 4 测量 ' + (v.measured - MEAS1.length - MEAS2.length - MEAS3.length) + ' / ' + MEAS4.length
+           + ' 条 · 当前：' + (v.hot ? v.hot.a + ' ⇄ ' + v.hot.b : '—');
+    v.sub = 'qubit/coupler 已全局对齐并写回后，测量每条读取线的 ro/ri 与其首个腔 qubit.xy 的 '
+          + 'skew——<b>这组观测是全流程里唯一把"读取线世界"和"qubit/coupler 世界"连起来的桥</b>，'
+          + '末尾据此把读取线拉回对齐。';
+  } else if (id === 'write4') {
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: EDGE4.length};
+    v.measured = MEAS.length;
+    v.f1 = 1; v.f2 = 1; v.f3 = ease(clamp01(p / .8));
+    v.solid1 = true; v.solid2 = true;
+    v.written1 = true; v.written2 = true; v.applied = true;
+    v.guard = Math.floor(clamp01(p / .55) * 4);
+    v.written3 = p >= .55; v.solid3 = p >= .55;
+    v.hint = '组 4 收尾求解 → 四道守卫（含 headroom 收回校验）→ 立刻落盘 · 收回 '
+           + fmt(SUMRET) + ' ns';
+    v.sub = v.written3
+      ? '锚取 qubit/coupler 最右的线：读取线<b>收回步 2 主动右移的 headroom（d₃ 为负、往左）</b>，'
+        + '拉回到 qubit.xy 对齐；收回量受授予台账约束，d 不低于校准基线。'
+      : 'readout↔qubit.xy 实测 skew + "qubit/coupler 已对齐"软约束（σ 取步 5 残差）'
+        + '合成一次全局最小二乘；读取线在锚线右侧的部分以收回 headroom 的方式往左拉回。';
+  } else {
+    const r = REP.residual || {};
+    v.candAlpha = 1; v.lit = {readout: EDGE1.length, qubit: EDGE2.length, coupler: EDGE3.length, readout_final: EDGE4.length};
+    v.measured = MEAS.length;
+    v.f1 = 1; v.f2 = 1; v.f3 = 1;
+    v.solid1 = true; v.solid2 = true; v.solid3 = true;
+    v.written1 = true; v.written2 = true; v.written3 = true; v.showTarget = 1; v.guard = 4; v.applied = true;
+    v.hint = '对账：残差 ' + fmt(RES1, 3) + ' ns ≤ tol ' + fmt(META.tol_ns) + ' ns';
+    v.sub = r.residual_ns === undefined
+      ? '本轮没有真值可对账（离线演示或未传 truth）：只看求解与写回收据。'
+      : '与隐藏真值对账：' + N + ' 条线全部落在 ' + fmt(r.min_ns, 2) + '–' + fmt(r.max_ns, 2)
+        + ' ns，残差 ' + fmt(RES1, 3) + ' ns → <b>aligned = ' + (REP.aligned ? 'True' : 'False')
+        + '</b>。三段落盘：组 1 ' + fmt(SUMD1) + ' ns，末尾 ' + fmt(TOTD) + ' ns，'
+        + '组 4 往左收回 headroom ' + fmt(SUMRET) + ' ns。';
+  }
+  return v;
+}
+
+function draw(v) {
+  /* 芯片图：每组边只亮到该组的进度为止 */
+  gCand.setAttribute('opacity', v.candAlpha * (v.id === 'plan' ? .9 : .5));
+  const seen = {readout: 0, qubit: 0, coupler: 0};
+  TREE.forEach(t => {
+    const rec = treeEls[keyOf(t.a, t.b)];
+    if (!rec) return;
+    const g = rec.group, idx = seen[g]++;
+    const lit = idx < (v.lit[g] || 0);
+    rec.el.setAttribute('opacity', lit ? .95 : 0);
+    const hot = v.hot && keyOf(v.hot.a, v.hot.b) === keyOf(t.a, t.b);
+    rec.el.setAttribute('stroke', hot ? '#d97706' : colorOf(g));
+    rec.el.setAttribute('stroke-width', hot ? 4.5 : 2.2);
+    if (hot) rec.el.setAttribute('class', 'hot'); else rec.el.removeAttribute('class');
+  });
+  for (const k in nodeEls) {
+    const g = nodeEls[k];
+    const hot = v.hot && (v.hot.a === k || v.hot.b === k);
+    let op = 1;
+    if (v.id === 'chip') op = clamp01(v.p / .6);
+    else if (v.id === 'plan') op = (v.lit.readout + v.lit.qubit + v.lit.coupler) > 0 ? 1 : .45;
+    else if (v.hot) op = hot ? 1 : .45;
+    g.setAttribute('opacity', op);
+  }
+  document.getElementById('chipHint').textContent = v.hint
+    || ('候选边 ' + CAND.length + ' 条 · 四组共 ' + TREE.length + ' 条');
+
+  /* 时间轴：d1（readout 含 headroom）→ d2（qubit/coupler 末尾）→ d3（readout_final） */
+  let mx = -1e18, mn = 1e18;
+  rowEls.forEach(r => {
+    const d1 = r.ln.d1 || 0, d2 = r.ln.d2 || 0, d3 = r.ln.d3 || 0;
+    const q = r.ln.L + d1 * v.f1 + d2 * v.f2 + d3 * v.f3;
+    const xL = xs(r.ln.L), xA = xs(r.ln.L + d1 * v.f1), xB = xs(r.ln.L + d1 * v.f1 + d2 * v.f2), xQ = xs(q);
+    r.base.setAttribute('width', Math.max(0, xL - xs(0)));
+    /* 段 = [xFrom, xTo]；收回 headroom 时 d3 < 0，段往左画（xTo < xFrom） */
+    const paint = (el, xFrom, xTo, solid, frac) => {
+      el.setAttribute('x', Math.min(xFrom, xTo));
+      el.setAttribute('width', Math.abs(xTo - xFrom));
+      el.setAttribute('fill-opacity', solid ? 1 : .45);
+      el.setAttribute('stroke-width', (!solid && frac) ? 1.3 : 0);
+      if (!solid && frac) el.setAttribute('stroke-dasharray', '4 3');
+      else el.removeAttribute('stroke-dasharray');
+    };
+    paint(r.mov1, xL, xA, v.solid1, d1 * v.f1);
+    paint(r.mov2, xA, xB, v.solid2, d2 * v.f2);
+    paint(r.mov3, xB, xQ, v.solid3, d3 * v.f3);
+    r.tip.setAttribute('x', xQ - 2);
+    r.tip.setAttribute('fill', (v.solid3 || v.solid2 || v.solid1) ? '#1f2933' : '#8a95a0');
+    mx = Math.max(mx, q); mn = Math.min(mn, q);
+  });
+  targetLine.setAttribute('opacity', v.showTarget);
+  targetTxt.setAttribute('opacity', v.showTarget);
+  resTxt.textContent = '当前残差 max(q) − min(q) = ' + fmt(mx - mn, 3) + ' ns'
+    + (v.id === 'check' ? '　→　aligned = ' + (REP.aligned ? 'True' : 'False') : '');
+  let st = '初始失配 ' + fmt(RES0) + ' ns';
+  if (v.written3) st += ' · 已落盘 max(d) = ' + fmt(MAXD) + ' ns'
+                      + '（组 1 ' + fmt(SUMD1) + ' + 末尾 ' + fmt(TOTD) + ' + 组 4 ' + fmt(SUMD3) + '）';
+  else if (v.written2) st += ' · 已落盘 qubit/coupler ' + fmt(TOTD) + ' ns · readout_final 未写回';
+  else if (v.written1) st += ' · 组 1 已落盘 ' + fmt(SUMD1) + ' ns · 组 2/3 只记录未写回';
+  else st += ' · 尚未写回（文件保持全零）';
+  resSub.textContent = st;
+
+  /* 台账 */
+  ledRows.forEach((tr, i) => {
+    const on = i < v.measured;
+    tr.style.display = on ? '' : 'none';
+    tr.className = (on && i === v.measured - 1 && v.hot) ? 'new' : '';
+  });
+
+  /* 徽标 */
+  const setBadge = (k, text, ok) => {
+    bd[k].val.textContent = text;
+    bd[k].box.className = 'badge ' + (ok === null ? '' : (ok ? 'yes' : 'no'));
+  };
+  const sessVal = (v.written1 ? SUMD1 : 0) + (v.written2 ? TOTD : 0) + (v.written3 ? TOTD3 : 0);
+  setBadge('file', v.written3 ? 'max(d) = ' + fmt(MAXD) + ' ns'
+                 : (v.written2 ? 'qubit/coupler 已写'
+                               : (v.written1 ? '组 1 已写：max(d₁) = ' + fmt(MAXD1) + ' ns'
+                                           : '全零（未写回）')),
+           (v.written1 || v.written2 || v.written3) ? true : null);
+  setBadge('sess', fmt(sessVal) + ' ns', sessVal > 0 ? true : null);
+  setBadge('dev', v.applied ? '已下发' : '未下发', v.applied ? true : false);
+
+  /* 守卫 */
+  gEls.forEach((g, i) => { g.className = 'guard' + (i < v.guard ? ' on' : ''); });
+
+  /* 字幕 */
+  say.innerHTML = '<b>' + ACTS[v.i].name + '</b>　' + v.sub;
+
+  /* 导航 */
+  pills.forEach((b, i) => {
+    b.className = 'pill' + (i === v.i ? ' on' : (i < v.i ? ' done' : ''));
+  });
+}
+
+function frame(ts) {
+  if (!last) last = ts;
+  const dt = Math.min(64, ts - last); last = ts;
+  if (playing) { T += dt * rate; if (T >= TOTAL) { T = TOTAL - 1; playing = false;
+    playBtn.textContent = '▶ 播放'; } }
+  draw(vm(T));
+  bar.value = Math.round((T / TOTAL) * 1000);
+  clock.textContent = fmt(T / 1000) + 's / ' + fmt(TOTAL / 1000) + 's';
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body></html>

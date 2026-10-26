@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qxtrl-timing-cali"
+version = "0.4.1"
+description = "超导量子比特 Timing 校准系统：配置生成 · 可视化 · 批量两阶段校准与守卫式回写（零第三方依赖）"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+maintainers = [{ name = "FaresX" }]
+
+[tool.setuptools]
+packages = ["qxtrl_timing_cali", "qxtrl_timing_cali.review"]

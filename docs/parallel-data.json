@@ -1,0 +1,4435 @@
+{
+ "meta": {
+  "version": "0.4.1",
+  "chip": {
+   "id": "chip-4x4",
+   "name": "程序生成演示芯片",
+   "description": "grid 构型 · 16 比特 / 24 耦合器 · 4 条读取线（每腔 1 比特）· 全部可调",
+   "topology": "grid",
+   "tunable": true,
+   "revision": "rev-A",
+   "date": "2026-09-24",
+   "maintainer": "QXtrlTimingCali"
+  },
+  "lines": 64,
+  "noise_ns": 1.0,
+  "n_shots": 400,
+  "repeats": 3,
+  "max_parallel": 4,
+  "tol_ns": 0.5,
+  "d_max_ns": 6000.0,
+  "readout_headroom_ns": 100.0,
+  "rule": "两条边共享线名才冲突（同一读取线的多比特可多音读取，不算冲突）"
+ },
+ "chip": {
+  "schema_version": "1.0",
+  "meta": {
+   "id": "chip-4x4",
+   "name": "程序生成演示芯片",
+   "description": "grid 构型 · 16 比特 / 24 耦合器 · 4 条读取线（每腔 1 比特）· 全部可调",
+   "topology": "grid",
+   "tunable": true,
+   "revision": "rev-A",
+   "date": "2026-09-24",
+   "maintainer": "QXtrlTimingCali"
+  },
+  "units": {
+   "freq": "GHz",
+   "rate": "MHz",
+   "time": "ns",
+   "flux": "Phi0",
+   "length": "mm"
+  },
+  "readout_lines": [
+   {
+    "id": "RL0",
+    "cavities": [
+     "C0",
+     "C1",
+     "C2",
+     "C3"
+    ]
+   },
+   {
+    "id": "RL1",
+    "cavities": [
+     "C4",
+     "C5",
+     "C6",
+     "C7"
+    ]
+   },
+   {
+    "id": "RL2",
+    "cavities": [
+     "C8",
+     "C9",
+     "C10",
+     "C11"
+    ]
+   },
+   {
+    "id": "RL3",
+    "cavities": [
+     "C12",
+     "C13",
+     "C14",
+     "C15"
+    ]
+   }
+  ],
+  "cavities": [
+   {
+    "id": "C0",
+    "qubit": "Q0",
+    "line": "RL0",
+    "design": {
+     "f_r": 7.09,
+     "kappa": 2.7
+    }
+   },
+   {
+    "id": "C1",
+    "qubit": "Q1",
+    "line": "RL0",
+    "design": {
+     "f_r": 6.89,
+     "kappa": 2.7
+    }
+   },
+   {
+    "id": "C2",
+    "qubit": "Q2",
+    "line": "RL0",
+    "design": {
+     "f_r": 6.86,
+     "kappa": 2.4
+    }
+   },
+   {
+    "id": "C3",
+    "qubit": "Q3",
+    "line": "RL0",
+    "design": {
+     "f_r": 7.06,
+     "kappa": 2.6
+    }
+   },
+   {
+    "id": "C4",
+    "qubit": "Q4",
+    "line": "RL1",
+    "design": {
+     "f_r": 6.83,
+     "kappa": 2.8
+    }
+   },
+   {
+    "id": "C5",
+    "qubit": "Q5",
+    "line": "RL1",
+    "design": {
+     "f_r": 6.86,
+     "kappa": 2.4
+    }
+   },
+   {
+    "id": "C6",
+    "qubit": "Q6",
+    "line": "RL1",
+    "design": {
+     "f_r": 7.03,
+     "kappa": 2.4
+    }
+   },
+   {
+    "id": "C7",
+    "qubit": "Q7",
+    "line": "RL1",
+    "design": {
+     "f_r": 6.89,
+     "kappa": 2.2
+    }
+   },
+   {
+    "id": "C8",
+    "qubit": "Q8",
+    "line": "RL2",
+    "design": {
+     "f_r": 6.83,
+     "kappa": 2.5
+    }
+   },
+   {
+    "id": "C9",
+    "qubit": "Q9",
+    "line": "RL2",
+    "design": {
+     "f_r": 6.87,
+     "kappa": 2.6
+    }
+   },
+   {
+    "id": "C10",
+    "qubit": "Q10",
+    "line": "RL2",
+    "design": {
+     "f_r": 6.91,
+     "kappa": 2.5
+    }
+   },
+   {
+    "id": "C11",
+    "qubit": "Q11",
+    "line": "RL2",
+    "design": {
+     "f_r": 7.09,
+     "kappa": 2.5
+    }
+   },
+   {
+    "id": "C12",
+    "qubit": "Q12",
+    "line": "RL3",
+    "design": {
+     "f_r": 6.97,
+     "kappa": 2.7
+    }
+   },
+   {
+    "id": "C13",
+    "qubit": "Q13",
+    "line": "RL3",
+    "design": {
+     "f_r": 6.85,
+     "kappa": 2.3
+    }
+   },
+   {
+    "id": "C14",
+    "qubit": "Q14",
+    "line": "RL3",
+    "design": {
+     "f_r": 7.07,
+     "kappa": 2.7
+    }
+   },
+   {
+    "id": "C15",
+    "qubit": "Q15",
+    "line": "RL3",
+    "design": {
+     "f_r": 6.87,
+     "kappa": 2.3
+    }
+   }
+  ],
+  "qubits": [
+   {
+    "id": "Q0",
+    "cavity": "C0",
+    "pos": [
+     0.0,
+     0.0
+    ],
+    "design": {
+     "f01": 4.936,
+     "anharmonicity": -213.2,
+     "g_cavity": 88.9,
+     "chi": -2.5,
+     "sweet_spot": 0.0
+    }
+   },
+   {
+    "id": "Q1",
+    "cavity": "C1",
+    "pos": [
+     1.6,
+     0.0
+    ],
+    "design": {
+     "f01": 4.976,
+     "anharmonicity": -224.5,
+     "g_cavity": 82.7,
+     "chi": -2.4,
+     "sweet_spot": 0.012
+    }
+   },
+   {
+    "id": "Q2",
+    "cavity": "C2",
+    "pos": [
+     3.2,
+     0.0
+    ],
+    "design": {
+     "f01": 4.828,
+     "anharmonicity": -220.9,
+     "g_cavity": 76.4,
+     "chi": -2.2,
+     "sweet_spot": 0.008
+    }
+   },
+   {
+    "id": "Q3",
+    "cavity": "C3",
+    "pos": [
+     4.8,
+     0.0
+    ],
+    "design": {
+     "f01": 4.813,
+     "anharmonicity": -200.5,
+     "g_cavity": 89.5,
+     "chi": -2.3,
+     "sweet_spot": 0.005
+    }
+   },
+   {
+    "id": "Q4",
+    "cavity": "C4",
+    "pos": [
+     0.0,
+     1.6
+    ],
+    "design": {
+     "f01": 4.847,
+     "anharmonicity": -229.5,
+     "g_cavity": 82.9,
+     "chi": -2.9,
+     "sweet_spot": -0.012
+    }
+   },
+   {
+    "id": "Q5",
+    "cavity": "C5",
+    "pos": [
+     1.6,
+     1.6
+    ],
+    "design": {
+     "f01": 4.873,
+     "anharmonicity": -229.1,
+     "g_cavity": 82.0,
+     "chi": -2.6,
+     "sweet_spot": 0.014
+    }
+   },
+   {
+    "id": "Q6",
+    "cavity": "C6",
+    "pos": [
+     3.2,
+     1.6
+    ],
+    "design": {
+     "f01": 4.956,
+     "anharmonicity": -210.8,
+     "g_cavity": 82.5,
+     "chi": -2.3,
+     "sweet_spot": -0.002
+    }
+   },
+   {
+    "id": "Q7",
+    "cavity": "C7",
+    "pos": [
+     4.8,
+     1.6
+    ],
+    "design": {
+     "f01": 4.883,
+     "anharmonicity": -200.1,
+     "g_cavity": 89.9,
+     "chi": -2.2,
+     "sweet_spot": 0.008
+    }
+   },
+   {
+    "id": "Q8",
+    "cavity": "C8",
+    "pos": [
+     0.0,
+     3.2
+    ],
+    "design": {
+     "f01": 4.895,
+     "anharmonicity": -223.1,
+     "g_cavity": 79.3,
+     "chi": -2.9,
+     "sweet_spot": 0.011
+    }
+   },
+   {
+    "id": "Q9",
+    "cavity": "C9",
+    "pos": [
+     1.6,
+     3.2
+    ],
+    "design": {
+     "f01": 4.92,
+     "anharmonicity": -204.6,
+     "g_cavity": 80.8,
+     "chi": -2.0,
+     "sweet_spot": 0.014
+    }
+   },
+   {
+    "id": "Q10",
+    "cavity": "C10",
+    "pos": [
+     3.2,
+     3.2
+    ],
+    "design": {
+     "f01": 4.8,
+     "anharmonicity": -223.7,
+     "g_cavity": 88.7,
+     "chi": -2.5,
+     "sweet_spot": 0.019
+    }
+   },
+   {
+    "id": "Q11",
+    "cavity": "C11",
+    "pos": [
+     4.8,
+     3.2
+    ],
+    "design": {
+     "f01": 4.919,
+     "anharmonicity": -227.8,
+     "g_cavity": 84.4,
+     "chi": -2.2,
+     "sweet_spot": -0.009
+    }
+   },
+   {
+    "id": "Q12",
+    "cavity": "C12",
+    "pos": [
+     0.0,
+     4.8
+    ],
+    "design": {
+     "f01": 4.826,
+     "anharmonicity": -220.0,
+     "g_cavity": 89.5,
+     "chi": -2.2,
+     "sweet_spot": -0.015
+    }
+   },
+   {
+    "id": "Q13",
+    "cavity": "C13",
+    "pos": [
+     1.6,
+     4.8
+    ],
+    "design": {
+     "f01": 4.874,
+     "anharmonicity": -227.0,
+     "g_cavity": 75.9,
+     "chi": -2.2,
+     "sweet_spot": -0.013
+    }
+   },
+   {
+    "id": "Q14",
+    "cavity": "C14",
+    "pos": [
+     3.2,
+     4.8
+    ],
+    "design": {
+     "f01": 4.968,
+     "anharmonicity": -216.6,
+     "g_cavity": 77.9,
+     "chi": -2.3,
+     "sweet_spot": -0.015
+    }
+   },
+   {
+    "id": "Q15",
+    "cavity": "C15",
+    "pos": [
+     4.8,
+     4.8
+    ],
+    "design": {
+     "f01": 4.993,
+     "anharmonicity": -226.5,
+     "g_cavity": 81.3,
+     "chi": -2.8,
+     "sweet_spot": -0.009
+    }
+   }
+  ],
+  "couplers": [
+   {
+    "id": "CP0001",
+    "qubits": [
+     "Q0",
+     "Q1"
+    ],
+    "design": {
+     "g_max": 51.1,
+     "g_off": 0.58
+    }
+   },
+   {
+    "id": "CP0102",
+    "qubits": [
+     "Q1",
+     "Q2"
+    ],
+    "design": {
+     "g_max": 42.9,
+     "g_off": 0.59
+    }
+   },
+   {
+    "id": "CP0203",
+    "qubits": [
+     "Q2",
+     "Q3"
+    ],
+    "design": {
+     "g_max": 53.2,
+     "g_off": 0.48
+    }
+   },
+   {
+    "id": "CP0405",
+    "qubits": [
+     "Q4",
+     "Q5"
+    ],
+    "design": {
+     "g_max": 46.3,
+     "g_off": 0.33
+    }
+   },
+   {
+    "id": "CP0506",
+    "qubits": [
+     "Q5",
+     "Q6"
+    ],
+    "design": {
+     "g_max": 40.6,
+     "g_off": 0.59
+    }
+   },
+   {
+    "id": "CP0607",
+    "qubits": [
+     "Q6",
+     "Q7"
+    ],
+    "design": {
+     "g_max": 43.6,
+     "g_off": 0.51
+    }
+   },
+   {
+    "id": "CP0809",
+    "qubits": [
+     "Q8",
+     "Q9"
+    ],
+    "design": {
+     "g_max": 43.9,
+     "g_off": 0.55
+    }
+   },
+   {
+    "id": "CP0910",
+    "qubits": [
+     "Q9",
+     "Q10"
+    ],
+    "design": {
+     "g_max": 48.9,
+     "g_off": 0.39
+    }
+   },
+   {
+    "id": "CP1011",
+    "qubits": [
+     "Q10",
+     "Q11"
+    ],
+    "design": {
+     "g_max": 42.6,
+     "g_off": 0.52
+    }
+   },
+   {
+    "id": "CP1213",
+    "qubits": [
+     "Q12",
+     "Q13"
+    ],
+    "design": {
+     "g_max": 41.0,
+     "g_off": 0.37
+    }
+   },
+   {
+    "id": "CP1314",
+    "qubits": [
+     "Q13",
+     "Q14"
+    ],
+    "design": {
+     "g_max": 48.4,
+     "g_off": 0.56
+    }
+   },
+   {
+    "id": "CP1415",
+    "qubits": [
+     "Q14",
+     "Q15"
+    ],
+    "design": {
+     "g_max": 49.2,
+     "g_off": 0.38
+    }
+   },
+   {
+    "id": "CP0004",
+    "qubits": [
+     "Q0",
+     "Q4"
+    ],
+    "design": {
+     "g_max": 53.8,
+     "g_off": 0.36
+    }
+   },
+   {
+    "id": "CP0105",
+    "qubits": [
+     "Q1",
+     "Q5"
+    ],
+    "design": {
+     "g_max": 40.2,
+     "g_off": 0.38
+    }
+   },
+   {
+    "id": "CP0206",
+    "qubits": [
+     "Q2",
+     "Q6"
+    ],
+    "design": {
+     "g_max": 46.7,
+     "g_off": 0.32
+    }
+   },
+   {
+    "id": "CP0307",
+    "qubits": [
+     "Q3",
+     "Q7"
+    ],
+    "design": {
+     "g_max": 42.6,
+     "g_off": 0.41
+    }
+   },
+   {
+    "id": "CP0408",
+    "qubits": [
+     "Q4",
+     "Q8"
+    ],
+    "design": {
+     "g_max": 48.6,
+     "g_off": 0.34
+    }
+   },
+   {
+    "id": "CP0509",
+    "qubits": [
+     "Q5",
+     "Q9"
+    ],
+    "design": {
+     "g_max": 45.4,
+     "g_off": 0.57
+    }
+   },
+   {
+    "id": "CP0610",
+    "qubits": [
+     "Q6",
+     "Q10"
+    ],
+    "design": {
+     "g_max": 54.7,
+     "g_off": 0.5
+    }
+   },
+   {
+    "id": "CP0711",
+    "qubits": [
+     "Q7",
+     "Q11"
+    ],
+    "design": {
+     "g_max": 50.4,
+     "g_off": 0.48
+    }
+   },
+   {
+    "id": "CP0812",
+    "qubits": [
+     "Q8",
+     "Q12"
+    ],
+    "design": {
+     "g_max": 42.1,
+     "g_off": 0.31
+    }
+   },
+   {
+    "id": "CP0913",
+    "qubits": [
+     "Q9",
+     "Q13"
+    ],
+    "design": {
+     "g_max": 40.3,
+     "g_off": 0.57
+    }
+   },
+   {
+    "id": "CP1014",
+    "qubits": [
+     "Q10",
+     "Q14"
+    ],
+    "design": {
+     "g_max": 50.5,
+     "g_off": 0.59
+    }
+   },
+   {
+    "id": "CP1115",
+    "qubits": [
+     "Q11",
+     "Q15"
+    ],
+    "design": {
+     "g_max": 40.3,
+     "g_off": 0.49
+    }
+   }
+  ],
+  "connections": [
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q0",
+    "cavity": "C0"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q1",
+    "cavity": "C1"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q2",
+    "cavity": "C2"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q3",
+    "cavity": "C3"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q4",
+    "cavity": "C4"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q5",
+    "cavity": "C5"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q6",
+    "cavity": "C6"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q7",
+    "cavity": "C7"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q8",
+    "cavity": "C8"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q9",
+    "cavity": "C9"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q10",
+    "cavity": "C10"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q11",
+    "cavity": "C11"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q12",
+    "cavity": "C12"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q13",
+    "cavity": "C13"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q14",
+    "cavity": "C14"
+   },
+   {
+    "type": "qubit-cavity",
+    "qubit": "Q15",
+    "cavity": "C15"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C0",
+    "line": "RL0"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C1",
+    "line": "RL0"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C2",
+    "line": "RL0"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C3",
+    "line": "RL0"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C4",
+    "line": "RL1"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C5",
+    "line": "RL1"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C6",
+    "line": "RL1"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C7",
+    "line": "RL1"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C8",
+    "line": "RL2"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C9",
+    "line": "RL2"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C10",
+    "line": "RL2"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C11",
+    "line": "RL2"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C12",
+    "line": "RL3"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C13",
+    "line": "RL3"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C14",
+    "line": "RL3"
+   },
+   {
+    "type": "cavity-line",
+    "cavity": "C15",
+    "line": "RL3"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q0",
+    "v": "Q1",
+    "via": "CP0001"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q1",
+    "v": "Q2",
+    "via": "CP0102"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q2",
+    "v": "Q3",
+    "via": "CP0203"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q4",
+    "v": "Q5",
+    "via": "CP0405"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q5",
+    "v": "Q6",
+    "via": "CP0506"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q6",
+    "v": "Q7",
+    "via": "CP0607"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q8",
+    "v": "Q9",
+    "via": "CP0809"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q9",
+    "v": "Q10",
+    "via": "CP0910"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q10",
+    "v": "Q11",
+    "via": "CP1011"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q12",
+    "v": "Q13",
+    "via": "CP1213"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q13",
+    "v": "Q14",
+    "via": "CP1314"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q14",
+    "v": "Q15",
+    "via": "CP1415"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q0",
+    "v": "Q4",
+    "via": "CP0004"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q1",
+    "v": "Q5",
+    "via": "CP0105"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q2",
+    "v": "Q6",
+    "via": "CP0206"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q3",
+    "v": "Q7",
+    "via": "CP0307"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q4",
+    "v": "Q8",
+    "via": "CP0408"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q5",
+    "v": "Q9",
+    "via": "CP0509"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q6",
+    "v": "Q10",
+    "via": "CP0610"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q7",
+    "v": "Q11",
+    "via": "CP0711"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q8",
+    "v": "Q12",
+    "via": "CP0812"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q9",
+    "v": "Q13",
+    "via": "CP0913"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q10",
+    "v": "Q14",
+    "via": "CP1014"
+   },
+   {
+    "type": "qubit-qubit",
+    "u": "Q11",
+    "v": "Q15",
+    "via": "CP1115"
+   }
+  ]
+ },
+ "stages": [
+  {
+   "name": "readout",
+   "title": "读取线校准（ro ↔ ri 对齐）",
+   "writeback": "immediate",
+   "depends_on": [],
+   "why": "后续一切实验的读出前提：测完立刻写回，后面的实验才读得出信号",
+   "nodes": [
+    "RL0.ri",
+    "RL0.ro",
+    "RL1.ri",
+    "RL1.ro",
+    "RL2.ri",
+    "RL2.ro",
+    "RL3.ri",
+    "RL3.ro"
+   ],
+   "waves": {
+    "kind": "conflict_free_waves",
+    "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+    "bundle_size": 4,
+    "waves": [
+     {
+      "index": 1,
+      "size": 4,
+      "pairs": [
+       {
+        "a": "RL0.ri",
+        "b": "RL0.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL0 读取对 ri-ro"
+       },
+       {
+        "a": "RL1.ri",
+        "b": "RL1.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL1 读取对 ri-ro"
+       },
+       {
+        "a": "RL2.ri",
+        "b": "RL2.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL2 读取对 ri-ro"
+       },
+       {
+        "a": "RL3.ri",
+        "b": "RL3.ro",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "RL3 读取对 ri-ro"
+       }
+      ],
+      "why": "首波：按代价从低到高占位"
+     }
+    ],
+    "wave_count": 1,
+    "edge_count": 4
+   },
+   "pairs": [
+    {
+     "a": "RL0.ri",
+     "b": "RL0.ro",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "RL0 读取对 ri-ro",
+     "group": "readout"
+    },
+    {
+     "a": "RL1.ri",
+     "b": "RL1.ro",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "RL1 读取对 ri-ro",
+     "group": "readout"
+    },
+    {
+     "a": "RL2.ri",
+     "b": "RL2.ro",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "RL2 读取对 ri-ro",
+     "group": "readout"
+    },
+    {
+     "a": "RL3.ri",
+     "b": "RL3.ro",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "RL3 读取对 ri-ro",
+     "group": "readout"
+    }
+   ],
+   "measurements": [
+    {
+     "a": "RL0.ri",
+     "b": "RL0.ro",
+     "ok": true,
+     "note": "RL0 读取对 ri-ro",
+     "skew_ns": -12.323182,
+     "sigma_ns": 0.027475,
+     "quality": 0.999245,
+     "attempts": 1,
+     "request_id": "req-001-align",
+     "config_hash": "9acb9615751205c3",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL1.ri",
+     "b": "RL1.ro",
+     "ok": true,
+     "note": "RL1 读取对 ri-ro",
+     "skew_ns": -94.520491,
+     "sigma_ns": 0.01521,
+     "quality": 0.999769,
+     "attempts": 1,
+     "request_id": "req-002-align",
+     "config_hash": "9acb9615751205c3",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL2.ri",
+     "b": "RL2.ro",
+     "ok": true,
+     "note": "RL2 读取对 ri-ro",
+     "skew_ns": 59.715456,
+     "sigma_ns": 0.0192,
+     "quality": 0.999631,
+     "attempts": 1,
+     "request_id": "req-003-align",
+     "config_hash": "9acb9615751205c3",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL3.ri",
+     "b": "RL3.ro",
+     "ok": true,
+     "note": "RL3 读取对 ri-ro",
+     "skew_ns": 56.476535,
+     "sigma_ns": 0.010418,
+     "quality": 0.999891,
+     "attempts": 1,
+     "request_id": "req-004-align",
+     "config_hash": "9acb9615751205c3",
+     "reason": "合格",
+     "wave": 1
+    }
+   ],
+   "solve": {
+    "target_ns": 147.260245,
+    "anchor": "RL0.ro",
+    "offsets": {
+     "RL0.ri": 93.838409,
+     "RL0.ro": 106.161591,
+     "RL1.ri": 52.739755,
+     "RL1.ro": 147.260245,
+     "RL2.ri": 129.857728,
+     "RL2.ro": 70.142272,
+     "RL3.ri": 128.238268,
+     "RL3.ro": 71.761732
+    },
+    "shifts": {
+     "RL0.ri": 112.323182,
+     "RL0.ro": 100.0,
+     "RL1.ri": 194.520491,
+     "RL1.ro": 100.0,
+     "RL2.ri": 100.0,
+     "RL2.ro": 159.715456,
+     "RL3.ri": 100.0,
+     "RL3.ro": 156.476535
+    },
+    "residuals": [
+     {
+      "a": "RL0.ri",
+      "b": "RL0.ro",
+      "skew_ns": -12.323182,
+      "resid_ns": -0.0,
+      "request_id": "req-001-align"
+     },
+     {
+      "a": "RL1.ri",
+      "b": "RL1.ro",
+      "skew_ns": -94.520491,
+      "resid_ns": 0.0,
+      "request_id": "req-002-align"
+     },
+     {
+      "a": "RL2.ri",
+      "b": "RL2.ro",
+      "skew_ns": 59.715456,
+      "resid_ns": -0.0,
+      "request_id": "req-003-align"
+     },
+     {
+      "a": "RL3.ri",
+      "b": "RL3.ro",
+      "skew_ns": 56.476535,
+      "resid_ns": 0.0,
+      "request_id": "req-004-align"
+     }
+    ],
+    "headroom_return": {},
+    "max_resid_ns": 0.0,
+    "rms_resid_ns": 0.0,
+    "iterations": 1,
+    "solver_converged": true,
+    "request_id": "stage-readout-solve",
+    "reason": "8 条线 / 4 条观测 · 4 个分量各自定标 · 目标=各分量最右线（例 RL0.ro） · 最大残差 0.000 ns · 加 readout headroom 100.0 ns"
+   },
+   "written": true,
+   "shifts": {
+    "RL0.ri": 112.323,
+    "RL0.ro": 100.0,
+    "RL1.ri": 194.52,
+    "RL1.ro": 100.0,
+    "RL2.ri": 100.0,
+    "RL2.ro": 159.715,
+    "RL3.ri": 100.0,
+    "RL3.ro": 156.477
+   },
+   "ledger": {
+    "records": 4,
+    "accepted": 4,
+    "failed": 0,
+    "requests": 4,
+    "aborted": null
+   }
+  },
+  {
+   "name": "qubit",
+   "title": "单比特 XY-Z 校准（xy ↔ z）",
+   "writeback": "deferred",
+   "depends_on": [
+    "readout"
+   ],
+   "why": "依赖已对齐的读取线：先记录，末尾与耦合器组一起解",
+   "nodes": [
+    "Q0.xy",
+    "Q0.z",
+    "Q1.xy",
+    "Q1.z",
+    "Q10.xy",
+    "Q10.z",
+    "Q11.xy",
+    "Q11.z",
+    "Q12.xy",
+    "Q12.z",
+    "Q13.xy",
+    "Q13.z",
+    "Q14.xy",
+    "Q14.z",
+    "Q15.xy",
+    "Q15.z",
+    "Q2.xy",
+    "Q2.z",
+    "Q3.xy",
+    "Q3.z",
+    "Q4.xy",
+    "Q4.z",
+    "Q5.xy",
+    "Q5.z",
+    "Q6.xy",
+    "Q6.z",
+    "Q7.xy",
+    "Q7.z",
+    "Q8.xy",
+    "Q8.z",
+    "Q9.xy",
+    "Q9.z"
+   ],
+   "waves": {
+    "kind": "conflict_free_waves",
+    "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+    "bundle_size": 4,
+    "waves": [
+     {
+      "index": 1,
+      "size": 16,
+      "pairs": [
+       {
+        "a": "Q0.z",
+        "b": "Q0.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q0 xy-z 对齐"
+       },
+       {
+        "a": "Q1.z",
+        "b": "Q1.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q1 xy-z 对齐"
+       },
+       {
+        "a": "Q10.z",
+        "b": "Q10.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q10 xy-z 对齐"
+       },
+       {
+        "a": "Q11.z",
+        "b": "Q11.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q11 xy-z 对齐"
+       },
+       {
+        "a": "Q12.z",
+        "b": "Q12.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q12 xy-z 对齐"
+       },
+       {
+        "a": "Q13.z",
+        "b": "Q13.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q13 xy-z 对齐"
+       },
+       {
+        "a": "Q14.z",
+        "b": "Q14.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q14 xy-z 对齐"
+       },
+       {
+        "a": "Q15.z",
+        "b": "Q15.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q15 xy-z 对齐"
+       },
+       {
+        "a": "Q2.z",
+        "b": "Q2.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q2 xy-z 对齐"
+       },
+       {
+        "a": "Q3.z",
+        "b": "Q3.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q3 xy-z 对齐"
+       },
+       {
+        "a": "Q4.z",
+        "b": "Q4.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q4 xy-z 对齐"
+       },
+       {
+        "a": "Q5.z",
+        "b": "Q5.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q5 xy-z 对齐"
+       },
+       {
+        "a": "Q6.z",
+        "b": "Q6.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q6 xy-z 对齐"
+       },
+       {
+        "a": "Q7.z",
+        "b": "Q7.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q7 xy-z 对齐"
+       },
+       {
+        "a": "Q8.z",
+        "b": "Q8.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q8 xy-z 对齐"
+       },
+       {
+        "a": "Q9.z",
+        "b": "Q9.xy",
+        "kind": "timing.align",
+        "cost": 1.0,
+        "note": "Q9 xy-z 对齐"
+       }
+      ],
+      "why": "首波：按代价从低到高占位"
+     }
+    ],
+    "wave_count": 1,
+    "edge_count": 16
+   },
+   "pairs": [
+    {
+     "a": "Q0.z",
+     "b": "Q0.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q0 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q1.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q1 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q10.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q10 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q11.z",
+     "b": "Q11.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q11 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q12.z",
+     "b": "Q12.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q12 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q13.z",
+     "b": "Q13.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q13 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q14.z",
+     "b": "Q14.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q14 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q15.z",
+     "b": "Q15.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q15 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q2.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q2 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q3.z",
+     "b": "Q3.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q3 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q4.z",
+     "b": "Q4.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q4 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q5.z",
+     "b": "Q5.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q5 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q6.z",
+     "b": "Q6.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q6 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q7.z",
+     "b": "Q7.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q7 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q8.z",
+     "b": "Q8.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q8 xy-z 对齐",
+     "group": "qubit"
+    },
+    {
+     "a": "Q9.z",
+     "b": "Q9.xy",
+     "kind": "timing.align",
+     "cost": 1.0,
+     "note": "Q9 xy-z 对齐",
+     "group": "qubit"
+    }
+   ],
+   "measurements": [
+    {
+     "a": "Q0.z",
+     "b": "Q0.xy",
+     "ok": true,
+     "note": "Q0 xy-z 对齐",
+     "skew_ns": 3.754237,
+     "sigma_ns": 0.008394,
+     "quality": 0.99993,
+     "attempts": 1,
+     "request_id": "req-005-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q1.xy",
+     "ok": true,
+     "note": "Q1 xy-z 对齐",
+     "skew_ns": -129.397785,
+     "sigma_ns": 0.009283,
+     "quality": 0.999914,
+     "attempts": 1,
+     "request_id": "req-006-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q10.xy",
+     "ok": true,
+     "note": "Q10 xy-z 对齐",
+     "skew_ns": -30.978271,
+     "sigma_ns": 0.014064,
+     "quality": 0.999802,
+     "attempts": 1,
+     "request_id": "req-007-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q11.z",
+     "b": "Q11.xy",
+     "ok": true,
+     "note": "Q11 xy-z 对齐",
+     "skew_ns": -5.904919,
+     "sigma_ns": 0.023379,
+     "quality": 0.999454,
+     "attempts": 1,
+     "request_id": "req-008-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q12.z",
+     "b": "Q12.xy",
+     "ok": true,
+     "note": "Q12 xy-z 对齐",
+     "skew_ns": -97.323031,
+     "sigma_ns": 0.027932,
+     "quality": 0.99922,
+     "attempts": 1,
+     "request_id": "req-009-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q13.z",
+     "b": "Q13.xy",
+     "ok": true,
+     "note": "Q13 xy-z 对齐",
+     "skew_ns": -62.594101,
+     "sigma_ns": 0.024686,
+     "quality": 0.999391,
+     "attempts": 1,
+     "request_id": "req-010-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q14.z",
+     "b": "Q14.xy",
+     "ok": true,
+     "note": "Q14 xy-z 对齐",
+     "skew_ns": 14.23922,
+     "sigma_ns": 0.028025,
+     "quality": 0.999215,
+     "attempts": 1,
+     "request_id": "req-011-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q15.z",
+     "b": "Q15.xy",
+     "ok": true,
+     "note": "Q15 xy-z 对齐",
+     "skew_ns": -36.595507,
+     "sigma_ns": 0.027607,
+     "quality": 0.999238,
+     "attempts": 1,
+     "request_id": "req-012-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q2.xy",
+     "ok": true,
+     "note": "Q2 xy-z 对齐",
+     "skew_ns": -26.947051,
+     "sigma_ns": 0.034059,
+     "quality": 0.998841,
+     "attempts": 1,
+     "request_id": "req-013-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q3.z",
+     "b": "Q3.xy",
+     "ok": true,
+     "note": "Q3 xy-z 对齐",
+     "skew_ns": -64.027354,
+     "sigma_ns": 0.025538,
+     "quality": 0.999348,
+     "attempts": 1,
+     "request_id": "req-014-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q4.z",
+     "b": "Q4.xy",
+     "ok": true,
+     "note": "Q4 xy-z 对齐",
+     "skew_ns": 40.382077,
+     "sigma_ns": 0.057613,
+     "quality": 0.996686,
+     "attempts": 1,
+     "request_id": "req-015-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q5.z",
+     "b": "Q5.xy",
+     "ok": true,
+     "note": "Q5 xy-z 对齐",
+     "skew_ns": 37.415898,
+     "sigma_ns": 0.028721,
+     "quality": 0.999175,
+     "attempts": 1,
+     "request_id": "req-016-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q6.z",
+     "b": "Q6.xy",
+     "ok": true,
+     "note": "Q6 xy-z 对齐",
+     "skew_ns": 9.71237,
+     "sigma_ns": 0.041327,
+     "quality": 0.998294,
+     "attempts": 1,
+     "request_id": "req-017-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q7.z",
+     "b": "Q7.xy",
+     "ok": true,
+     "note": "Q7 xy-z 对齐",
+     "skew_ns": -46.185864,
+     "sigma_ns": 0.011632,
+     "quality": 0.999865,
+     "attempts": 1,
+     "request_id": "req-018-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q8.z",
+     "b": "Q8.xy",
+     "ok": true,
+     "note": "Q8 xy-z 对齐",
+     "skew_ns": 35.481358,
+     "sigma_ns": 0.031626,
+     "quality": 0.999,
+     "attempts": 1,
+     "request_id": "req-019-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q9.z",
+     "b": "Q9.xy",
+     "ok": true,
+     "note": "Q9 xy-z 对齐",
+     "skew_ns": -48.24525,
+     "sigma_ns": 0.051224,
+     "quality": 0.997379,
+     "attempts": 1,
+     "request_id": "req-020-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    }
+   ],
+   "solve": null,
+   "written": false,
+   "shifts": {},
+   "ledger": {
+    "records": 16,
+    "accepted": 16,
+    "failed": 0,
+    "requests": 16,
+    "aborted": null
+   }
+  },
+  {
+   "name": "coupler",
+   "title": "比特间 Z-Z / 耦合器 Z 校准",
+   "writeback": "deferred",
+   "depends_on": [
+    "qubit"
+   ],
+   "why": "依赖可用的单比特门：先记录，末尾一起解",
+   "nodes": [
+    "CP0001.z",
+    "CP0004.z",
+    "CP0102.z",
+    "CP0105.z",
+    "CP0203.z",
+    "CP0206.z",
+    "CP0307.z",
+    "CP0405.z",
+    "CP0408.z",
+    "CP0506.z",
+    "CP0509.z",
+    "CP0607.z",
+    "CP0610.z",
+    "CP0711.z",
+    "CP0809.z",
+    "CP0812.z",
+    "CP0910.z",
+    "CP0913.z",
+    "CP1011.z",
+    "CP1014.z",
+    "CP1115.z",
+    "CP1213.z",
+    "CP1314.z",
+    "CP1415.z",
+    "Q0.z",
+    "Q1.z",
+    "Q10.z",
+    "Q11.z",
+    "Q12.z",
+    "Q13.z",
+    "Q14.z",
+    "Q15.z",
+    "Q2.z",
+    "Q3.z",
+    "Q4.z",
+    "Q5.z",
+    "Q6.z",
+    "Q7.z",
+    "Q8.z",
+    "Q9.z"
+   ],
+   "waves": {
+    "kind": "conflict_free_waves",
+    "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+    "bundle_size": 4,
+    "waves": [
+     {
+      "index": 1,
+      "size": 6,
+      "pairs": [
+       {
+        "a": "Q0.z",
+        "b": "Q1.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q0↔Q1 z-z"
+       },
+       {
+        "a": "Q10.z",
+        "b": "Q11.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q10↔Q11 z-z"
+       },
+       {
+        "a": "Q12.z",
+        "b": "Q13.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q12↔Q13 z-z"
+       },
+       {
+        "a": "Q2.z",
+        "b": "Q6.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q2↔Q6 z-z"
+       },
+       {
+        "a": "Q3.z",
+        "b": "Q7.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q3↔Q7 z-z"
+       },
+       {
+        "a": "CP0809.z",
+        "b": "Q8.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0809 z 挂 Q8.z"
+       }
+      ],
+      "why": "首波：按代价从低到高占位"
+     },
+     {
+      "index": 2,
+      "size": 7,
+      "pairs": [
+       {
+        "a": "Q0.z",
+        "b": "Q4.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q0↔Q4 z-z"
+       },
+       {
+        "a": "Q1.z",
+        "b": "Q2.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q1↔Q2 z-z"
+       },
+       {
+        "a": "Q11.z",
+        "b": "Q15.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q11↔Q15 z-z"
+       },
+       {
+        "a": "Q13.z",
+        "b": "Q14.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q13↔Q14 z-z"
+       },
+       {
+        "a": "Q5.z",
+        "b": "Q9.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q5↔Q9 z-z"
+       },
+       {
+        "a": "Q6.z",
+        "b": "Q10.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q6↔Q10 z-z"
+       },
+       {
+        "a": "CP0812.z",
+        "b": "Q12.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0812 z 挂 Q12.z"
+       }
+      ],
+      "why": "与既有 1 波都冲突（共享线名），另开新波"
+     },
+     {
+      "index": 3,
+      "size": 7,
+      "pairs": [
+       {
+        "a": "Q1.z",
+        "b": "Q5.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q1↔Q5 z-z"
+       },
+       {
+        "a": "Q10.z",
+        "b": "Q14.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q10↔Q14 z-z"
+       },
+       {
+        "a": "Q2.z",
+        "b": "Q3.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q2↔Q3 z-z"
+       },
+       {
+        "a": "Q4.z",
+        "b": "Q8.z",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "Q4↔Q8 z-z"
+       },
+       {
+        "a": "CP0001.z",
+        "b": "Q0.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0001 z 挂 Q0.z"
+       },
+       {
+        "a": "CP0607.z",
+        "b": "Q6.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0607 z 挂 Q6.z"
+       },
+       {
+        "a": "CP0913.z",
+        "b": "Q13.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0913 z 挂 Q13.z"
+       }
+      ],
+      "why": "与既有 2 波都冲突（共享线名），另开新波"
+     },
+     {
+      "index": 4,
+      "size": 6,
+      "pairs": [
+       {
+        "a": "CP0004.z",
+        "b": "Q0.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0004 z 挂 Q0.z"
+       },
+       {
+        "a": "CP0102.z",
+        "b": "Q1.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0102 z 挂 Q1.z"
+       },
+       {
+        "a": "CP0206.z",
+        "b": "Q2.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0206 z 挂 Q2.z"
+       },
+       {
+        "a": "CP0405.z",
+        "b": "Q4.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0405 z 挂 Q4.z"
+       },
+       {
+        "a": "CP0506.z",
+        "b": "Q5.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0506 z 挂 Q5.z"
+       },
+       {
+        "a": "CP0610.z",
+        "b": "Q10.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0610 z 挂 Q10.z"
+       }
+      ],
+      "why": "与既有 3 波都冲突（共享线名），另开新波"
+     },
+     {
+      "index": 5,
+      "size": 7,
+      "pairs": [
+       {
+        "a": "CP0105.z",
+        "b": "Q1.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0105 z 挂 Q1.z"
+       },
+       {
+        "a": "CP0203.z",
+        "b": "Q2.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0203 z 挂 Q2.z"
+       },
+       {
+        "a": "CP0307.z",
+        "b": "Q3.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0307 z 挂 Q3.z"
+       },
+       {
+        "a": "CP0408.z",
+        "b": "Q4.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0408 z 挂 Q4.z"
+       },
+       {
+        "a": "CP0509.z",
+        "b": "Q5.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0509 z 挂 Q5.z"
+       },
+       {
+        "a": "CP0711.z",
+        "b": "Q11.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0711 z 挂 Q11.z"
+       },
+       {
+        "a": "CP0910.z",
+        "b": "Q10.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP0910 z 挂 Q10.z"
+       }
+      ],
+      "why": "与既有 4 波都冲突（共享线名），另开新波"
+     },
+     {
+      "index": 6,
+      "size": 3,
+      "pairs": [
+       {
+        "a": "CP1011.z",
+        "b": "Q10.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1011 z 挂 Q10.z"
+       },
+       {
+        "a": "CP1115.z",
+        "b": "Q11.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1115 z 挂 Q11.z"
+       },
+       {
+        "a": "CP1314.z",
+        "b": "Q13.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1314 z 挂 Q13.z"
+       }
+      ],
+      "why": "与既有 5 波都冲突（共享线名），另开新波"
+     },
+     {
+      "index": 7,
+      "size": 3,
+      "pairs": [
+       {
+        "a": "CP1014.z",
+        "b": "Q10.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1014 z 挂 Q10.z"
+       },
+       {
+        "a": "CP1213.z",
+        "b": "Q12.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1213 z 挂 Q12.z"
+       },
+       {
+        "a": "CP1415.z",
+        "b": "Q14.z",
+        "kind": "timing.align",
+        "cost": 3.0,
+        "note": "CP1415 z 挂 Q14.z"
+       }
+      ],
+      "why": "与既有 6 波都冲突（共享线名），另开新波"
+     }
+    ],
+    "wave_count": 7,
+    "edge_count": 39
+   },
+   "pairs": [
+    {
+     "a": "Q0.z",
+     "b": "Q1.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q0↔Q1 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q0.z",
+     "b": "Q4.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q0↔Q4 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q2.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q1↔Q2 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q5.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q1↔Q5 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q11.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q10↔Q11 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q14.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q10↔Q14 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q11.z",
+     "b": "Q15.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q11↔Q15 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q12.z",
+     "b": "Q13.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q12↔Q13 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q13.z",
+     "b": "Q14.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q13↔Q14 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q3.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q2↔Q3 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q6.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q2↔Q6 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q3.z",
+     "b": "Q7.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q3↔Q7 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q4.z",
+     "b": "Q8.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q4↔Q8 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q5.z",
+     "b": "Q9.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q5↔Q9 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "Q6.z",
+     "b": "Q10.z",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "Q6↔Q10 z-z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0001.z",
+     "b": "Q0.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0001 z 挂 Q0.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0004.z",
+     "b": "Q0.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0004 z 挂 Q0.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0102.z",
+     "b": "Q1.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0102 z 挂 Q1.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0105.z",
+     "b": "Q1.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0105 z 挂 Q1.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0203.z",
+     "b": "Q2.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0203 z 挂 Q2.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0206.z",
+     "b": "Q2.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0206 z 挂 Q2.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0307.z",
+     "b": "Q3.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0307 z 挂 Q3.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0405.z",
+     "b": "Q4.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0405 z 挂 Q4.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0408.z",
+     "b": "Q4.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0408 z 挂 Q4.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0506.z",
+     "b": "Q5.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0506 z 挂 Q5.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0509.z",
+     "b": "Q5.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0509 z 挂 Q5.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0607.z",
+     "b": "Q6.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0607 z 挂 Q6.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0610.z",
+     "b": "Q10.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0610 z 挂 Q10.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0711.z",
+     "b": "Q11.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0711 z 挂 Q11.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0809.z",
+     "b": "Q8.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0809 z 挂 Q8.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0812.z",
+     "b": "Q12.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0812 z 挂 Q12.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0910.z",
+     "b": "Q10.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0910 z 挂 Q10.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP0913.z",
+     "b": "Q13.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP0913 z 挂 Q13.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1011.z",
+     "b": "Q10.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1011 z 挂 Q10.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1014.z",
+     "b": "Q10.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1014 z 挂 Q10.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1115.z",
+     "b": "Q11.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1115 z 挂 Q11.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1213.z",
+     "b": "Q12.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1213 z 挂 Q12.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1314.z",
+     "b": "Q13.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1314 z 挂 Q13.z",
+     "group": "coupler"
+    },
+    {
+     "a": "CP1415.z",
+     "b": "Q14.z",
+     "kind": "timing.align",
+     "cost": 3.0,
+     "note": "CP1415 z 挂 Q14.z",
+     "group": "coupler"
+    }
+   ],
+   "measurements": [
+    {
+     "a": "Q0.z",
+     "b": "Q1.z",
+     "ok": true,
+     "note": "Q0↔Q1 z-z",
+     "skew_ns": 138.422615,
+     "sigma_ns": 0.024339,
+     "quality": 0.999408,
+     "attempts": 1,
+     "request_id": "req-021-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q11.z",
+     "ok": true,
+     "note": "Q10↔Q11 z-z",
+     "skew_ns": -5.145447,
+     "sigma_ns": 0.048377,
+     "quality": 0.997662,
+     "attempts": 1,
+     "request_id": "req-022-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q12.z",
+     "b": "Q13.z",
+     "ok": true,
+     "note": "Q12↔Q13 z-z",
+     "skew_ns": -0.982778,
+     "sigma_ns": 0.015087,
+     "quality": 0.999772,
+     "attempts": 1,
+     "request_id": "req-023-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q6.z",
+     "ok": true,
+     "note": "Q2↔Q6 z-z",
+     "skew_ns": 54.120645,
+     "sigma_ns": 0.021453,
+     "quality": 0.99954,
+     "attempts": 1,
+     "request_id": "req-024-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q3.z",
+     "b": "Q7.z",
+     "ok": true,
+     "note": "Q3↔Q7 z-z",
+     "skew_ns": -46.576009,
+     "sigma_ns": 0.019354,
+     "quality": 0.999625,
+     "attempts": 1,
+     "request_id": "req-025-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "CP0809.z",
+     "b": "Q8.z",
+     "ok": true,
+     "note": "CP0809 z 挂 Q8.z",
+     "skew_ns": -88.909656,
+     "sigma_ns": 0.034403,
+     "quality": 0.998817,
+     "attempts": 1,
+     "request_id": "req-026-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "Q0.z",
+     "b": "Q4.z",
+     "ok": true,
+     "note": "Q0↔Q4 z-z",
+     "skew_ns": 80.715822,
+     "sigma_ns": 0.073652,
+     "quality": 0.99459,
+     "attempts": 1,
+     "request_id": "req-027-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q2.z",
+     "ok": true,
+     "note": "Q1↔Q2 z-z",
+     "skew_ns": -54.432989,
+     "sigma_ns": 0.036205,
+     "quality": 0.99869,
+     "attempts": 1,
+     "request_id": "req-028-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q11.z",
+     "b": "Q15.z",
+     "ok": true,
+     "note": "Q11↔Q15 z-z",
+     "skew_ns": 85.648109,
+     "sigma_ns": 0.036054,
+     "quality": 0.998701,
+     "attempts": 1,
+     "request_id": "req-029-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q13.z",
+     "b": "Q14.z",
+     "ok": true,
+     "note": "Q13↔Q14 z-z",
+     "skew_ns": -46.691264,
+     "sigma_ns": 0.033601,
+     "quality": 0.998872,
+     "attempts": 1,
+     "request_id": "req-030-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q5.z",
+     "b": "Q9.z",
+     "ok": true,
+     "note": "Q5↔Q9 z-z",
+     "skew_ns": 63.594542,
+     "sigma_ns": 0.031373,
+     "quality": 0.999016,
+     "attempts": 1,
+     "request_id": "req-031-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q6.z",
+     "b": "Q10.z",
+     "ok": true,
+     "note": "Q6↔Q10 z-z",
+     "skew_ns": -80.576218,
+     "sigma_ns": 0.044249,
+     "quality": 0.998044,
+     "attempts": 1,
+     "request_id": "req-032-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "CP0812.z",
+     "b": "Q12.z",
+     "ok": true,
+     "note": "CP0812 z 挂 Q12.z",
+     "skew_ns": 66.346541,
+     "sigma_ns": 0.052064,
+     "quality": 0.997293,
+     "attempts": 1,
+     "request_id": "req-033-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 2
+    },
+    {
+     "a": "Q1.z",
+     "b": "Q5.z",
+     "ok": true,
+     "note": "Q1↔Q5 z-z",
+     "skew_ns": -59.40621,
+     "sigma_ns": 0.022363,
+     "quality": 0.9995,
+     "attempts": 1,
+     "request_id": "req-034-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "Q10.z",
+     "b": "Q14.z",
+     "ok": true,
+     "note": "Q10↔Q14 z-z",
+     "skew_ns": -11.423321,
+     "sigma_ns": 0.046713,
+     "quality": 0.99782,
+     "attempts": 1,
+     "request_id": "req-035-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "Q2.z",
+     "b": "Q3.z",
+     "ok": true,
+     "note": "Q2↔Q3 z-z",
+     "skew_ns": 47.029238,
+     "sigma_ns": 0.015437,
+     "quality": 0.999762,
+     "attempts": 1,
+     "request_id": "req-036-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "Q4.z",
+     "b": "Q8.z",
+     "ok": true,
+     "note": "Q4↔Q8 z-z",
+     "skew_ns": -46.33813,
+     "sigma_ns": 0.045454,
+     "quality": 0.997936,
+     "attempts": 1,
+     "request_id": "req-037-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "CP0001.z",
+     "b": "Q0.z",
+     "ok": true,
+     "note": "CP0001 z 挂 Q0.z",
+     "skew_ns": -75.88917,
+     "sigma_ns": 0.012381,
+     "quality": 0.999847,
+     "attempts": 1,
+     "request_id": "req-038-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "CP0607.z",
+     "b": "Q6.z",
+     "ok": true,
+     "note": "CP0607 z 挂 Q6.z",
+     "skew_ns": 15.399311,
+     "sigma_ns": 0.012975,
+     "quality": 0.999832,
+     "attempts": 1,
+     "request_id": "req-039-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "CP0913.z",
+     "b": "Q13.z",
+     "ok": true,
+     "note": "CP0913 z 挂 Q13.z",
+     "skew_ns": 28.768225,
+     "sigma_ns": 0.003166,
+     "quality": 0.99999,
+     "attempts": 1,
+     "request_id": "req-040-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 3
+    },
+    {
+     "a": "CP0004.z",
+     "b": "Q0.z",
+     "ok": true,
+     "note": "CP0004 z 挂 Q0.z",
+     "skew_ns": -145.58003,
+     "sigma_ns": 0.032353,
+     "quality": 0.998954,
+     "attempts": 1,
+     "request_id": "req-041-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0102.z",
+     "b": "Q1.z",
+     "ok": true,
+     "note": "CP0102 z 挂 Q1.z",
+     "skew_ns": 101.519172,
+     "sigma_ns": 0.038197,
+     "quality": 0.998542,
+     "attempts": 1,
+     "request_id": "req-042-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0206.z",
+     "b": "Q2.z",
+     "ok": true,
+     "note": "CP0206 z 挂 Q2.z",
+     "skew_ns": 23.898041,
+     "sigma_ns": 0.009378,
+     "quality": 0.999912,
+     "attempts": 1,
+     "request_id": "req-043-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0405.z",
+     "b": "Q4.z",
+     "ok": true,
+     "note": "CP0405 z 挂 Q4.z",
+     "skew_ns": 0.532098,
+     "sigma_ns": 0.009194,
+     "quality": 0.999915,
+     "attempts": 1,
+     "request_id": "req-044-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0506.z",
+     "b": "Q5.z",
+     "ok": true,
+     "note": "CP0506 z 挂 Q5.z",
+     "skew_ns": 30.003751,
+     "sigma_ns": 0.04225,
+     "quality": 0.998217,
+     "attempts": 1,
+     "request_id": "req-045-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0610.z",
+     "b": "Q10.z",
+     "ok": true,
+     "note": "CP0610 z 挂 Q10.z",
+     "skew_ns": -48.082569,
+     "sigma_ns": 0.0314,
+     "quality": 0.999015,
+     "attempts": 1,
+     "request_id": "req-046-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 4
+    },
+    {
+     "a": "CP0105.z",
+     "b": "Q1.z",
+     "ok": true,
+     "note": "CP0105 z 挂 Q1.z",
+     "skew_ns": 30.645503,
+     "sigma_ns": 0.034404,
+     "quality": 0.998817,
+     "attempts": 1,
+     "request_id": "req-047-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0203.z",
+     "b": "Q2.z",
+     "ok": true,
+     "note": "CP0203 z 挂 Q2.z",
+     "skew_ns": 26.653822,
+     "sigma_ns": 0.055981,
+     "quality": 0.996871,
+     "attempts": 1,
+     "request_id": "req-048-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0307.z",
+     "b": "Q3.z",
+     "ok": true,
+     "note": "CP0307 z 挂 Q3.z",
+     "skew_ns": 110.498676,
+     "sigma_ns": 0.036649,
+     "quality": 0.998658,
+     "attempts": 1,
+     "request_id": "req-049-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0408.z",
+     "b": "Q4.z",
+     "ok": true,
+     "note": "CP0408 z 挂 Q4.z",
+     "skew_ns": -18.175508,
+     "sigma_ns": 0.016761,
+     "quality": 0.999719,
+     "attempts": 1,
+     "request_id": "req-050-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0509.z",
+     "b": "Q5.z",
+     "ok": true,
+     "note": "CP0509 z 挂 Q5.z",
+     "skew_ns": -13.709288,
+     "sigma_ns": 0.016202,
+     "quality": 0.999738,
+     "attempts": 1,
+     "request_id": "req-051-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0711.z",
+     "b": "Q11.z",
+     "ok": true,
+     "note": "CP0711 z 挂 Q11.z",
+     "skew_ns": -50.557771,
+     "sigma_ns": 0.028034,
+     "quality": 0.999214,
+     "attempts": 1,
+     "request_id": "req-052-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP0910.z",
+     "b": "Q10.z",
+     "ok": true,
+     "note": "CP0910 z 挂 Q10.z",
+     "skew_ns": -42.618829,
+     "sigma_ns": 0.004777,
+     "quality": 0.999977,
+     "attempts": 1,
+     "request_id": "req-053-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 5
+    },
+    {
+     "a": "CP1011.z",
+     "b": "Q10.z",
+     "ok": true,
+     "note": "CP1011 z 挂 Q10.z",
+     "skew_ns": 36.222606,
+     "sigma_ns": 0.071227,
+     "quality": 0.99494,
+     "attempts": 1,
+     "request_id": "req-054-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 6
+    },
+    {
+     "a": "CP1115.z",
+     "b": "Q11.z",
+     "ok": true,
+     "note": "CP1115 z 挂 Q11.z",
+     "skew_ns": -82.32059,
+     "sigma_ns": 0.009745,
+     "quality": 0.999905,
+     "attempts": 1,
+     "request_id": "req-055-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 6
+    },
+    {
+     "a": "CP1314.z",
+     "b": "Q13.z",
+     "ok": true,
+     "note": "CP1314 z 挂 Q13.z",
+     "skew_ns": -40.670649,
+     "sigma_ns": 0.004034,
+     "quality": 0.999984,
+     "attempts": 1,
+     "request_id": "req-056-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 6
+    },
+    {
+     "a": "CP1014.z",
+     "b": "Q10.z",
+     "ok": true,
+     "note": "CP1014 z 挂 Q10.z",
+     "skew_ns": -53.005879,
+     "sigma_ns": 0.024261,
+     "quality": 0.999412,
+     "attempts": 1,
+     "request_id": "req-057-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 7
+    },
+    {
+     "a": "CP1213.z",
+     "b": "Q12.z",
+     "ok": true,
+     "note": "CP1213 z 挂 Q12.z",
+     "skew_ns": -26.694593,
+     "sigma_ns": 0.029366,
+     "quality": 0.999138,
+     "attempts": 1,
+     "request_id": "req-058-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 7
+    },
+    {
+     "a": "CP1415.z",
+     "b": "Q14.z",
+     "ok": true,
+     "note": "CP1415 z 挂 Q14.z",
+     "skew_ns": -89.888013,
+     "sigma_ns": 0.035869,
+     "quality": 0.998714,
+     "attempts": 1,
+     "request_id": "req-059-align",
+     "config_hash": "1854a967ea75093d",
+     "reason": "合格",
+     "wave": 7
+    }
+   ],
+   "solve": null,
+   "written": false,
+   "shifts": {},
+   "ledger": {
+    "records": 39,
+    "accepted": 39,
+    "failed": 0,
+    "requests": 39,
+    "aborted": null
+   }
+  },
+  {
+   "name": "readout_final",
+   "title": "读取线最终对齐（收回 headroom）",
+   "writeback": "immediate",
+   "depends_on": [
+    "coupler"
+   ],
+   "why": "依赖 qubit/coupler 已全局对齐：以 readout↔首腔 qubit.xy 的实测 skew 收尾，读取线把 headroom 收回、往左拉回对齐",
+   "nodes": [
+    "Q0.xy",
+    "Q12.xy",
+    "Q4.xy",
+    "Q8.xy",
+    "RL0.ro",
+    "RL1.ro",
+    "RL2.ro",
+    "RL3.ro"
+   ],
+   "waves": {
+    "kind": "conflict_free_waves",
+    "rule": "同波内的边不共享任何线名（多音读取下各比特独立，共享读取线不构成冲突）",
+    "bundle_size": 4,
+    "waves": [
+     {
+      "index": 1,
+      "size": 4,
+      "pairs": [
+       {
+        "a": "RL0.ro",
+        "b": "Q0.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL0 ro 挂 Q0"
+       },
+       {
+        "a": "RL1.ro",
+        "b": "Q4.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL1 ro 挂 Q4"
+       },
+       {
+        "a": "RL2.ro",
+        "b": "Q8.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL2 ro 挂 Q8"
+       },
+       {
+        "a": "RL3.ro",
+        "b": "Q12.xy",
+        "kind": "timing.align",
+        "cost": 2.0,
+        "note": "RL3 ro 挂 Q12"
+       }
+      ],
+      "why": "首波：按代价从低到高占位"
+     }
+    ],
+    "wave_count": 1,
+    "edge_count": 4
+   },
+   "pairs": [
+    {
+     "a": "RL0.ro",
+     "b": "Q0.xy",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "RL0 ro 挂 Q0",
+     "group": "readout_final"
+    },
+    {
+     "a": "RL1.ro",
+     "b": "Q4.xy",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "RL1 ro 挂 Q4",
+     "group": "readout_final"
+    },
+    {
+     "a": "RL2.ro",
+     "b": "Q8.xy",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "RL2 ro 挂 Q8",
+     "group": "readout_final"
+    },
+    {
+     "a": "RL3.ro",
+     "b": "Q12.xy",
+     "kind": "timing.align",
+     "cost": 2.0,
+     "note": "RL3 ro 挂 Q12",
+     "group": "readout_final"
+    }
+   ],
+   "measurements": [
+    {
+     "a": "RL0.ro",
+     "b": "Q0.xy",
+     "ok": true,
+     "note": "RL0 ro 挂 Q0",
+     "skew_ns": 70.120965,
+     "sigma_ns": 0.039988,
+     "quality": 0.998402,
+     "attempts": 1,
+     "request_id": "req-060-align",
+     "config_hash": "8cb17540cda4141b",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL1.ro",
+     "b": "Q4.xy",
+     "ok": true,
+     "note": "RL1 ro 挂 Q4",
+     "skew_ns": 77.273575,
+     "sigma_ns": 0.021973,
+     "quality": 0.999517,
+     "attempts": 1,
+     "request_id": "req-061-align",
+     "config_hash": "8cb17540cda4141b",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL2.ro",
+     "b": "Q8.xy",
+     "ok": true,
+     "note": "RL2 ro 挂 Q8",
+     "skew_ns": 91.604252,
+     "sigma_ns": 0.003589,
+     "quality": 0.999987,
+     "attempts": 1,
+     "request_id": "req-062-align",
+     "config_hash": "8cb17540cda4141b",
+     "reason": "合格",
+     "wave": 1
+    },
+    {
+     "a": "RL3.ro",
+     "b": "Q12.xy",
+     "ok": true,
+     "note": "RL3 ro 挂 Q12",
+     "skew_ns": 95.955623,
+     "sigma_ns": 0.006447,
+     "quality": 0.999958,
+     "attempts": 1,
+     "request_id": "req-063-align",
+     "config_hash": "8cb17540cda4141b",
+     "reason": "合格",
+     "wave": 1
+    }
+   ],
+   "solve": {
+    "target_ns": -5.582574,
+    "anchor": "RL3.ri",
+    "offsets": {
+     "Q0.xy": -5.582574,
+     "Q12.xy": -5.582574,
+     "Q4.xy": -5.582574,
+     "Q8.xy": -5.582574,
+     "RL0.ro": 64.538391,
+     "RL1.ro": 71.691001,
+     "RL2.ro": 86.021678,
+     "RL3.ro": 90.373049,
+     "Q0.z": -5.582574,
+     "Q1.xy": -5.582574,
+     "Q1.z": -5.582574,
+     "Q10.xy": -5.582574,
+     "Q10.z": -5.582574,
+     "Q11.xy": -5.582574,
+     "Q11.z": -5.582574,
+     "Q12.z": -5.582574,
+     "Q13.xy": -5.582574,
+     "Q13.z": -5.582574,
+     "Q14.xy": -5.582574,
+     "Q14.z": -5.582574,
+     "Q15.xy": -5.582574,
+     "Q15.z": -5.582574,
+     "Q2.xy": -5.582574,
+     "Q2.z": -5.582574,
+     "Q3.xy": -5.582574,
+     "Q3.z": -5.582574,
+     "Q4.z": -5.582574,
+     "Q5.xy": -5.582574,
+     "Q5.z": -5.582574,
+     "Q6.xy": -5.582574,
+     "Q6.z": -5.582574,
+     "Q7.xy": -5.582574,
+     "Q7.z": -5.582574,
+     "Q8.z": -5.582574,
+     "Q9.xy": -5.582574,
+     "Q9.z": -5.582574,
+     "CP0001.z": -5.582574,
+     "CP0004.z": -5.582574,
+     "CP0102.z": -5.582574,
+     "CP0105.z": -5.582574,
+     "CP0203.z": -5.582574,
+     "CP0206.z": -5.582574,
+     "CP0307.z": -5.582574,
+     "CP0405.z": -5.582574,
+     "CP0408.z": -5.582574,
+     "CP0506.z": -5.582574,
+     "CP0509.z": -5.582574,
+     "CP0607.z": -5.582574,
+     "CP0610.z": -5.582574,
+     "CP0711.z": -5.582574,
+     "CP0809.z": -5.582574,
+     "CP0812.z": -5.582574,
+     "CP0910.z": -5.582574,
+     "CP0913.z": -5.582574,
+     "CP1011.z": -5.582574,
+     "CP1014.z": -5.582574,
+     "CP1115.z": -5.582574,
+     "CP1213.z": -5.582574,
+     "CP1314.z": -5.582574,
+     "CP1415.z": -5.582574,
+     "RL0.ri": 64.538391,
+     "RL1.ri": 71.691001,
+     "RL2.ri": 86.021678,
+     "RL3.ri": 90.373049
+    },
+    "shifts": {
+     "Q0.xy": 0.0,
+     "Q12.xy": 0.0,
+     "Q4.xy": 0.0,
+     "Q8.xy": 0.0,
+     "Q0.z": 0.0,
+     "Q1.xy": 0.0,
+     "Q1.z": 0.0,
+     "Q10.xy": 0.0,
+     "Q10.z": 0.0,
+     "Q11.xy": 0.0,
+     "Q11.z": 0.0,
+     "Q12.z": 0.0,
+     "Q13.xy": 0.0,
+     "Q13.z": 0.0,
+     "Q14.xy": 0.0,
+     "Q14.z": 0.0,
+     "Q15.xy": 0.0,
+     "Q15.z": 0.0,
+     "Q2.xy": 0.0,
+     "Q2.z": 0.0,
+     "Q3.xy": 0.0,
+     "Q3.z": 0.0,
+     "Q4.z": 0.0,
+     "Q5.xy": 0.0,
+     "Q5.z": 0.0,
+     "Q6.xy": 0.0,
+     "Q6.z": 0.0,
+     "Q7.xy": 0.0,
+     "Q7.z": 0.0,
+     "Q8.z": 0.0,
+     "Q9.xy": 0.0,
+     "Q9.z": 0.0,
+     "CP0001.z": 0.0,
+     "CP0004.z": 0.0,
+     "CP0102.z": 0.0,
+     "CP0105.z": 0.0,
+     "CP0203.z": 0.0,
+     "CP0206.z": 0.0,
+     "CP0307.z": 0.0,
+     "CP0405.z": 0.0,
+     "CP0408.z": 0.0,
+     "CP0506.z": 0.0,
+     "CP0509.z": 0.0,
+     "CP0607.z": 0.0,
+     "CP0610.z": 0.0,
+     "CP0711.z": 0.0,
+     "CP0809.z": 0.0,
+     "CP0812.z": 0.0,
+     "CP0910.z": 0.0,
+     "CP0913.z": 0.0,
+     "CP1011.z": 0.0,
+     "CP1014.z": 0.0,
+     "CP1115.z": 0.0,
+     "CP1213.z": 0.0,
+     "CP1314.z": 0.0,
+     "CP1415.z": 0.0
+    },
+    "residuals": [
+     {
+      "a": "RL0.ro",
+      "b": "Q0.xy",
+      "skew_ns": 70.120965,
+      "resid_ns": 0.0,
+      "request_id": "req-060-align"
+     },
+     {
+      "a": "RL1.ro",
+      "b": "Q4.xy",
+      "skew_ns": 77.273575,
+      "resid_ns": 0.0,
+      "request_id": "req-061-align"
+     },
+     {
+      "a": "RL2.ro",
+      "b": "Q8.xy",
+      "skew_ns": 91.604252,
+      "resid_ns": 0.0,
+      "request_id": "req-062-align"
+     },
+     {
+      "a": "RL3.ro",
+      "b": "Q12.xy",
+      "skew_ns": 95.955623,
+      "resid_ns": 0.0,
+      "request_id": "req-063-align"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q0.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q0.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q1.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q1.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q10.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q10.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q11.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q11.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q12.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q13.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q13.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q14.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q14.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q15.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q15.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q2.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q2.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q3.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q3.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q4.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q4.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q5.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q5.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q6.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q6.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q7.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q7.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q8.xy",
+      "skew_ns": 0.0,
+      "resid_ns": -0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q8.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q9.xy",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "Q9.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0001.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0004.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0102.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0105.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0203.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0206.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0307.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0405.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0408.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0506.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0509.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0607.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0610.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0711.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0809.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0812.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0910.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP0913.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1011.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1014.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1115.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1213.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1314.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     },
+     {
+      "a": "Q12.xy",
+      "b": "CP1415.z",
+      "skew_ns": 0.0,
+      "resid_ns": 0.0,
+      "request_id": "stage-final-soft"
+     }
+    ],
+    "headroom_return": {
+     "RL0.ro": 70.120965,
+     "RL1.ro": 77.273575,
+     "RL2.ro": 91.604252,
+     "RL3.ro": 95.955623,
+     "RL0.ri": 70.120965,
+     "RL1.ri": 77.273575,
+     "RL2.ri": 91.604252,
+     "RL3.ri": 95.955623
+    },
+    "max_resid_ns": 0.0,
+    "rms_resid_ns": 0.0,
+    "iterations": 11,
+    "solver_converged": true,
+    "request_id": "stage-readout_final-solve",
+    "reason": "60 条线 / 59 条观测 · 目标=最右线 RL3.ro · 最大残差 0.000 ns · 锚改取 qubit/coupler 最右线，读取线收回 headroom 335.0 ns 往左拉回对齐 · 读取线 ro/ri 同步增减（4 条 ri 随动）"
+   },
+   "written": true,
+   "shifts": {
+    "Q0.xy": 0.0,
+    "Q12.xy": 0.0,
+    "Q4.xy": 0.0,
+    "Q8.xy": 0.0,
+    "Q0.z": 0.0,
+    "Q1.xy": 0.0,
+    "Q1.z": 0.0,
+    "Q10.xy": 0.0,
+    "Q10.z": 0.0,
+    "Q11.xy": 0.0,
+    "Q11.z": 0.0,
+    "Q12.z": 0.0,
+    "Q13.xy": 0.0,
+    "Q13.z": 0.0,
+    "Q14.xy": 0.0,
+    "Q14.z": 0.0,
+    "Q15.xy": 0.0,
+    "Q15.z": 0.0,
+    "Q2.xy": 0.0,
+    "Q2.z": 0.0,
+    "Q3.xy": 0.0,
+    "Q3.z": 0.0,
+    "Q4.z": 0.0,
+    "Q5.xy": 0.0,
+    "Q5.z": 0.0,
+    "Q6.xy": 0.0,
+    "Q6.z": 0.0,
+    "Q7.xy": 0.0,
+    "Q7.z": 0.0,
+    "Q8.z": 0.0,
+    "Q9.xy": 0.0,
+    "Q9.z": 0.0,
+    "CP0001.z": 0.0,
+    "CP0004.z": 0.0,
+    "CP0102.z": 0.0,
+    "CP0105.z": 0.0,
+    "CP0203.z": 0.0,
+    "CP0206.z": 0.0,
+    "CP0307.z": 0.0,
+    "CP0405.z": 0.0,
+    "CP0408.z": 0.0,
+    "CP0506.z": 0.0,
+    "CP0509.z": 0.0,
+    "CP0607.z": 0.0,
+    "CP0610.z": 0.0,
+    "CP0711.z": 0.0,
+    "CP0809.z": 0.0,
+    "CP0812.z": 0.0,
+    "CP0910.z": 0.0,
+    "CP0913.z": 0.0,
+    "CP1011.z": 0.0,
+    "CP1014.z": 0.0,
+    "CP1115.z": 0.0,
+    "CP1213.z": 0.0,
+    "CP1314.z": 0.0,
+    "CP1415.z": 0.0
+   },
+   "ledger": {
+    "records": 4,
+    "accepted": 4,
+    "failed": 0,
+    "requests": 4,
+    "aborted": null
+   }
+  }
+ ],
+ "parallel": [
+  {
+   "stage": "readout",
+   "sequential": 4,
+   "wave_count": 1,
+   "wave_sizes": [
+    4
+   ],
+   "bundle_size": 4,
+   "bundle_count": 1
+  },
+  {
+   "stage": "qubit",
+   "sequential": 16,
+   "wave_count": 1,
+   "wave_sizes": [
+    16
+   ],
+   "bundle_size": 4,
+   "bundle_count": 4
+  },
+  {
+   "stage": "coupler",
+   "sequential": 39,
+   "wave_count": 7,
+   "wave_sizes": [
+    6,
+    7,
+    7,
+    6,
+    7,
+    3,
+    3
+   ],
+   "bundle_size": 4,
+   "bundle_count": 12
+  },
+  {
+   "stage": "readout_final",
+   "sequential": 4,
+   "wave_count": 1,
+   "wave_sizes": [
+    4
+   ],
+   "bundle_size": 4,
+   "bundle_count": 1
+  }
+ ],
+ "calibration_lines": [
+  {
+   "name": "Q0.xy",
+   "L": 188.0,
+   "d1": 0.0,
+   "d2": 7.292494,
+   "d3": 0.0,
+   "q1": 195.292494
+  },
+  {
+   "name": "Q0.z",
+   "L": 191.8,
+   "d1": 0.0,
+   "d2": 3.538257,
+   "d3": 0.0,
+   "q1": 195.338257
+  },
+  {
+   "name": "Q1.xy",
+   "L": 182.8,
+   "d1": 0.0,
+   "d2": 12.563087,
+   "d3": 0.0,
+   "q1": 195.363087
+  },
+  {
+   "name": "Q1.z",
+   "L": 53.4,
+   "d1": 0.0,
+   "d2": 141.960872,
+   "d3": 0.0,
+   "q1": 195.360872
+  },
+  {
+   "name": "Q2.xy",
+   "L": 134.7,
+   "d1": 0.0,
+   "d2": 60.580832,
+   "d3": 0.0,
+   "q1": 195.28083199999998
+  },
+  {
+   "name": "Q2.z",
+   "L": 107.8,
+   "d1": 0.0,
+   "d2": 87.527883,
+   "d3": 0.0,
+   "q1": 195.32788299999999
+  },
+  {
+   "name": "Q3.xy",
+   "L": 124.8,
+   "d1": 0.0,
+   "d2": 70.529767,
+   "d3": 0.0,
+   "q1": 195.329767
+  },
+  {
+   "name": "Q3.z",
+   "L": 60.8,
+   "d1": 0.0,
+   "d2": 134.557121,
+   "d3": 0.0,
+   "q1": 195.357121
+  },
+  {
+   "name": "Q4.xy",
+   "L": 70.7,
+   "d1": 0.0,
+   "d2": 124.636156,
+   "d3": 0.0,
+   "q1": 195.33615600000002
+  },
+  {
+   "name": "Q4.z",
+   "L": 111.1,
+   "d1": 0.0,
+   "d2": 84.254079,
+   "d3": 0.0,
+   "q1": 195.354079
+  },
+  {
+   "name": "Q5.xy",
+   "L": 75.4,
+   "d1": 0.0,
+   "d2": 119.97056,
+   "d3": 0.0,
+   "q1": 195.37056
+  },
+  {
+   "name": "Q5.z",
+   "L": 112.8,
+   "d1": 0.0,
+   "d2": 82.554662,
+   "d3": 0.0,
+   "q1": 195.354662
+  },
+  {
+   "name": "Q6.xy",
+   "L": 44.0,
+   "d1": 0.0,
+   "d2": 151.360898,
+   "d3": 0.0,
+   "q1": 195.360898
+  },
+  {
+   "name": "Q6.z",
+   "L": 53.7,
+   "d1": 0.0,
+   "d2": 141.648528,
+   "d3": 0.0,
+   "q1": 195.348528
+  },
+  {
+   "name": "Q7.xy",
+   "L": 153.6,
+   "d1": 0.0,
+   "d2": 41.795248,
+   "d3": 0.0,
+   "q1": 195.39524799999998
+  },
+  {
+   "name": "Q7.z",
+   "L": 107.4,
+   "d1": 0.0,
+   "d2": 87.981112,
+   "d3": 0.0,
+   "q1": 195.381112
+  },
+  {
+   "name": "Q8.xy",
+   "L": 122.0,
+   "d1": 0.0,
+   "d2": 73.397307,
+   "d3": 0.0,
+   "q1": 195.397307
+  },
+  {
+   "name": "Q8.z",
+   "L": 157.5,
+   "d1": 0.0,
+   "d2": 37.915949,
+   "d3": 0.0,
+   "q1": 195.415949
+  },
+  {
+   "name": "Q9.xy",
+   "L": 97.4,
+   "d1": 0.0,
+   "d2": 97.903954,
+   "d3": 0.0,
+   "q1": 195.303954
+  },
+  {
+   "name": "Q9.z",
+   "L": 49.2,
+   "d1": 0.0,
+   "d2": 146.149204,
+   "d3": 0.0,
+   "q1": 195.349204
+  },
+  {
+   "name": "Q10.xy",
+   "L": 165.3,
+   "d1": 0.0,
+   "d2": 30.094039,
+   "d3": 0.0,
+   "q1": 195.39403900000002
+  },
+  {
+   "name": "Q10.z",
+   "L": 134.3,
+   "d1": 0.0,
+   "d2": 61.07231,
+   "d3": 0.0,
+   "q1": 195.37231000000003
+  },
+  {
+   "name": "Q11.xy",
+   "L": 145.3,
+   "d1": 0.0,
+   "d2": 50.021944,
+   "d3": 0.0,
+   "q1": 195.321944
+  },
+  {
+   "name": "Q11.z",
+   "L": 139.4,
+   "d1": 0.0,
+   "d2": 55.926863,
+   "d3": 0.0,
+   "q1": 195.326863
+  },
+  {
+   "name": "Q12.xy",
+   "L": 195.3,
+   "d1": 0.0,
+   "d2": 0.0,
+   "d3": 0.0,
+   "q1": 195.3
+  },
+  {
+   "name": "Q12.z",
+   "L": 98.0,
+   "d1": 0.0,
+   "d2": 97.323031,
+   "d3": 0.0,
+   "q1": 195.32303100000001
+  },
+  {
+   "name": "Q13.xy",
+   "L": 161.6,
+   "d1": 0.0,
+   "d2": 33.746152,
+   "d3": 0.0,
+   "q1": 195.346152
+  },
+  {
+   "name": "Q13.z",
+   "L": 99.0,
+   "d1": 0.0,
+   "d2": 96.340253,
+   "d3": 0.0,
+   "q1": 195.34025300000002
+  },
+  {
+   "name": "Q14.xy",
+   "L": 131.5,
+   "d1": 0.0,
+   "d2": 63.888209,
+   "d3": 0.0,
+   "q1": 195.38820900000002
+  },
+  {
+   "name": "Q14.z",
+   "L": 145.7,
+   "d1": 0.0,
+   "d2": 49.648989,
+   "d3": 0.0,
+   "q1": 195.348989
+  },
+  {
+   "name": "Q15.xy",
+   "L": 90.3,
+   "d1": 0.0,
+   "d2": 104.979465,
+   "d3": 0.0,
+   "q1": 195.27946500000002
+  },
+  {
+   "name": "Q15.z",
+   "L": 53.7,
+   "d1": 0.0,
+   "d2": 141.574972,
+   "d3": 0.0,
+   "q1": 195.274972
+  },
+  {
+   "name": "CP0001.z",
+   "L": 115.9,
+   "d1": 0.0,
+   "d2": 79.427427,
+   "d3": 0.0,
+   "q1": 195.327427
+  },
+  {
+   "name": "CP0102.z",
+   "L": 154.9,
+   "d1": 0.0,
+   "d2": 40.4417,
+   "d3": 0.0,
+   "q1": 195.3417
+  },
+  {
+   "name": "CP0203.z",
+   "L": 134.5,
+   "d1": 0.0,
+   "d2": 60.874061,
+   "d3": 0.0,
+   "q1": 195.37406099999998
+  },
+  {
+   "name": "CP0405.z",
+   "L": 111.6,
+   "d1": 0.0,
+   "d2": 83.721981,
+   "d3": 0.0,
+   "q1": 195.321981
+  },
+  {
+   "name": "CP0506.z",
+   "L": 142.8,
+   "d1": 0.0,
+   "d2": 52.550911,
+   "d3": 0.0,
+   "q1": 195.350911
+  },
+  {
+   "name": "CP0607.z",
+   "L": 69.1,
+   "d1": 0.0,
+   "d2": 126.249217,
+   "d3": 0.0,
+   "q1": 195.349217
+  },
+  {
+   "name": "CP0809.z",
+   "L": 68.6,
+   "d1": 0.0,
+   "d2": 126.825605,
+   "d3": 0.0,
+   "q1": 195.425605
+  },
+  {
+   "name": "CP0910.z",
+   "L": 91.7,
+   "d1": 0.0,
+   "d2": 103.691139,
+   "d3": 0.0,
+   "q1": 195.391139
+  },
+  {
+   "name": "CP1011.z",
+   "L": 170.5,
+   "d1": 0.0,
+   "d2": 24.849704,
+   "d3": 0.0,
+   "q1": 195.349704
+  },
+  {
+   "name": "CP1213.z",
+   "L": 71.3,
+   "d1": 0.0,
+   "d2": 124.017624,
+   "d3": 0.0,
+   "q1": 195.317624
+  },
+  {
+   "name": "CP1314.z",
+   "L": 58.3,
+   "d1": 0.0,
+   "d2": 137.010902,
+   "d3": 0.0,
+   "q1": 195.310902
+  },
+  {
+   "name": "CP1415.z",
+   "L": 55.8,
+   "d1": 0.0,
+   "d2": 139.537002,
+   "d3": 0.0,
+   "q1": 195.33700199999998
+  },
+  {
+   "name": "CP0004.z",
+   "L": 46.2,
+   "d1": 0.0,
+   "d2": 149.118287,
+   "d3": 0.0,
+   "q1": 195.318287
+  },
+  {
+   "name": "CP0105.z",
+   "L": 84.1,
+   "d1": 0.0,
+   "d2": 111.315369,
+   "d3": 0.0,
+   "q1": 195.415369
+  },
+  {
+   "name": "CP0206.z",
+   "L": 131.7,
+   "d1": 0.0,
+   "d2": 63.629842,
+   "d3": 0.0,
+   "q1": 195.32984199999999
+  },
+  {
+   "name": "CP0307.z",
+   "L": 171.3,
+   "d1": 0.0,
+   "d2": 24.058445,
+   "d3": 0.0,
+   "q1": 195.35844500000002
+  },
+  {
+   "name": "CP0408.z",
+   "L": 92.9,
+   "d1": 0.0,
+   "d2": 102.429587,
+   "d3": 0.0,
+   "q1": 195.329587
+  },
+  {
+   "name": "CP0509.z",
+   "L": 99.1,
+   "d1": 0.0,
+   "d2": 96.26395,
+   "d3": 0.0,
+   "q1": 195.36395
+  },
+  {
+   "name": "CP0610.z",
+   "L": 86.2,
+   "d1": 0.0,
+   "d2": 109.154879,
+   "d3": 0.0,
+   "q1": 195.35487899999998
+  },
+  {
+   "name": "CP0711.z",
+   "L": 88.8,
+   "d1": 0.0,
+   "d2": 106.484634,
+   "d3": 0.0,
+   "q1": 195.28463399999998
+  },
+  {
+   "name": "CP0812.z",
+   "L": 164.4,
+   "d1": 0.0,
+   "d2": 30.97649,
+   "d3": 0.0,
+   "q1": 195.37649
+  },
+  {
+   "name": "CP0913.z",
+   "L": 127.8,
+   "d1": 0.0,
+   "d2": 67.572028,
+   "d3": 0.0,
+   "q1": 195.372028
+  },
+  {
+   "name": "CP1014.z",
+   "L": 81.3,
+   "d1": 0.0,
+   "d2": 114.078189,
+   "d3": 0.0,
+   "q1": 195.378189
+  },
+  {
+   "name": "CP1115.z",
+   "L": 57.1,
+   "d1": 0.0,
+   "d2": 138.247453,
+   "d3": 0.0,
+   "q1": 195.347453
+  },
+  {
+   "name": "RL0.ro",
+   "L": 165.4,
+   "d1": 100.0,
+   "d2": 0.0,
+   "d3": -70.120965,
+   "q1": 195.27903499999996
+  },
+  {
+   "name": "RL0.ri",
+   "L": 153.1,
+   "d1": 112.323182,
+   "d2": 0.0,
+   "d3": -70.120965,
+   "q1": 195.30221699999998
+  },
+  {
+   "name": "RL1.ro",
+   "L": 172.6,
+   "d1": 100.0,
+   "d2": 0.0,
+   "d3": -77.273575,
+   "q1": 195.32642500000003
+  },
+  {
+   "name": "RL1.ri",
+   "L": 78.1,
+   "d1": 194.520491,
+   "d2": 0.0,
+   "d3": -77.273575,
+   "q1": 195.34691600000002
+  },
+  {
+   "name": "RL2.ro",
+   "L": 127.3,
+   "d1": 159.715456,
+   "d2": 0.0,
+   "d3": -91.604252,
+   "q1": 195.41120399999997
+  },
+  {
+   "name": "RL2.ri",
+   "L": 187.0,
+   "d1": 100.0,
+   "d2": 0.0,
+   "d3": -91.604252,
+   "q1": 195.395748
+  },
+  {
+   "name": "RL3.ro",
+   "L": 134.8,
+   "d1": 156.476535,
+   "d2": 0.0,
+   "d3": -95.955623,
+   "q1": 195.32091200000002
+  },
+  {
+   "name": "RL3.ri",
+   "L": 191.3,
+   "d1": 100.0,
+   "d2": 0.0,
+   "d3": -95.955623,
+   "q1": 195.344377
+  }
+ ],
+ "summary": {
+  "rounds_sequential": 63,
+  "rounds_parallel": 10,
+  "bundles_total": 18,
+  "wave_reduction_ratio": 6.3,
+  "ideal_bundle_speedup": 3.5,
+  "anchor": "Q12.xy",
+  "plan_ns": 4705.260623,
+  "residual_ns": 0.150633,
+  "aligned": true,
+  "aborted": null
+ },
+ "report": {
+  "lines": 64,
+  "ledger": {
+   "records": 63,
+   "accepted": 63,
+   "failed": 0,
+   "requests": 63,
+   "aborted": null
+  },
+  "failed": [],
+  "isolated": [],
+  "converged": true,
+  "written": true
+ }
+}

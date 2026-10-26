@@ -1,0 +1,449 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "chip-8q",
+    "name": "程序生成演示芯片",
+    "description": "chain 构型 · 8 比特 / 7 耦合器 · 4 条读取线（每腔 1 比特）· 全部可调",
+    "topology": "chain",
+    "tunable": true,
+    "revision": "rev-A",
+    "date": "2026-09-20",
+    "maintainer": "QXtrlTimingCali"
+  },
+  "units": {
+    "freq": "GHz",
+    "rate": "MHz",
+    "time": "ns",
+    "flux": "Phi0",
+    "length": "mm"
+  },
+  "readout_lines": [
+    {
+      "id": "RL0",
+      "cavities": [
+        "C0",
+        "C1"
+      ]
+    },
+    {
+      "id": "RL1",
+      "cavities": [
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "RL2",
+      "cavities": [
+        "C4",
+        "C5"
+      ]
+    },
+    {
+      "id": "RL3",
+      "cavities": [
+        "C6",
+        "C7"
+      ]
+    }
+  ],
+  "cavities": [
+    {
+      "id": "C0",
+      "qubit": "Q0",
+      "line": "RL0",
+      "design": {
+        "f_r": 7.01,
+        "kappa": 2.2
+      }
+    },
+    {
+      "id": "C1",
+      "qubit": "Q1",
+      "line": "RL0",
+      "design": {
+        "f_r": 6.87,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C2",
+      "qubit": "Q2",
+      "line": "RL1",
+      "design": {
+        "f_r": 6.82,
+        "kappa": 2.3
+      }
+    },
+    {
+      "id": "C3",
+      "qubit": "Q3",
+      "line": "RL1",
+      "design": {
+        "f_r": 6.83,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C4",
+      "qubit": "Q4",
+      "line": "RL2",
+      "design": {
+        "f_r": 6.99,
+        "kappa": 2.4
+      }
+    },
+    {
+      "id": "C5",
+      "qubit": "Q5",
+      "line": "RL2",
+      "design": {
+        "f_r": 6.91,
+        "kappa": 2.3
+      }
+    },
+    {
+      "id": "C6",
+      "qubit": "Q6",
+      "line": "RL3",
+      "design": {
+        "f_r": 6.88,
+        "kappa": 2.8
+      }
+    },
+    {
+      "id": "C7",
+      "qubit": "Q7",
+      "line": "RL3",
+      "design": {
+        "f_r": 6.99,
+        "kappa": 2.6
+      }
+    }
+  ],
+  "qubits": [
+    {
+      "id": "Q0",
+      "cavity": "C0",
+      "pos": [
+        0.0,
+        0.0
+      ],
+      "design": {
+        "f01": 4.992,
+        "anharmonicity": -229.2,
+        "g_cavity": 79.1,
+        "chi": -2.8,
+        "sweet_spot": 0.009
+      }
+    },
+    {
+      "id": "Q1",
+      "cavity": "C1",
+      "pos": [
+        1.6,
+        0.0
+      ],
+      "design": {
+        "f01": 5.003,
+        "anharmonicity": -203.2,
+        "g_cavity": 76.3,
+        "chi": -2.6,
+        "sweet_spot": -0.019
+      }
+    },
+    {
+      "id": "Q2",
+      "cavity": "C2",
+      "pos": [
+        3.2,
+        0.0
+      ],
+      "design": {
+        "f01": 4.866,
+        "anharmonicity": -214.8,
+        "g_cavity": 75.4,
+        "chi": -2.8,
+        "sweet_spot": 0.006
+      }
+    },
+    {
+      "id": "Q3",
+      "cavity": "C3",
+      "pos": [
+        4.8,
+        0.0
+      ],
+      "design": {
+        "f01": 4.963,
+        "anharmonicity": -223.4,
+        "g_cavity": 83.8,
+        "chi": -2.2,
+        "sweet_spot": -0.02
+      }
+    },
+    {
+      "id": "Q4",
+      "cavity": "C4",
+      "pos": [
+        6.4,
+        0.0
+      ],
+      "design": {
+        "f01": 5.042,
+        "anharmonicity": -209.1,
+        "g_cavity": 80.1,
+        "chi": -2.8,
+        "sweet_spot": 0.018
+      }
+    },
+    {
+      "id": "Q5",
+      "cavity": "C5",
+      "pos": [
+        8.0,
+        0.0
+      ],
+      "design": {
+        "f01": 4.901,
+        "anharmonicity": -227.2,
+        "g_cavity": 76.5,
+        "chi": -2.2,
+        "sweet_spot": 0.004
+      }
+    },
+    {
+      "id": "Q6",
+      "cavity": "C6",
+      "pos": [
+        9.6,
+        0.0
+      ],
+      "design": {
+        "f01": 5.042,
+        "anharmonicity": -208.1,
+        "g_cavity": 83.0,
+        "chi": -2.0,
+        "sweet_spot": -0.005
+      }
+    },
+    {
+      "id": "Q7",
+      "cavity": "C7",
+      "pos": [
+        11.2,
+        0.0
+      ],
+      "design": {
+        "f01": 4.966,
+        "anharmonicity": -205.1,
+        "g_cavity": 84.3,
+        "chi": -2.1,
+        "sweet_spot": 0.003
+      }
+    }
+  ],
+  "couplers": [
+    {
+      "id": "CP0001",
+      "qubits": [
+        "Q0",
+        "Q1"
+      ],
+      "design": {
+        "g_max": 42.6,
+        "g_off": 0.52
+      }
+    },
+    {
+      "id": "CP0102",
+      "qubits": [
+        "Q1",
+        "Q2"
+      ],
+      "design": {
+        "g_max": 42.5,
+        "g_off": 0.41
+      }
+    },
+    {
+      "id": "CP0203",
+      "qubits": [
+        "Q2",
+        "Q3"
+      ],
+      "design": {
+        "g_max": 54.8,
+        "g_off": 0.49
+      }
+    },
+    {
+      "id": "CP0304",
+      "qubits": [
+        "Q3",
+        "Q4"
+      ],
+      "design": {
+        "g_max": 48.4,
+        "g_off": 0.51
+      }
+    },
+    {
+      "id": "CP0405",
+      "qubits": [
+        "Q4",
+        "Q5"
+      ],
+      "design": {
+        "g_max": 52.6,
+        "g_off": 0.53
+      }
+    },
+    {
+      "id": "CP0506",
+      "qubits": [
+        "Q5",
+        "Q6"
+      ],
+      "design": {
+        "g_max": 43.4,
+        "g_off": 0.31
+      }
+    },
+    {
+      "id": "CP0607",
+      "qubits": [
+        "Q6",
+        "Q7"
+      ],
+      "design": {
+        "g_max": 44.7,
+        "g_off": 0.38
+      }
+    }
+  ],
+  "connections": [
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q0",
+      "cavity": "C0"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q1",
+      "cavity": "C1"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q2",
+      "cavity": "C2"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q3",
+      "cavity": "C3"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q4",
+      "cavity": "C4"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q5",
+      "cavity": "C5"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q6",
+      "cavity": "C6"
+    },
+    {
+      "type": "qubit-cavity",
+      "qubit": "Q7",
+      "cavity": "C7"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C0",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C1",
+      "line": "RL0"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C2",
+      "line": "RL1"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C3",
+      "line": "RL1"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C4",
+      "line": "RL2"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C5",
+      "line": "RL2"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C6",
+      "line": "RL3"
+    },
+    {
+      "type": "cavity-line",
+      "cavity": "C7",
+      "line": "RL3"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q0",
+      "v": "Q1",
+      "via": "CP0001"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q1",
+      "v": "Q2",
+      "via": "CP0102"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q2",
+      "v": "Q3",
+      "via": "CP0203"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q3",
+      "v": "Q4",
+      "via": "CP0304"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q4",
+      "v": "Q5",
+      "via": "CP0405"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q5",
+      "v": "Q6",
+      "via": "CP0506"
+    },
+    {
+      "type": "qubit-qubit",
+      "u": "Q6",
+      "v": "Q7",
+      "via": "CP0607"
+    }
+  ]
+}

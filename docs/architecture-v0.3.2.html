@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>QXtrlTimingCali — 架构 v0.3.2（文档修订号 · 独立于包版本）</title>
+<style>
+ body{margin:0;padding:28px 32px;background:#fbfcfd;color:#1f2933;
+      font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+ h1{font-size:20px;margin:0 0 4px} .sub{font-size:13px;color:#5c6b7a;margin:0 0 18px}
+ svg{width:100%;height:auto;background:#fff;border:1px solid #e3e8ee;border-radius:12px}
+ .t{font-size:12.5px;font-weight:600} .s{font-size:10.5px;fill:#4a5560}
+ .lbl{font-size:10.5px;font-weight:600;paint-order:stroke;stroke:#fff;stroke-width:3.5px;
+      stroke-linejoin:round}
+ .cap{font-size:12.5px;font-weight:700}
+ .legend{margin:14px 0 26px;font-size:12px;color:#414f5c}
+ .li{display:inline-flex;align-items:center;margin-right:16px}
+ .li i{display:inline-block;width:13px;height:13px;border:1.5px solid;border-radius:3px;
+       margin-right:6px}
+ h2{font-size:15px;margin:26px 0 8px;color:#1d4e75}
+ table{border-collapse:collapse;font-size:12.5px;width:100%}
+ th,td{border:1px solid #dde3ea;padding:7px 10px;text-align:left;vertical-align:top}
+ th{background:#eef2f6} code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:12px}
+ ul{margin:6px 0 0 18px;padding:0;font-size:13px;line-height:1.8}
+</style></head><body>
+<h1>QXtrlTimingCali · 架构 v0.3.2（Phase-2 批量校准 · 四组六步 · 断点续跑已落地）</h1>
+<p class="sub">文档修订号 <b>v0.3.2</b>（独立于包版本，只随图与说明的内容修订递增）· 零第三方依赖 ·
+数据主线 <b>q = L(truth) + d(pending)</b> · 生成端与校准端以
+JSON 契约解耦 · 校准端与执行端以消息契约解耦 ·
+<b>读取线对齐 + headroom 即时写回 → 单比特 / 耦合器只记录 → 统一求解整批落盘 →
+读取线收回 headroom 拉回对齐</b> · 测量全程留日志，崩溃可断点续跑</p>
+<div class="legend"><span class="li"><i style="background:#eaf2fb;border-color:#2c6cb0"></i>生成端（纯函数）</span><span class="li"><i style="background:#fdf5df;border-color:#a9760a"></i>配置真源（JSON）</span><span class="li"><i style="background:#e9f6ec;border-color:#1d7a3c"></i>校准审查端（本仓库）</span><span class="li"><i style="background:#f2eafb;border-color:#6b3fa0"></i>执行端（可替换）</span><span class="li"><i style="background:#fdecea;border-color:#b3261e"></i>外部软件（未来接入）</span><span class="li"><i style="background:#f6f7f9;border-color:#7a8590"></i>规划中（后期能力）</span><span class="li"><i style="background:#eef1f4;border-color:#4a5560"></i>产物与审计</span></div>
+<svg viewBox="0 0 1320 1026" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="a-gen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#2c6cb0"/></marker><marker id="a-file" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#a9760a"/></marker><marker id="a-cali" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#1d7a3c"/></marker><marker id="a-exec" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#6b3fa0"/></marker><marker id="a-ext" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#b3261e"/></marker><marker id="a-art" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#4a5560"/></marker><marker id="a-plan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#7a8590"/></marker></defs><rect x="32" y="50" width="1256" height="114" rx="10" fill="#eaf2fb22" stroke="#2c6cb0" stroke-width="1.4"/><rect x="32" y="286" width="576" height="460" rx="10" fill="#e9f6ec22" stroke="#1d7a3c" stroke-width="1.4"/><text x="46" y="304" class="cap" fill="#1d7a3c">③ 校准审查端  review/ + pipeline.py / stages.py（本仓库 · 有状态）</text><rect x="712" y="286" width="576" height="460" rx="10" fill="#f2eafb22" stroke="#6b3fa0" stroke-width="1.4"/><text x="726" y="304" class="cap" fill="#6b3fa0">④ 执行端（可整体替换 · 实验由其他软件执行）</text><polyline points="180,148 180,192" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="500,148 500,192" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="600,148 600,164 760,164 760,192" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="820,148 820,192" fill="none" stroke="#a9760a" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#a-file)" opacity="0.9"/><polyline points="1140,266 1140,284 700,284 700,372 736,372" fill="none" stroke="#6b3fa0" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#a-exec)" opacity="0.9"/><polyline points="298,346 322,346" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="447,398 447,416" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="322,442 298,442" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="173,494 173,512" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="447,494 447,512" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="572,332 736,332" fill="none" stroke="#6b3fa0" stroke-width="1.6" marker-end="url(#a-exec)" opacity="0.9"/><polyline points="736,362 572,362" fill="none" stroke="#6b3fa0" stroke-width="1.6" marker-end="url(#a-exec)" opacity="0.9"/><polyline points="986,346 1028,346" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="1068,398 1007,407 1007,436 986,436" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><polyline points="1278,380 1286,380 1286,456 1278,456" fill="none" stroke="#b3261e" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#a-ext)" opacity="0.9"/><polyline points="608,590 608,806 173,806" fill="none" stroke="#1d7a3c" stroke-width="1.6" marker-end="url(#a-cali)" opacity="0.9"/><rect x="40" y="74" width="280" height="74" rx="7" fill="#eaf2fb" stroke="#2c6cb0" stroke-width="1.5"/><text x="52" y="95" class="t" fill="#2c6cb0">chip_gen  芯片文件生成</text><text x="52" y="112" class="s">构型参数 chain|ring|ladder|grid</text><text x="52" y="127" class="s">→ pos / couplers / connections</text><rect x="360" y="74" width="280" height="74" rx="7" fill="#eaf2fb" stroke="#2c6cb0" stroke-width="1.5"/><text x="372" y="95" class="t" fill="#2c6cb0">wiring_gen  延时文件生成</text><text x="372" y="112" class="s">kind=truth → 隐藏真值 L（随机）</text><text x="372" y="127" class="s">kind=pending → 待测 d（全 0）</text><rect x="680" y="74" width="280" height="74" rx="7" fill="#eaf2fb" stroke="#2c6cb0" stroke-width="1.5"/><text x="692" y="95" class="t" fill="#2c6cb0">validate  校验器</text><text x="692" y="112" class="s">结构·唯一·引用 1:1·数值·连通</text><text x="692" y="127" class="s">connections 双向核对 + 三文件交叉</text><rect x="1000" y="74" width="280" height="74" rx="7" fill="#eaf2fb" stroke="#2c6cb0" stroke-width="1.5"/><text x="1012" y="95" class="t" fill="#2c6cb0">visualize  可视化排错</text><text x="1012" y="112" class="s">自包含 HTML/SVG · 按 pos 布局</text><text x="1012" y="127" class="s">--grid 覆盖自动缩放</text><rect x="40" y="192" width="280" height="74" rx="7" fill="#fdf5df" stroke="#a9760a" stroke-width="1.5"/><text x="52" y="213" class="t" fill="#a9760a">chip.json  芯片 v1.0</text><text x="52" y="230" class="s">readout_lines / cavities / qubits</text><text x="52" y="245" class="s">couplers / connections · 无标定值</text><rect x="360" y="192" width="280" height="74" rx="7" fill="#fdf5df" stroke="#a9760a" stroke-width="1.5"/><text x="372" y="213" class="t" fill="#a9760a">wiring-pending  待测</text><text x="372" y="230" class="s">meta.kind=pending · line+delay</text><text x="372" y="245" class="s">delay = 累计右移 d（只增不减）</text><rect x="680" y="192" width="280" height="74" rx="7" fill="#fdf5df" stroke="#a9760a" stroke-width="1.5"/><text x="692" y="213" class="t" fill="#a9760a">wiring-truth  真值</text><text x="692" y="230" class="s">meta.kind=truth · delay = L</text><text x="692" y="245" class="s">不读不改（仅装载设备·事后对账）</text><rect x="1000" y="192" width="280" height="74" rx="7" fill="#fdf5df" stroke="#a9760a" stroke-width="1.5"/><text x="1012" y="213" class="t" fill="#a9760a">runs/ 文件队列</text><text x="1012" y="230" class="s">requests ⇄ results（跨软件）</text><text x="1012" y="245" class="s">consumed/ 归档 · rejected/ 隔离</text><rect x="48" y="320" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="60" y="341" class="t" fill="#1d7a3c">stages.py  六步分阶段编排</text><text x="60" y="358" class="s">步1-2 读取线对齐 + headroom → 立刻写回</text><text x="60" y="373" class="s">步3-4 单比特 xy↔z、跨比特 z-z 只记录</text><text x="60" y="388" class="s">步5 统一求解写回 → 步6 读取线挂 qubit.xy</text><rect x="322" y="320" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="334" y="341" class="t" fill="#1d7a3c">center.py  ReviewCenter</text><text x="334" y="358" class="s">① 申请 ② 取结果 ③ 审查 ④ 回写</text><text x="334" y="373" class="s">阈值与策略链归它持有</text><rect x="48" y="416" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="60" y="437" class="t" fill="#1d7a3c">session.py  会话</text><text x="60" y="454" class="s">逐线 d + hash + headroom 授予账簿</text><text x="60" y="469" class="s">plan 纯函数（先查后写）· 批量无同步块</text><rect x="322" y="416" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="334" y="437" class="t" fill="#1d7a3c">policies.py  策略链</text><text x="334" y="454" class="s">analyze 只出事实；阈值在 Thresholds</text><text x="334" y="469" class="s">链序 stale→trace→quality</text><text x="334" y="484" class="s">→budget→align→commit</text><rect x="48" y="512" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="60" y="533" class="t" fill="#1d7a3c">writeback.py  守卫回写</text><text x="60" y="550" class="s">CAS + 只右移 + d_max 预算</text><text x="60" y="565" class="s">原子替换 · .bak · JSONL 审计</text><rect x="322" y="512" width="250" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="334" y="533" class="t" fill="#1d7a3c">contracts.py  五种消息</text><text x="334" y="550" class="s">Request / Result / Assessment</text><text x="334" y="565" class="s">Verdict / WritePlan · JSON 往返</text><rect x="48" y="608" width="524" height="78" rx="7" fill="#e9f6ec" stroke="#1d7a3c" stroke-width="1.5"/><text x="60" y="629" class="t" fill="#1d7a3c">两条主线共用的 graph · ledger · solver</text><text x="60" y="646" class="s">graph：各组独立最小生成树（ri↔ro / xy-z / z-z·CP.z / ro↔Q.xy）；坏边重连，接不上才隔离</text><text x="60" y="661" class="s">ledger：步1-2 即时落盘；步3-4 只记账，逐边追加测量日志</text><text x="60" y="676" class="s">solver：步5 合并 qubit + coupler 观测（readout 不参与），按 1/σ² 一次求解</text><text x="60" y="691" class="s">步6 读取线挂到首个腔 qubit.xy：有 headroom 就收回余量往左拉回，无则只向右拉</text><rect x="736" y="320" width="250" height="78" rx="7" fill="#f2eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="748" y="341" class="t" fill="#6b3fa0">queue_io.py  适配器</text><text x="748" y="358" class="s">ExecutorAdapter · DirectExecutor</text><text x="748" y="373" class="s">FileQueue（requests ⇄ results）</text><rect x="1028" y="320" width="250" height="78" rx="7" fill="#f2eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="1040" y="341" class="t" fill="#6b3fa0">sim.py  SimExecutor</text><text x="1040" y="358" class="s">n_shots / repeats / noise 采样</text><text x="1040" y="373" class="s">→ skew_ns / sigma_ns / quality</text><rect x="736" y="416" width="250" height="78" rx="7" fill="#f2eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="748" y="437" class="t" fill="#6b3fa0">sim.py  SimChip  设备替身</text><text x="748" y="454" class="s">q = L + d · apply_shift 只右移</text><text x="748" y="469" class="s">由 truth 文件装载 L</text><rect x="1028" y="416" width="250" height="78" rx="7" fill="#fdecea" stroke="#b3261e" stroke-width="1.5" stroke-dasharray="6 4"/><text x="1040" y="437" class="t" fill="#b3261e">QXtrl  未来执行端</text><text x="1040" y="454" class="s">QxtrlClient.submit → RecipeResult</text><text x="1040" y="469" class="s">自带 config_hash / cells / quality</text><text x="1040" y="484" class="s">hardware_hold 独占锁</text><rect x="736" y="512" width="542" height="78" rx="7" fill="#f2eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="748" y="533" class="t" fill="#6b3fa0">边界约定（接入 QXtrl 时必须显式落实）</text><text x="748" y="550" class="s">线名 Q0.xy / CP0001.z / RL0.ro ⇄ 板卡通道 XY_CH_ / Z_CH_ / QA_CH_(Probe·Acquire)</text><text x="748" y="565" class="s">映射归 QXtrl 的 Connection，不进 pending 文件；延时的唯一写入者是审查中心</text><rect x="40" y="806" width="280" height="74" rx="7" fill="#eef1f4" stroke="#4a5560" stroke-width="1.5"/><text x="52" y="827" class="t" fill="#4a5560">writeback-audit.jsonl</text><text x="52" y="844" class="s">old/new hash · applied 明细</text><text x="52" y="859" class="s">拒绝也留痕（CAS/单调/预算）</text><rect x="360" y="806" width="280" height="74" rx="7" fill="#eef1f4" stroke="#4a5560" stroke-width="1.5"/><text x="372" y="827" class="t" fill="#4a5560">review-history.json</text><text x="372" y="844" class="s">裁决链：request → verdict → written</text><text x="372" y="859" class="s">attempts 计数支撑 retry/escalate</text><rect x="680" y="806" width="280" height="74" rx="7" fill="#eef1f4" stroke="#4a5560" stroke-width="1.5"/><text x="692" y="827" class="t" fill="#4a5560">session.json</text><text x="692" y="844" class="s">逐线 d + 指纹快照</text><text x="692" y="859" class="s">会话与编排器共读</text><rect x="1000" y="806" width="280" height="74" rx="7" fill="#eef1f4" stroke="#4a5560" stroke-width="1.5"/><text x="1012" y="827" class="t" fill="#4a5560">pipeline-report.json</text><text x="1012" y="844" class="s">tree / measurements / isolated</text><text x="1012" y="859" class="s">solve 诊断 · 残差 ⇔ truth 对账</text><rect x="40" y="928" width="400" height="74" rx="7" fill="#f6f7f9" stroke="#7a8590" stroke-width="1.5"/><text x="52" y="949" class="t" fill="#7a8590">后期能力 ⑤（见 README 路线图）</text><text x="52" y="966" class="s">阈值经验值标定 · 按 σ 自适应选边加权</text><text x="52" y="981" class="s">坏边隔离区续跑 · 多轮收敛 · QXtrl 接入</text><rect x="460" y="928" width="400" height="74" rx="7" fill="#f6f7f9" stroke="#7a8590" stroke-width="1.5"/><text x="472" y="949" class="t" fill="#7a8590">借鉴 automation 的调度思路</text><text x="472" y="966" class="s">path→stages 依赖失效：哪些线变了使哪些块作废</text><text x="472" y="981" class="s">attempt_id=submission_id 超时补查（幂等）</text><rect x="880" y="928" width="400" height="74" rx="7" fill="#f6f7f9" stroke="#7a8590" stroke-width="1.5"/><text x="892" y="949" class="t" fill="#7a8590">借鉴 QXtrl 的执行侧思路</text><text x="892" y="966" class="s">Outcome 四态：PASS/FAIL/INCONCLUSIVE/INVALID</text><text x="892" y="981" class="s">QualityResult + r2 优度 → quality / flags</text><text x="180" y="162" class="lbl" text-anchor="middle" fill="#1d7a3c">生成</text><text x="500" y="162" class="lbl" text-anchor="middle" fill="#1d7a3c">生成</text><text x="820" y="178" class="lbl" text-anchor="middle" fill="#a9760a">校验</text><text x="938" y="311" class="lbl" text-anchor="middle" fill="#6b3fa0">FileQueue 读写</text><text x="477" y="399" class="lbl" text-anchor="middle" fill="#1d7a3c">③ 分析</text><text x="288" y="434" class="lbl" text-anchor="middle" fill="#1d7a3c">② 建议计划</text><text x="213" y="495" class="lbl" text-anchor="middle" fill="#1d7a3c">④ 执行计划</text><text x="654" y="324" class="lbl" text-anchor="middle" fill="#6b3fa0">① Request</text><text x="654" y="354" class="lbl" text-anchor="middle" fill="#6b3fa0">② Result</text><text x="1014" y="410" class="lbl" text-anchor="start" fill="#1d7a3c">批准计划下发设备</text><text x="167" y="764" class="lbl" text-anchor="start" fill="#1d7a3c">整批一次 commit（或守卫拒绝）→ 落盘与留痕（全部可回放）</text></svg>
+<h2>读图要点</h2>
+<ul>
+<li><b>唯一跨边界接口是 contracts 里的五种消息</b>：审查端与执行端之间只有
+<code>ExperimentRequest</code>（含申请时的 <code>config_hash</code>）→
+<code>ExperimentResult</code>，以及批准后的 <code>WritePlan</code> 下发；
+换 QXtrl 只换适配器，不改裁决逻辑。</li>
+<li><b>分组测量，统一求解</b>：读取线必须先对齐、再加 <code>headroom</code> 整体右移，测完就写回；
+单比特与耦合器这两组之间一个字节都不写，所有 skew 描述同一基线；步 5 把这两组观测合并做
+一次加权最小二乘（1/σ²）摊到整张图，再用一张 <code>WritePlan</code> 走完四道守卫；
+步 6 每条读取线以其<b>首个腔的 <code>qubit.xy</code></b> 为锚收尾：加了 headroom 就把授予的
+余量收回、往左拉回对齐（收回量不超出授予余额），没加则读取线本来就在左边、只向右拉。
+这是"误差不再沿链路累加"的根因——同一组输入，旧流程累计位移 33067.5 ns，批量流程只需 2860.1 ns。</li>
+<li><b>回写单位就是线，不再有同步块</b>：块簿记是"逐步合并"模型的产物，
+批量模式里它被末尾的一次全局求解取代；<code>pending</code> 文件始终只有
+<code>{line, delay}</code>。</li>
+<li><b>四道守卫缺一不落盘</b>：CAS（申请时的 <code>config_hash</code> ⇔ 当前文件指纹）·
+只右移（<code>delta ≥ 0</code>）· 预算（<code>d ≤ d_max</code>）·
+原子替换 + <code>.bak</code> + JSONL 审计；任一失败文件原样不动，但审计留痕。</li>
+<li><b>plan_align 是纯函数</b>：先出计划、策略链先检查，通过才落盘——所以 noop/retry/recheck
+分支不会留下半成品。</li>
+<li><b>truth 文件只装载设备、只参与事后对账</b>：校准流程不读它，残差
+<code>max(q) − min(q)</code> 是模拟端独有的硬回归指标。</li>
+<li><b>目标锚点取当前最靠右的那条线</b>：只能右移 ⇒ 它既可达、又让总线位移最小，
+于是逐线 <code>δ_i = max(o) − o_i ≥ 0</code> 天然满足单调守卫。</li>
+<li><b>两条编排主线，一套内核</b>：<code>pipeline.py</code> 两阶段、不分组（一条 CLI 跑完全部线）；
+<code>stages.py</code> 四组六步、按物理依赖分组。两者共用 contracts / session / policies /
+center / writeback / graph / ledger / solver，区别只在"测哪些边、什么时候写"。</li>
+<li><b>测量日志就是批量流程的 WAL</b>：每条边测完即往 pending 伴生文件
+<code>&lt;stem&gt;.measurements-audit.jsonl</code> 追加一行（含 <code>config_hash</code>
+与 <code>stage_done</code> 事件）。恢复判据由版本纪律直接给出：日志里 <code>config_hash</code>
+与当前待测文件一致的合格观测，描述的正是眼前这个世界——重启后按边跳过不重测；
+<code>hash</code> 不一致的阶段已随写回生效，按事件整阶段跳过（headroom 授予台账一并重放，
+末尾求解是确定性纯计算、重算即可）。重新生成 pending 视为开启新一轮，伴生日志自动作废。</li>
+</ul>
+<h2>接入 QXtrl（执行端 · 相对完善，积极开发中）</h2>
+<table><tr><th>我们的契约字段</th><th>QXtrl 侧对应物</th><th>结论</th></tr>
+<tr><td><code>config_hash</code></td><td><code>RecipeResult.config_hash</code> /
+CFG <code>raw_hash</code></td><td>语义天然一致，CAS 守卫可直接沿用其指纹，不必自造</td></tr>
+<tr><td><code>quality</code> / <code>flags</code></td><td><code>QualityResult(status, score,
+metrics)</code> · 拟合 <code>_r2</code> · <code>RecipeCell.warnings</code></td>
+<td>映射即可；<code>quality_min</code> 阈值待其 score 口径确认后标定</td></tr>
+<tr><td><code>sigma_ns</code> / <code>n_shots</code></td><td><code>RecipeCell.shots</code> ·
+step meta</td><td>有 shots；标准误需由我们按 repeats 分组估计（SimExecutor 已是这个口径）</td></tr>
+<tr><td><code>artifacts</code></td><td>HDF5 归档 <code>&lt;archive_root&gt;/&lt;task_id&gt;.h5</code>
+· VizRedis v2</td><td>只放路径与哈希，符合既有约定（不内联数组）</td></tr>
+<tr><td><code>skew_ns</code>（主判据）</td><td><b>未发现</b>现成相对延时测量实验</td>
+<td><b>真正的缺口</b>：每条边的相对延时测量需在 QXtrl 侧新增原子实验（最接近的是 Ramsey 扫 delay）；
+好消息是批量模式一轮只要 N−1 次实验，且彼此独立，天然适合排队提交</td></tr>
+<tr><td>提交与并发</td><td><code>client.submit()</code> 阻塞 / <code>aio</code> 异步 ·
+<code>SubmissionSupervisor</code> 队列 · <code>hardware_hold</code> 独占锁 · CLI 批处理先例</td>
+<td>同进程用 <code>DirectExecutor</code> 最省；<code>FileQueue</code> 需薄封装申请⇄Atom+CFG
+文件对；并发编排必须服从 <code>hardware_hold</code>（设备独占 → 编排"并行"只是排队）</td></tr>
+<tr><td>延时写入归属</td><td>其 <code>analysis/act.py</code> 也会原子回写自己的 CFG</td>
+<td><b>风险项</b>：两处都写延时会互踩。需明确唯一归属（当前设计：延时归审查中心，
+QXtrl 侧只被下发）</td></tr>
+</table>
+<h2>借鉴 automation（调度核心 · 筹备中，只取思路）</h2>
+<ul>
+<li><b>stage 五方法协议</b> prepare/analyze/decide/act/recover：正对应我们的
+申请/分析/裁决/回写/补救；measure / finish 两阶段已各自成型，将来编排器按此协议注册即可。</li>
+<li><b>attempt_id = submission_id 幂等补查</b>：超时不重投而按 id 补取，比现在的
+"retry 直接重发"更省设备时间——纳入 <code>resubmit()</code> 的演进方向。</li>
+<li><b>Outcome 四态</b> PASS/FAIL/INCONCLUSIVE/INVALID：把"分析出错"与"校准不合格"分开，
+比单一 retry 更准，可细化我们的 recheck / retry 分界。</li>
+<li><b>path→stages 依赖失效映射</b>：将来动态编排要回答"哪些线的位移使哪些测量边作废"，
+这是最合适的表达雏形；作者刻意不自动回溯，与我们把全量编排推迟到末尾统一求解的判断一致。</li>
+<li><b>fsync 的四段式 JSONL 条目</b>（request/execution/analysis/decision）：我们的审计行可合并成
+一条带全链证据的记录，回放更省事。</li>
+<li><b>不照搬</b>：它的线性 stage 列表与"按位置回放"假设与并行编排冲突；我们的回放应按
+request 内容匹配，而不是按 stage 顺序。</li>
+</ul>
+</body></html>
